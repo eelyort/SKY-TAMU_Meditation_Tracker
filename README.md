@@ -13,6 +13,7 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-a-ruby-on-rails-p
   * (Troy): `cd csce431/Project/rails_react_project`
 
 # Creating and Connecting to the Database
+* `bundle install`
 * `rails db:create`
 * ??? `rails db:migrate` ???
 
@@ -23,11 +24,31 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-a-ruby-on-rails-p
 # Managing Frontend Dependecies
 * Using yarn
 * `yarn add package_name`
+  * should be in `rails_react_project` directory
 
-# Generating New Pages/Controllers
+# Generating Models/Controllers
+* `rails g model Model_Name model_params`
+  * EX: `rails g model Recipe name:string ingredients:text instruction:text image:string`
+  * generates a `.rb` file as normal
+  * Manually??? write migration file
+    * `rails_react_recipe/db/migrate/DATE_model_name`
 * `rails g controller Page_name action_name`
-  * EX: `rails g controller Homepage index`
-* ...
+  * EX: `rails generate controller api/v1/Recipes index create show destroy -j=false -y=false --skip-template-engine --no-helper`
+  * Will need to update `rails_react_recipe/config/routes.rb`
+
+# React Code
+* `app/javascript/packs`
+  * Nothing to do here
+* `app/javascript/components`
+  * All frontend components/pages should go here
+* `app/assets/stylesheets`
+  * css stylesheets
+  * might need to update `views/layouts/application.html.erb` when making a new file
+
+# Seeding Data
+* `rails_react_recipe/db/seeds.rb`
+  * `Model_Name.create(name: x, ...)`
+* `rails db:seed`
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
