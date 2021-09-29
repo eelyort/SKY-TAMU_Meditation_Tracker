@@ -9,17 +9,24 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-a-ruby-on-rails-p
 
 # "Home" Directory
 * Directory `rails_react_project`
+* All further commands should be run in this directory
 * ls: `Gemfile  Gemfile.lock  README.md  Rakefile  app  babel.config.js  bin  config  config.ru  db  lib  log  node_modules  package.json  postcss.config.js  public  storage  test  tmp  vendor  yarn.lock`
   * (Troy): `cd csce431/Project/rails_react_project`
 
 # Creating and Connecting to the Database
 * `bundle install`
-* `rails db:create`
-* ??? `rails db:migrate` ???
+* create db options
+  * redo all migrations
+    * `rails db:create`
+    * `rails db:migrate`
+  * load old schema (you need to have done the above once before with the current version)
+    * `rails db:schema:load`
 
 # Starting the Application
 * `rails s --binding=0.0.0.0`
-* `http://localhost:3000`
+* `http://localhost:3000/?pp=enable`
+  * `http://localhost:3000/?pp=disable`
+    * removes the small timing thing at the top
 
 # Managing Frontend Dependecies
 * Using yarn
@@ -42,6 +49,7 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-a-ruby-on-rails-p
 * `app/javascript/components`
   * All frontend components/pages should go here
 * `app/assets/stylesheets`
+  * put everthing into `application.css`
   * css stylesheets
   * might need to update `views/layouts/application.html.erb` when making a new file
 
