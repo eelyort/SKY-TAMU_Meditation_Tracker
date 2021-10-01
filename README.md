@@ -67,6 +67,7 @@ An RSpec test suite is available and can be ran using:
   * Using yarn
   * `yarn install`
     * this will install all frontend dependencies based on package.json
+    * you will only need to do this once
   * `yarn add package_name`
     * should be in `rails_react_project` directory
 
