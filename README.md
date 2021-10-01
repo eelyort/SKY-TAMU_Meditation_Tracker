@@ -1,82 +1,114 @@
 # README
 
-https://www.digitalocean.com/community/tutorials/how-to-set-up-a-ruby-on-rails-project-with-a-react-frontend
+## Introduction ##
 
-# Getting Docker Ready
-* Run Docker Desktop
-* `docker run --rm -it --volume "$(pwd):/csce431" -e DATABASE_USER=test_app -e DATABASE_PASSWORD=test_password -p 3000:3000 dmartinez05/ruby_rails_postgresql:latest`
-  * (Troy): cd CSCE431Docker
+Application Description
 
-# "Home" Directory
-* Directory `rails_react_project`
-* All further commands should be run in this directory
-* ls: `Gemfile  Gemfile.lock  README.md  Rakefile  app  babel.config.js  bin  config  config.ru  db  lib  log  node_modules  package.json  postcss.config.js  public  storage  test  tmp  vendor  yarn.lock`
-  * (Troy): `cd csce431/Project/rails_react_project`
+## Requirements ##
 
-# Creating and Connecting to the Database
-* `bundle install`
-* create db options
-  * redo all migrations
-    * `rails db:create`
-    * `rails db:migrate`
-  * load old schema (you need to have done the above once before with the current version)
-    * `rails db:schema:load`
+This code has been run and tested on:
 
-# Starting the Application
-* `rails s --binding=0.0.0.0`
-* `http://localhost:3000/?pp=enable`
-  * `http://localhost:3000/?pp=disable`
-    * removes the small timing thing at the top
+* Ruby - 3.0.2p107
+* Rails - 6.1.4.1
+* Ruby Gems - Listed in `Gemfile`
+* PostgreSQL - 13.3
+* Nodejs - v16.7.0
+* Yarn - 1.22.11
 
-# Managing Frontend Dependecies
-* Using yarn
-* `yarn add package_name`
-  * should be in `rails_react_project` directory
 
-# Generating Models/Controllers
-* `rails g model Model_Name model_params`
-  * EX: `rails g model Recipe name:string ingredients:text instruction:text image:string`
-  * generates a `.rb` file as normal
-  * Manually??? write migration file
-    * `rails_react_recipe/db/migrate/DATE_model_name`
-* `rails g controller Page_name action_name`
-  * EX: `rails generate controller api/v1/Recipes index create show destroy -j=false -y=false --skip-template-engine --no-helper`
-  * Will need to update `rails_react_recipe/config/routes.rb`
+## External Deps  ##
 
-# React Code
-* `app/javascript/packs`
-  * Nothing to do here
-* `app/javascript/components`
-  * All frontend components/pages should go here
-* `app/assets/stylesheets`
-  * put everthing into `application.css`
-  * css stylesheets
-  * might need to update `views/layouts/application.html.erb` when making a new file
+* Docker - Download latest version at https://www.docker.com/products/docker-desktop
+* Heroku CLI - Download latest version at https://devcenter.heroku.com/articles/heroku-cli
+* Git - Downloat latest version at https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-# Seeding Data
-* `rails_react_recipe/db/seeds.rb`
-  * `Model_Name.create(name: x, ...)`
-* `rails db:seed`
+## Installation ##
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Download this code repository by using git:
 
-Things you may want to cover:
+ `git clone https://github.com/eelyort/SKY-TAMU_Meditation_Tracker.git`
 
-* Ruby version
 
-* System dependencies
+## Tests ##
 
-* Configuration
+An RSpec test suite is available and can be ran using:
 
-* Database creation
+  `rspec spec/`
 
-* Database initialization
+## Execute Code ##
 
-* How to run the test suite
+  https://www.digitalocean.com/community/tutorials/how-to-set-up-a-ruby-on-rails-project-with-a-react-frontend
 
-* Services (job queues, cache servers, search engines, etc.)
+  # Getting Docker Ready
+  * Run Docker Desktop
+  * `docker run --rm -it --volume "$(pwd):/csce431" -e DATABASE_USER=test_app -e DATABASE_PASSWORD=test_password -p 3000:3000 dmartinez05/ruby_rails_postgresql:latest`
 
-* Deployment instructions
+  # "Home" Directory
+  * Directory `rails_react_project`
+  * All further commands should be run in this directory
+  * ls: `Gemfile  Gemfile.lock  README.md  Rakefile  app  babel.config.js  bin  config  config.ru  db  lib  log  node_modules  package.json  postcss.config.js  public  storage  test  tmp  vendor  yarn.lock`
 
-* ...
+  # Creating and Connecting to the Database
+  * `bundle install`
+  * create db options
+    * redo all migrations
+      * `rails db:create`
+      * `rails db:migrate`
+    * load old schema (you need to have done the above once before with the current version)
+      * `rails db:schema:load`
+
+  # Starting the Application
+  * `rails s --binding=0.0.0.0`
+  * `http://localhost:3000/?pp=enable`
+    * `http://localhost:3000/?pp=disable`
+      * removes the small timing thing at the top
+
+  # Managing Frontend Dependecies
+  * Using yarn
+  * `yarn install`
+    * this will install all frontend dependencies based on package.json
+  * `yarn add package_name`
+    * should be in `rails_react_project` directory
+
+  # Generating Models/Controllers
+  * `rails g model Model_Name model_params`
+    * EX: `rails g model Recipe name:string ingredients:text instruction:text image:string`
+    * generates a `.rb` file as normal
+    * Manually??? write migration file
+      * `rails_react_recipe/db/migrate/DATE_model_name`
+  * `rails g controller Page_name action_name`
+    * EX: `rails generate controller api/v1/Recipes index create show destroy -j=false -y=false --skip-template-engine --no-helper`
+    * Will need to update `rails_react_recipe/config/routes.rb`
+
+  # React Code
+  * `app/javascript/packs`
+    * Nothing to do here
+  * `app/javascript/components`
+    * All frontend components/pages should go here
+  * `app/assets/stylesheets`
+    * put everthing into `application.css`
+    * css stylesheets
+    * might need to update `views/layouts/application.html.erb` when making a new file
+
+  # Seeding Data
+  * `rails_react_recipe/db/seeds.rb`
+    * `Model_Name.create(name: x, ...)`
+  * `rails db:seed`
+
+## Environmental Variables/Files ##
+
+** Add instructions/description if your application requires it.
+
+## Deployment ##
+
+** Add instructions about how to deploy to Heroku
+
+
+## CI/CD ##
+
+TBD
+
+## Support ##
+
+Admins looking for support should first look at the application help page.
+Users looking for help seek out assistance from the customer.
