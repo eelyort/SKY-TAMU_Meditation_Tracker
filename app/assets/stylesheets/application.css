@@ -43,7 +43,49 @@ html, body, body > div:first-of-type {
   /* background-color: rgba(151, 22, 190, 0.2); */
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 .flex-spacer {
   flex-grow: 1;
 }
+
+/* Homepage Stuff */
+.homepage-hero {
+  flex-grow: 1;
+  position: relative;
+  /* background-image: linear-gradient(rgba(200, 162, 200, 0.6), rgba(200, 162, 200, 0.6)),
+                    url('../packs/media/images/iStock-1161561165.jpg'); */
+}
+.homepage-hero > .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.homepage-hero img {
+  width: 100%;
+}
+.homepage-hero .shading {
+  background-image: linear-gradient(rgb(200, 162, 200), rgb(105, 48, 109));
+  opacity: 0.6;
+  overflow: hidden;
+}
+.homepage-hero .text {
+  color: white;
+  font-size: 4rem;
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  width: 80%;
+  text-align: center;
+}
+
+  .homepage-content-wrapper {
+    width: 100%;
+    padding: 10px 10%;
+  }

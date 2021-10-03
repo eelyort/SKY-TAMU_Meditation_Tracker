@@ -10,38 +10,54 @@ import EventsPage from "./pages/EventsPage";
 import MembersPage from "./pages/MembersPage";
 import LoginPage from "./pages/LoginPage";
 
-export default () => (
-  <div className="wrapper">
-    <Router>
-      <Header />
-      <Switch>
-        <Route path="/" exact>
-          <HomePage />
-        </Route>
-        <Route path="/events" exact>
-          <EventsPage />
-        </Route>
-        <Route path="/members" exact>
-          <MembersPage />
-        </Route>
-        <Route path="/login" exact>
-          <LoginPage />
-        </Route>
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-        {/* Example stuff */}
-        <Route path="/recipeshome" exact>
-          <RecipesHomePage />
-        </Route>
-        <Route path="/recipes" exact>
-          <Recipes />
-        </Route>
-        <Route path="/recipe/:id" exact component={Recipe}>
-          {/*TODO: use useParams() hook instead*/}
-        </Route>
-        <Route path="/recipe" exact>
-          <NewRecipe />
-        </Route>
-      </Switch>
-    </Router>
-  </div>
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: 'rgb(200, 162, 200)',
+    },
+    secondary: {
+      main: 'rgb(14, 16, 61)',
+      color: 'white',
+    },
+  },
+});
+
+export default () => (
+  <ThemeProvider theme={theme}>
+    <div className="wrapper">
+      <Router>
+        <Header />
+        <Switch>
+          <Route path="/" exact>
+            <HomePage />
+          </Route>
+          <Route path="/events" exact>
+            <EventsPage />
+          </Route>
+          <Route path="/members" exact>
+            <MembersPage />
+          </Route>
+          <Route path="/login" exact>
+            <LoginPage />
+          </Route>
+
+          {/* Example stuff */}
+          <Route path="/recipeshome" exact>
+            <RecipesHomePage />
+          </Route>
+          <Route path="/recipes" exact>
+            <Recipes />
+          </Route>
+          <Route path="/recipe/:id" exact component={Recipe}>
+            {/*TODO: use useParams() hook instead*/}
+          </Route>
+          <Route path="/recipe" exact>
+            <NewRecipe />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  </ThemeProvider>
 );
