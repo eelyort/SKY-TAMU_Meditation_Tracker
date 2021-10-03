@@ -1,3 +1,13 @@
+/* CSS HEX */
+/* https://coolors.co/69306d-c8a2c8-0e103d-fffae3-89daff */
+:root {
+  --palatinate-purple: #69306dff;
+  --lilac: #c8a2c8ff;
+  --russian-violet: #0e103dff;
+  --cornsilk: #fffae3ff;
+  --baby-blue: #89daffff;
+}
+
 .bg_primary-color {
   background-color: #FFFFFF;
 }
@@ -53,6 +63,9 @@ html, body, body > div:first-of-type {
 }
 
 /* Homepage Stuff */
+.homepage.wrapper {
+  overflow: hidden;
+}
 .homepage-hero {
   flex-grow: 1;
   position: relative;
@@ -70,7 +83,7 @@ html, body, body > div:first-of-type {
   width: 100%;
 }
 .homepage-hero .shading {
-  background-image: linear-gradient(rgb(200, 162, 200), rgb(105, 48, 109));
+  background-image: linear-gradient(var(--lilac), var(--palatinate-purple));
   opacity: 0.6;
   overflow: hidden;
 }
@@ -85,7 +98,12 @@ html, body, body > div:first-of-type {
   text-align: center;
 }
 
-  .homepage-content-wrapper {
-    width: 100%;
-    padding: 10px 10%;
-  }
+.homepage-content-wrapper {
+  width: 100%;
+  padding: 25px 20%;
+  background-color: var(--cornsilk);
+  color: var(--russian-violet);
+}
+.homepage-content-wrapper:nth-of-type(odd) {
+  background-color: rgba(200, 162, 200, 0.6);
+}

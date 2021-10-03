@@ -26,38 +26,36 @@ const theme = createTheme({
 
 export default () => (
   <ThemeProvider theme={theme}>
-    <div className="wrapper">
-      <Router>
-        <Header />
-        <Switch>
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
-          <Route path="/events" exact>
-            <EventsPage />
-          </Route>
-          <Route path="/members" exact>
-            <MembersPage />
-          </Route>
-          <Route path="/login" exact>
-            <LoginPage />
-          </Route>
+    <Router>
+      <Header />
+      <Switch>
+        <Route path="/" exact>
+          <HomePage />
+        </Route>
+        <Route path="/events" exact>
+          <EventsPage />
+        </Route>
+        <Route path="/members" exact>
+          <MembersPage />
+        </Route>
+        <Route path="/login" exact>
+          <LoginPage />
+        </Route>
 
-          {/* Example stuff */}
-          <Route path="/recipeshome" exact>
-            <RecipesHomePage />
-          </Route>
-          <Route path="/recipes" exact>
-            <Recipes />
-          </Route>
-          <Route path="/recipe/:id" exact component={Recipe}>
-            {/*TODO: use useParams() hook instead*/}
-          </Route>
-          <Route path="/recipe" exact>
-            <NewRecipe />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+        {/* Example stuff */}
+        <Route path="/recipeshome" exact>
+          <RecipesHomePage />
+        </Route>
+        <Route path="/recipes" exact>
+          <Recipes />
+        </Route>
+        <Route path="/recipe/:id" exact component={Recipe}>
+          {/*TODO: use useParams() hook instead*/}
+        </Route>
+        <Route path="/recipe" exact>
+          <NewRecipe />
+        </Route>
+      </Switch>
+    </Router>
   </ThemeProvider>
 );
