@@ -9,7 +9,7 @@ const Header = () => {
     const [menuAnchor, setMenuAnchor] = React.useState(null);
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" color="secondary">
             <Toolbar>
                 <IconButton
                     id="basic-button"

@@ -11,8 +11,22 @@ import MembersPage from "./pages/MembersPage";
 import LoginPage from "./pages/LoginPage";
 import SocialMediaPage from "./pages/SocialMediaPage";
 
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: 'rgb(200, 162, 200)',
+    },
+    secondary: {
+      main: 'rgb(14, 16, 61)',
+      color: 'white',
+    },
+  },
+});
+
 export default () => (
-  <div className="wrapper">
+  <ThemeProvider theme={theme}>
     <Router>
       <Header />
       <Switch>
@@ -47,5 +61,5 @@ export default () => (
         </Route>
       </Switch>
     </Router>
-  </div>
+  </ThemeProvider>
 );
