@@ -9,6 +9,7 @@ import Header from "./Header";
 import EventsPage from "./pages/EventsPage";
 import MembersPage from "./pages/MembersPage";
 import LoginPage from "./pages/LoginPage";
+import SocialMediaPage from "./pages/SocialMediaPage";
 
 export default () => (
   <div className="wrapper">
@@ -26,6 +27,9 @@ export default () => (
         </Route>
         <Route path="/login" exact>
           <LoginPage />
+        </Route>
+        <Route path="/socialmedia" exact>
+          <SocialMediaPage />
         </Route>
 
         {/* Example stuff */}
