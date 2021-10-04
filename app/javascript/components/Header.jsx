@@ -44,7 +44,7 @@ const Header = () => {
                     SKY@TAMU
                 </Button>
                 <div className="flex-spacer" />
-                <Button color="inherit">Login</Button>
+                <Button color="inherit" component={Link} to={"/login"}>Login</Button>
             </Toolbar>
         </AppBar>
     );
