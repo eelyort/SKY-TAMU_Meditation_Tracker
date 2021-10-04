@@ -9,6 +9,7 @@ import Header from "./Header";
 import EventsPage from "./pages/EventsPage";
 import MembersPage from "./pages/MembersPage";
 import LoginPage from "./pages/LoginPage";
+import ShowEventPage from "./pages/ShowEventPage";
 
 export default () => (
   <div className="wrapper">
@@ -20,6 +21,9 @@ export default () => (
         </Route>
         <Route path="/events" exact>
           <EventsPage />
+        </Route>
+        <Route path="/events/showevent" exact>
+          <ShowEventPage />
         </Route>
         <Route path="/members" exact>
           <MembersPage />
