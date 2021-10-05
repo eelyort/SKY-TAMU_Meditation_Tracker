@@ -1,24 +1,44 @@
-
-import React from "react";
+import React from 'react';
+import HeroImage from 'images/iStock-1161561165.jpg';
+import { Button, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
 
-export default () => (
-  <div className="vw-100 vh-100 primary-color d-flex align-items-center justify-content-center">
-    <div className="jumbotron jumbotron-fluid bg-transparent">
-      <div className="container secondary-color">
-        <h1 className="display-4">Food Recipes</h1>
-        <p className="lead">
-          A curated list of recipes for the best homemade meal and delicacies.
-        </p>
-        <hr className="my-4" />
-        <Link
-          to="/recipes"
-          className="btn btn-lg custom-button"
-          role="button"
-        >
-          View Recipes
-        </Link>
-      </div>
-    </div>
-  </div>
-);
+const HomePage = (props) => {
+    return (
+        <>
+            <div className="wrapper homepage">
+                <div className="homepage-hero">
+                    <div className={'overlay'}>
+                        <img src={HeroImage} />
+                    </div>
+                    <div className={'shading overlay'}>
+                    </div>
+                    <div className={'text'}>
+                        <Typography variant="h1">
+                            1000 Hours Meditated Total
+                        </Typography>
+                        <Button variant="contained" color="secondary" component={Link} to={'/events'}>See Events</Button>
+                    </div>
+                </div>
+            </div>
+            <div className="homepage-content-wrapper">
+                <Typography variant="h5">
+                    About
+                </Typography>
+                <Typography variant="body1">
+                    SKY@TAMU is a Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </Typography>
+            </div>
+            <div className="homepage-content-wrapper">
+                <Typography variant="h5">
+                    Members
+                </Typography>
+                <Typography variant="body1">
+                    SKY@TAMU is a Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </Typography>
+            </div>
+        </>
+    );
+}
+
+export default HomePage;
