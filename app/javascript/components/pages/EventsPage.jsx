@@ -1,25 +1,128 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
+import axios from 'axios'
+import AddEventForm from './AddEventForm'
+
+
+
+function renderForm(event) {
+  
+  return (
+    <div> 
+      <form id= "add-event" onSubmit="addEvent">
+
+        <label>Event Title:</label>
+        <input type="string"> </input>
+
+        <label>Event Description:</label>
+        <textarea type="text" />
+
+        <label>Event Time:</label>
+        <input type="string"></input>
+
+        <button onClick={(e)=> {addEvent(e)}}>Create</button>
+        <button>Cancel</button>
+
+      </form>
+    </div>
+  );
+}
 
 const EventsPage = (props) => {
+  const [events, setEvents] = useState([])
+  const [addForm, setAddForm] = useState(false)
 
-    var cardStyle = {
-        display: 'inline-block',
-        width: '30vw',
-        height: '50%',
-        backgroundColor: "#89DAFF",
-        margin: "10px 10px 10px 5px",
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const answer = window.confirm("are you sure?");
+    if (answer) {
+      // Save it!
+      setAddForm(false)
+      console.log("Thing was saved to the database.");
+    } else {
+      // Do nothing!
+      console.log("Thing was not saved to the database.");
     }
+  };
 
-    var headerStyle = {
-      textAlign: 'center',
-      fontWeight: '900',
-      color: '#69306D'
+  useEffect(()=>{
+    axios.get('api/v1/events.json')
+    .then( resp => {
+      setEvents(resp.data)
+    } )
+    .catch(resp => console.log(resp) )
+  }, [events.length])
 
-    }
+  // if (events.length != 0){
+  //   console.log(events)
+  //   console.log("test")
+  // }
+  
+
+  var cardStyle = {
+      display: 'inline-block',
+      width: '30vw',
+      height: '50%',
+      backgroundColor: "#89DAFF",
+      margin: "10px 10px 10px 5px",
+  }
+
+  var headerStyle = {
+    textAlign: 'center',
+    fontWeight: '900',
+    color: '#69306D'
+
+  }
+
+  // if (events.length != 0) {
+  //   const eventsGrid = events.map( event => 
+  //     <li key={event.event_id}>{event.title}</li>
+  //   );
+  //   return (
+  //     <>
+  //       <h1>Events</h1>
+  //       <ul>{eventsGrid}</ul>
+  //     </>
+  //   );
+
+  if (events.length != 0) {
+    const eventCards = events.map( event => 
+      <Card key={event.event_id} style={cardStyle}>
+        <CardHeader
+          style={headerStyle}
+          title={event.title}
+          subheader={event.time}
+        />
+        <CardContent>
+          <Typography color="text.secondary">
+            {event.description}
+          </Typography>
+        </CardContent>
+      </Card>
+    );
+
+    return (
+      <>
+        <h1>Events</h1>
+        
+        {eventCards}
+        
+        <button onClick={() => setAddForm(true)}>New Event</button>
+
+        <AddEventForm 
+          comp="Event"
+          func={handleSubmit}
+          trigger={addForm} 
+          setTrigger={setAddForm}>
+        </AddEventForm>
+
+      </>
+    );
+
+  } else {
 
     return (
         <>
@@ -82,6 +185,7 @@ const EventsPage = (props) => {
             </Card>
         </>
     );
+  }
 }
 
 export default EventsPage;
