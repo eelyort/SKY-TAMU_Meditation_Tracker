@@ -27,7 +27,7 @@ class Api::V1::EventsController < ApplicationController
 
   # POST /events or /events.json
   def create
-    @event = Event.new(event_params)
+    @event = Event.create!(event_params)
 
     respond_to do |format|
       if @event.save
@@ -70,6 +70,6 @@ class Api::V1::EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.fetch(:event, {})
+      params.permit(:title, :description, :time)
     end
 end

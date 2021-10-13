@@ -3,64 +3,155 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardHeader from '@mui/material/CardHeader';
-import axios from 'axios'
 import AddEventForm from './AddEventForm'
-
-
-
-function renderForm(event) {
-  
-  return (
-    <div> 
-      <form id= "add-event" onSubmit="addEvent">
-
-        <label>Event Title:</label>
-        <input type="string"> </input>
-
-        <label>Event Description:</label>
-        <textarea type="text" />
-
-        <label>Event Time:</label>
-        <input type="string"></input>
-
-        <button onClick={(e)=> {addEvent(e)}}>Create</button>
-        <button>Cancel</button>
-
-      </form>
-    </div>
-  );
-}
+import EditEvent from './EditEvent'
 
 const EventsPage = (props) => {
+
+  var state = {
+    title: "",
+    time: "",
+    description: ""
+  };
+
   const [events, setEvents] = useState([])
   const [addForm, setAddForm] = useState(false)
+  const [editEvent, setEditEvent] = useState(false)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const answer = window.confirm("are you sure?");
-    if (answer) {
-      // Save it!
-      setAddForm(false)
-      console.log("Thing was saved to the database.");
+
+  const onChange = (e) => {
+    console.log(e.target.name)
+    if (e.target.name == "title"){
+      state.title = e.target.value
+    } else if (e.target.name == "time") {
+      state.time = e.target.value
     } else {
-      // Do nothing!
-      console.log("Thing was not saved to the database.");
+      state.description = e.target.value
+    }
+  }
+
+
+  const databaseRequest = (method, body, event_id) => {
+    var url = "/api/v1/events";
+
+    if(method == "DELETE" || method == "PATCH") {
+      url += "/"+String(event_id);
+    }
+    
+    const token = document.querySelector('meta[name="csrf-token"]').content;
+    console.log(JSON.stringify(body))
+
+    fetch(url, {
+      method: method,
+      headers: {
+        "X-CSRF-Token": token,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    })
+
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error("Network response was not ok.");
+    })
+    .catch(error => console.log(error.message));
+  }
+
+
+  const handleAdd = (e) => {
+    e.preventDefault();
+    const answer = window.confirm("Are you sure you would like to add this event?");
+
+    if (answer) {
+      const { title, time, description } = state;
+      const event_id = events.length + 1
+      const admin_id = 101
+
+      const body = {
+        event_id,
+        admin_id,
+        title,
+        description,
+        time
+      };
+
+      databaseRequest("POST", body, event_id);
+
+      setAddForm(false)
+      window.location.reload(true);
     }
   };
 
-  useEffect(()=>{
-    axios.get('api/v1/events.json')
-    .then( resp => {
-      setEvents(resp.data)
-    } )
-    .catch(resp => console.log(resp) )
-  }, [events.length])
 
-  // if (events.length != 0){
-  //   console.log(events)
-  //   console.log("test")
-  // }
-  
+  const handleEdit = (e) => {
+    e.preventDefault();
+    const answer = window.confirm("Are you sure you would like to edit this event?");
+
+      if (answer) {
+        const event_id =  e.target.name
+        const admin_id = 101
+
+        const title = document.getElementById("edit-title"+String(event_id)).value;
+        const time = document.getElementById("edit-time"+String(event_id)).value;
+        const description = document.getElementById("edit-description"+String(event_id)).value;
+
+        const body = {
+          event_id,
+          admin_id,
+          title,
+          description,
+          time
+        };
+
+        databaseRequest("PATCH", body, event_id)
+        
+        setEditEvent(false)
+        window.location.reload(true);
+      }
+  };
+
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    
+    const answer = window.confirm("WARNING! \n Are you sure you would like to delete this event?");
+
+      if (answer) {
+        const event_id =  e.target.name
+
+        databaseRequest("DELETE", {}, event_id)
+
+        setEditEvent(false)
+        window.location.reload(true);
+      }
+  };
+
+
+  const getEvents = () => {
+    const url = "/api/v1/events";
+    fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Network response was not ok.");
+        })
+        .then(response => setEvents( response ))
+  }
+
+
+  function loadEvents() {
+    useEffect(() => {
+      getEvents()
+    }, []);
+  } 
+
+
+  loadEvents()
+  console.log(events)
+
 
   var cardStyle = {
       display: 'inline-block',
@@ -77,16 +168,6 @@ const EventsPage = (props) => {
 
   }
 
-  // if (events.length != 0) {
-  //   const eventsGrid = events.map( event => 
-  //     <li key={event.event_id}>{event.title}</li>
-  //   );
-  //   return (
-  //     <>
-  //       <h1>Events</h1>
-  //       <ul>{eventsGrid}</ul>
-  //     </>
-  //   );
 
   if (events.length != 0) {
     const eventCards = events.map( event => 
@@ -101,6 +182,19 @@ const EventsPage = (props) => {
             {event.description}
           </Typography>
         </CardContent>
+        <button onClick={() => {setEditEvent(true); console.log("In btn", event.event_id)} }>Edit Event</button>
+        <EditEvent
+          submitFunc={handleEdit}
+          changeFunc={onChange}
+          event_ID={event.event_id}
+          title={event.title}
+          time={event.time}
+          description= {event.description}
+          deleteFunc={handleDelete}
+          trigger={editEvent} 
+          setTrigger={setEditEvent}>
+          {console.log("In comp", event.event_id)}
+        </EditEvent>
       </Card>
     );
 
@@ -114,7 +208,8 @@ const EventsPage = (props) => {
 
         <AddEventForm 
           comp="Event"
-          func={handleSubmit}
+          submitFunc={handleAdd}
+          changeFunc={onChange}
           trigger={addForm} 
           setTrigger={setAddForm}>
         </AddEventForm>
@@ -126,63 +221,7 @@ const EventsPage = (props) => {
 
     return (
         <>
-            <h1>Events</h1>
-            <Card style={cardStyle}>
-              <CardHeader
-                style={headerStyle}
-                title={"Breath Breaks"}
-                subheader={"Every Thursday | 6pm-6:30pm CST | FREE Entry"}
-              />
-              <CardContent>
-                <Typography color="text.secondary">
-                  A guided meditation, breathwork, & connection session (30 minutes)
-                  tailored for small/large groups virtually every week led by a certified
-                  meditation and breathwork instructor from SKY Campus Happiness.  All
-                  of these instructors have offered to lead these free of charge.
-                  Session is open to anyone and no meditation experience required.
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card style={cardStyle}>
-              <CardHeader
-                style={headerStyle}
-                title={"Online SKY Happiness Retreat"}
-                subheader={"Sept 18-20 | Sat, Sun: 2pm-5pm Mon: 6-9pm CST"}
-              />
-              <CardContent>
-                <Typography color="text.secondary">
-                  3-session Retreat which trains participants in the evidence-based
-                  SKY meditation practice, breathwork practices, yoga, social connection,
-                  emotional intelligence, and mindful leadership. SKY Meditation has been
-                  shown to significantly reduce anxiety and depression, lower stress
-                  markers, and increase wellbeing, focus, and optimism. This is one of
-                  the most powerful programs that we offer, and we support committed
-                  students with scholarships also for the retreat.
-                </Typography>
-                <Typography color="text.secondary">
-                  Instructor: Annelies Richmond (National Director of SKY)
-                </Typography>
-                <Typography color="text.secondary">
-                  After Scholarship, Retreat Price: Students: $30, Staff/Faculty: $100
-                </Typography>
-                <Typography color="text.secondary">
-                  Limited Spots | Register: bit.ly/skyretreatfall
-                </Typography>
-              </CardContent>
-            </Card>
-            <Card style={cardStyle}>
-              <CardHeader
-                style={headerStyle}
-                title={"SKY @ TAMU Discord Server"}
-                subheader={"https://discord.gg/fmxHPE9nck"}
-              />
-
-              <CardContent>
-                <Typography color="text.secondary">
-                  Join an informal discord community of like-minded people, share your thoughts, ask questions or any information.
-                </Typography>
-              </CardContent>
-            </Card>
+            <h1>Error Loading Events From Database</h1>
         </>
     );
   }

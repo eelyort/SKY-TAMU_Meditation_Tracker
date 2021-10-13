@@ -3,7 +3,8 @@ import { display, maxWidth, padding } from '@mui/system';
 import React, { useState } from 'react';
 
 
-function AddEventForm(props) {
+
+function EditEvent(props) {
 
     const popup = {
         position: 'fixed',
@@ -38,6 +39,24 @@ function AddEventForm(props) {
         display: "inline-block"
     }
 
+    const confirmStyle = {
+        width: "100%",
+        padding: "12px 20px",
+        margin: "8px 0",
+        display: "inline-block",
+        backgroundColor: "DodgerBlue",
+        color: "white"
+    }
+
+    const deleteStyle = {
+        width: "100%",
+        padding: "12px 20px",
+        margin: "8px 0",
+        display: "inline-block",
+        backgroundColor: "red",
+        color: "white"
+    }
+
     return (props.trigger) ? (
         <>
             <div style={popup}>
@@ -45,21 +64,22 @@ function AddEventForm(props) {
                     <button style={closeBtn} onClick={() => props.setTrigger(false)}>Cancel</button>
                     {props.children}
 
-                    <h1>Add New {props.comp}</h1>
+                    <h1>Edit {props.title}</h1>
 
                     <div>
-                        <form id= "add-event" onSubmit={props.submitFunc}> 
+                        <form id= "add-event" name={String(props.event_ID)} onSubmit={props.submitFunc}> 
 
                         <label>Event Title:</label>
-                        <input name="title" style={inputStyle} type="string" placeholder="Event Title" onChange={props.changeFunc} required/>
+                        <input required style={inputStyle} id={"edit-title"+String(props.event_ID)} defaultValue={props.title}  type="string" onChange={props.changeFunc}/>
 
                         <label>Event Time:</label>
-                        <input name="time" style={inputStyle} type="string" placeholder="Event Time" onChange={props.changeFunc} required/>
+                        <input required style={inputStyle} id={"edit-time"+String(props.event_ID)} defaultValue={props.time}  type="string" onChange={props.changeFunc}/>
 
                         <label>Event Description:</label>
-                        <textarea name="description" style={inputStyle} type="text" placeholder="Event Description..." onChange={props.changeFunc} required/>
+                        <textarea required style={inputStyle} id={"edit-description"+String(props.event_ID)} defaultValue={props.description}  type="text" onChange={props.changeFunc}/>
 
-                        <input style={inputStyle} type="submit" value="Submit" />
+                        <input style={confirmStyle} type="submit" value="Confirm Edit" />
+                        <button style={deleteStyle} type="button" name={String(props.event_ID)} onClick={props.deleteFunc}>Delete Event</button>
 
                         </form>
                     </div>
@@ -69,4 +89,4 @@ function AddEventForm(props) {
     ) : "";
 }
 
-export default AddEventForm
+export default EditEvent
