@@ -17,6 +17,7 @@ const EventsPage = (props) => {
   const [events, setEvents] = useState([])
   const [addForm, setAddForm] = useState(false)
   const [editEvent, setEditEvent] = useState(false)
+  const [eventIndex, setEventIndex] = useState(0)
 
 
   const onChange = (e) => {
@@ -87,6 +88,7 @@ const EventsPage = (props) => {
 
   const handleEdit = (e) => {
     e.preventDefault();
+
     const answer = window.confirm("Are you sure you would like to edit this event?");
 
       if (answer) {
@@ -165,12 +167,10 @@ const EventsPage = (props) => {
     textAlign: 'center',
     fontWeight: '900',
     color: '#69306D'
-
   }
 
-
   if (events.length != 0) {
-    const eventCards = events.map( event => 
+    const eventCards = events.map( (event, index) => 
       <Card key={event.event_id} style={cardStyle}>
         <CardHeader
           style={headerStyle}
@@ -182,19 +182,7 @@ const EventsPage = (props) => {
             {event.description}
           </Typography>
         </CardContent>
-        <button onClick={() => {setEditEvent(true); console.log("In btn", event.event_id)} }>Edit Event</button>
-        <EditEvent
-          submitFunc={handleEdit}
-          changeFunc={onChange}
-          event_ID={event.event_id}
-          title={event.title}
-          time={event.time}
-          description= {event.description}
-          deleteFunc={handleDelete}
-          trigger={editEvent} 
-          setTrigger={setEditEvent}>
-          {console.log("In comp", event.event_id)}
-        </EditEvent>
+        <button onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>
       </Card>
     );
 
@@ -214,6 +202,17 @@ const EventsPage = (props) => {
           setTrigger={setAddForm}>
         </AddEventForm>
 
+        <EditEvent
+          submitFunc={handleEdit}
+          changeFunc={onChange}
+          event_ID={events[eventIndex].event_id}
+          title={events[eventIndex].title}
+          time={events[eventIndex].time}
+          description= {events[eventIndex].description}
+          deleteFunc={handleDelete}
+          trigger={editEvent} 
+          setTrigger={setEditEvent}>
+        </EditEvent>
       </>
     );
 
