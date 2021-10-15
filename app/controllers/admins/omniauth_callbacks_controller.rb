@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 
 class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
@@ -39,3 +38,4 @@ class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @auth ||= request.env['omniauth.auth']
   end
 end
+# view rawgoogle_oauth_devise_omniauth_callbacks.rb hosted with ❤ by GitHub
