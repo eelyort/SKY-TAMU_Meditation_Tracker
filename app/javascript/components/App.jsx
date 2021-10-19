@@ -7,7 +7,7 @@ import Recipe from "./example/ExampleRecipe";
 import NewRecipe from "./example/ExampleNewRecipe";
 import Header from "./Header";
 import EventsPage from "./pages/EventsPage";
-import MembersPage from "./pages/MembersPage";
+import UsersPage from "./pages/users/UsersPage";
 import LoginPage from "./pages/LoginPage";
 import SocialMediaPage from "./pages/SocialMediaPage";
 
@@ -36,9 +36,14 @@ export default () => (
         <Route path="/events" exact>
           <EventsPage />
         </Route>
+
         <Route path="/members" exact>
-          <MembersPage />
+          <UsersPage />
         </Route>
+        <Route path="/members/:id" exact>
+          <UsersPage />
+        </Route>
+
         <Route path="/login" exact>
           <LoginPage />
         </Route>

@@ -50,6 +50,8 @@ html, body, body > div:first-of-type {
   width: 100%;
   margin: 0;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .wrapper {
   /* background-color: rgba(151, 22, 190, 0.2); */
@@ -107,4 +109,18 @@ html, body, body > div:first-of-type {
 }
 .homepage-content-wrapper:nth-of-type(odd) {
   background-color: rgba(200, 162, 200, 0.6);
+}
+
+/* users page */
+.users-wrapper {
+  background-color: var(--cornsilk);
+  padding: 25px 140px;
+  width: 100vw;
+}
+.users-wrapper .user-div {
+  display: flex;
+  flex-direction: row;
+}
+.users-wrapper .MuiCircularProgress-root {
+  margin: 20px 0;
 }
