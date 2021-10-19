@@ -5,8 +5,9 @@ class Admin < ApplicationRecord
 #         :recoverable, :rememberable, :validatable
 
   devise :omniauthable, omniauth_providers: [:google_oauth2]
-  def self.from_google(email:, full_name:, uid:, avatar_url:)
-      return nil unless email =~ /@mybusiness.com\z/
-      create_with(uid: uid, full_name: full_name, avatar_url: avatar_url).find_or_create_by!(email: email)
+  def self.from_google(params) #email:, full_name:, uid:, avatar_url:)
+      print params[:email]
+      return nil unless params[:email] =~ /@mybusiness.com\z/
+      create_with(uid: params[:uid], full_name: params[:full_name], avatar_url: params[:avatar_url].find_or_create_by!(email: params[:email]))
     end
 end
