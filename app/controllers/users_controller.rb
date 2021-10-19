@@ -3,7 +3,10 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @user = User.all
+    respond_to do |format|
+      format.json { render json: @user, status: :ok}
+    end
   end
 
   # GET /users/1 or /users/1.json
@@ -17,6 +20,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    format.json { render json: @user }
   end
 
   # POST /users or /users.json
