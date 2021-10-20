@@ -19,6 +19,7 @@ function EditEvent(props) {
     }
 
     const popupInner = {
+        borderRadius: "20px",
         position: 'relative',
         padding: '32px',
         width: '100%',
@@ -64,22 +65,22 @@ function EditEvent(props) {
                     <button style={closeBtn} onClick={() => props.setTrigger(false)}>Cancel</button>
                     {props.children}
 
-                    <h1>Edit {props.title}</h1>
+                    <h1>Edit {props.event.title}</h1>
 
                     <div>
-                        <form id= "add-event" name={String(props.event_ID)} onSubmit={props.submitFunc}> 
+                        <form id= "add-event" name={String(props.event.event_id)} onSubmit={props.submitFunc}> 
 
                         <label>Event Title:</label>
-                        <input required style={inputStyle} id={"edit-title"+String(props.event_ID)} defaultValue={props.title}  type="string" onChange={props.changeFunc}/>
+                        <input required style={inputStyle} id={"edit-title"+String(props.event.event_id)} defaultValue={props.event.title}  type="string" onChange={props.changeFunc}/>
 
                         <label>Event Time:</label>
-                        <input required style={inputStyle} id={"edit-time"+String(props.event_ID)} defaultValue={props.time}  type="string" onChange={props.changeFunc}/>
+                        <input required style={inputStyle} id={"edit-time"+String(props.event.event_id)} defaultValue={props.event.time}  type="string" onChange={props.changeFunc}/>
 
                         <label>Event Description:</label>
-                        <textarea required style={inputStyle} id={"edit-description"+String(props.event_ID)} defaultValue={props.description}  type="text" onChange={props.changeFunc}/>
+                        <textarea required style={inputStyle} id={"edit-description"+String(props.event.event_id)} defaultValue={props.event.description}  type="text" onChange={props.changeFunc}/>
 
                         <input style={confirmStyle} type="submit" value="Confirm Edit" />
-                        <button style={deleteStyle} type="button" name={String(props.event_ID)} onClick={props.deleteFunc}>Delete Event</button>
+                        <button style={deleteStyle} type="button" name={String(props.event.event_id)} onClick={props.deleteFunc}>Delete Event</button>
 
                         </form>
                     </div>

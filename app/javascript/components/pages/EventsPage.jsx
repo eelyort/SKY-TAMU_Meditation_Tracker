@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import CardHeader from '@mui/material/CardHeader';
+import { Button, Typography, Card, CardContent,  CardHeader, CardActionArea } from '@mui/material';
+import { Link } from "react-router-dom";
 import AddEventForm from './AddEventForm'
 import EditEvent from './EditEvent'
 
@@ -21,7 +19,6 @@ const EventsPage = (props) => {
 
 
   const onChange = (e) => {
-    console.log(e.target.name)
     if (e.target.name == "title"){
       state.title = e.target.value
     } else if (e.target.name == "time") {
@@ -40,7 +37,6 @@ const EventsPage = (props) => {
     }
     
     const token = document.querySelector('meta[name="csrf-token"]').content;
-    console.log(JSON.stringify(body))
 
     fetch(url, {
       method: method,
@@ -148,71 +144,109 @@ const EventsPage = (props) => {
     useEffect(() => {
       getEvents()
     }, []);
-  } 
+  }
 
 
   loadEvents()
   console.log(events)
 
 
-  var cardStyle = {
-      display: 'inline-block',
-      width: '30vw',
-      height: '50%',
-      backgroundColor: "#89DAFF",
-      margin: "10px 10px 10px 5px",
+  const goToEvent = (event_id) => {
+    const path = `/event/${event_id}`;
+    console.log("Path", path);
+    window.location = path;
+  }
+
+  var cardContainer = {
+    display: 'grid',
+    gridTemplateColumns: "repeat(1fr)",
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    margin: "5% 15% 5% 15%"
+  }
+
+  var cardStyle0 = {
+    display: 'inline-block',
+    backgroundColor: "white",
+    margin: "10px 10px 10px 10px",
+    borderRadius: '5px',
+    gridColumn: "span 3"
+  }
+
+  var cardStyle1 = {
+    display: 'inline-block',
+    backgroundColor: "white",
+    margin: "10px 10px 10px 10px",
+    borderRadius: '5px'
   }
 
   var headerStyle = {
     textAlign: 'center',
     fontWeight: '900',
-    color: '#69306D'
+    backgroundColor: '#69306D',
+    color: 'white'
+  }
+
+//   var contentStyle = {
+//     backgroundColor: '#white'
+//   }
+
+  var addBtn = {
+    position: "absolute",
+    top: "2%",
+    right: "2%",
+    borderRadius: "5px"
   }
 
   if (events.length != 0) {
     const eventCards = events.map( (event, index) => 
-      <Card key={event.event_id} style={cardStyle}>
-        <CardHeader
-          style={headerStyle}
-          title={event.title}
-          subheader={event.time}
-        />
-        <CardContent>
-          <Typography color="text.secondary">
-            {event.description}
-          </Typography>
-        </CardContent>
-        <button onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>
+      <Card key={event.event_id} style={index == 0 ? cardStyle0 : cardStyle1}>
+        <CardActionArea onClick={() => {goToEvent(index+1)}}>
+          <CardHeader
+            style={headerStyle}
+            title={event.title}
+            subheader={<Typography style={headerStyle}>{event.time}</Typography>}
+          />
+          </CardActionArea>
+
+          <CardContent>
+            <Typography color="text.secondary">
+              {event.description}
+            </Typography>
+          </CardContent>
+
+          {/*<button style={{position:"relative", left: "30%"}} onClick={() => {goToEvent(index+1)}}>View More</button>*/}
+          <button style={{position:"relative", left: "30%"}} onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>
       </Card>
+      
     );
 
     return (
       <>
-        <h1>Events</h1>
-        
-        {eventCards}
-        
-        <button onClick={() => setAddForm(true)}>New Event</button>
+      <div style={{position: "relative"}}>
+        <button style={addBtn} onClick={() => setAddForm(true)}>New Event</button>
 
-        <AddEventForm 
-          comp="Event"
-          submitFunc={handleAdd}
-          changeFunc={onChange}
-          trigger={addForm} 
-          setTrigger={setAddForm}>
-        </AddEventForm>
+        <div style={cardContainer}>
+			{eventCards}
+        </div>
+      </div>
 
-        <EditEvent
-          submitFunc={handleEdit}
-          changeFunc={onChange}
-          event_ID={events[eventIndex].event_id}
-          title={events[eventIndex].title}
-          time={events[eventIndex].time}
-          description= {events[eventIndex].description}
-          deleteFunc={handleDelete}
-          trigger={editEvent} 
-          setTrigger={setEditEvent}>
-        </EditEvent>
+      <AddEventForm 
+        comp="Event"
+        submitFunc={handleAdd}
+        changeFunc={onChange}
+        trigger={addForm} 
+        setTrigger={setAddForm}>
+      </AddEventForm>
+
+      <EditEvent
+        event={events[eventIndex]}
+        submitFunc={handleEdit}
+        deleteFunc={handleDelete}
+        changeFunc={onChange}
+        trigger={editEvent} 
+        setTrigger={setEditEvent}>
+      </EditEvent>
       </>
     );
 
@@ -220,7 +254,7 @@ const EventsPage = (props) => {
 
     return (
         <>
-            <h1>Error Loading Events From Database</h1>
+            <h1>No Events Found</h1>
         </>
     );
   }
