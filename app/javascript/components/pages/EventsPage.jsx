@@ -216,7 +216,7 @@ const EventsPage = (props) => {
           </CardContent>
 
           {/*<button style={{position:"relative", left: "30%"}} onClick={() => {goToEvent(index+1)}}>View More</button>*/}
-          <button style={{position:"relative", left: "30%"}} onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>
+          <button onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>
       </Card>
       
     );
