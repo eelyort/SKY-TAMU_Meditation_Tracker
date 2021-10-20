@@ -9,10 +9,10 @@ class Api::V1::EventsController < ApplicationController
 
   # GET /events/1 or /events/1.json
   def show
-    if @events
-      render json: @events
+    if @event
+      render json: @event
     else
-      render json: @events.errors
+      render json: @event.errors
     end
   end
 
@@ -28,38 +28,26 @@ class Api::V1::EventsController < ApplicationController
   # POST /events or /events.json
   def create
     @event = Event.create!(event_params)
-
-    respond_to do |format|
-      if @event.save
-        format.html { redirect_to @event, notice: "Event was successfully created." }
-        format.json { render :show, status: :created, location: @event }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
-      end
+    if @event
+      render json: @event
+    else
+      render json: @event.errors
     end
   end
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
-    respond_to do |format|
-      if @event.update(event_params)
-        format.html { redirect_to @event, notice: "Event was successfully updated." }
-        format.json { render :show, status: :ok, location: @event }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
-      end
+    if @event.update(event_params)
+      render json: @event
+    else
+        render json: @event.errors
     end
   end
 
   # DELETE /events/1 or /events/1.json
   def destroy
     @event.destroy
-    respond_to do |format|
-      format.html { redirect_to events_url, notice: "Event was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    render json: { message: 'Event deleted!' }
   end
 
   private
@@ -70,6 +58,6 @@ class Api::V1::EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.permit(:title, :description, :time)
+      params.permit(:event_id, :admin_id, :title, :description, :time)
     end
 end
