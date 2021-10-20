@@ -40,8 +40,12 @@ export default () => (
         <Route path="/event/:id" exact component={ShowEventPage}>
         </Route>
         <Route path="/members" exact>
-          <MembersPage />
+          <UsersPage />
         </Route>
+        <Route path="/members/:id" exact>
+          <UsersPage />
+        </Route>
+
         <Route path="/login" exact>
           <LoginPage />
         </Route>
