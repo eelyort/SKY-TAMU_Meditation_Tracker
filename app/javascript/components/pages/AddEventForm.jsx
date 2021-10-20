@@ -1,6 +1,4 @@
-import { PortraitSharp } from '@mui/icons-material';
-import { display, maxWidth, padding } from '@mui/system';
-import React, { useState } from 'react';
+import React from 'react';
 
 
 function AddEventForm(props) {
@@ -18,6 +16,7 @@ function AddEventForm(props) {
     }
 
     const popupInner = {
+        borderRadius: "20px",
         position: 'relative',
         padding: '32px',
         width: '100%',
@@ -32,6 +31,14 @@ function AddEventForm(props) {
     }
 
    const inputStyle = {
+        width: "100%",
+        padding: "12px 20px",
+        margin: "8px 0",
+        display: "inline-block"
+    }
+
+    const submitStyle = {
+        backgroundColor: "DodgerBlue",
         width: "100%",
         padding: "12px 20px",
         margin: "8px 0",
@@ -59,7 +66,7 @@ function AddEventForm(props) {
                         <label>Event Description:</label>
                         <textarea name="description" style={inputStyle} type="text" placeholder="Event Description..." onChange={props.changeFunc} required/>
 
-                        <input style={inputStyle} type="submit" value="Submit" />
+                        <input style={submitStyle} type="submit" value="Submit" />
 
                         </form>
                     </div>

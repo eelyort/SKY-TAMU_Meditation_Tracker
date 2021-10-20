@@ -37,8 +37,7 @@ export default () => (
         <Route path="/events" exact>
           <EventsPage />
         </Route>
-        <Route path="/events/:id" exact>
-          <ShowEventPage />
+        <Route path="/event/:id" exact component={ShowEventPage}>
         </Route>
         <Route path="/members" exact>
           <MembersPage />
