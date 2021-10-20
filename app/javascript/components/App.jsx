@@ -8,7 +8,7 @@ import NewRecipe from "./example/ExampleNewRecipe";
 import Header from "./Header";
 import EventsPage from "./pages/EventsPage";
 import ShowEventPage from "./pages/ShowEventPage";
-import MembersPage from "./pages/MembersPage";
+import UsersPage from "./pages/users/UsersPage";
 import LoginPage from "./pages/LoginPage";
 import SocialMediaPage from "./pages/SocialMediaPage";
 
