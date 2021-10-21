@@ -77,22 +77,25 @@ const UsersShowEditPage = (props) => {
                     value={user.username}
                     onChange={e => {}}
                     disabled
+                    aria-labelledby={`Uneditable Username/Email`}
                 />
                 <Select
                     value={user.user_type}
                     label="User Privileges"
+                    aria-labelledby={`Select User Privileges`}
                     onChange={e => setUser(old => ({
                         ...old,
                         user_type: e.target.value,
                     }))}
                 >
                     {userTypes.map((label, index) => (
-                        <MenuItem value={index} key={`User Type ${label}`}>{label}</MenuItem>
+                        <MenuItem value={index} key={`User Type ${label}`} aria-labelledby={label}>{label}</MenuItem>
                     ))}
                 </Select>
                 <TextField
                     variant={"outlined"}
                     label={"First Name"}
+                    aria-labelledby={"Enter First Name"}
                     value={user.firstname}
                     onChange={e => setUser(old => ({
                         ...old,
@@ -102,6 +105,7 @@ const UsersShowEditPage = (props) => {
                 <TextField
                     variant={"outlined"}
                     label={"Last Name"}
+                    aria-labelledby={"Enter Last Name"}
                     value={user.lastname}
                     onChange={e => setUser(old => ({
                         ...old,
@@ -109,7 +113,7 @@ const UsersShowEditPage = (props) => {
                     }))}
                 />
                 <br/>
-                <Button variant={"contained"} color={"secondary"} onClick={() => {
+                <Button variant={"contained"} color={"secondary"} aria-labelledby={"Save Changes"} onClick={() => {
                     setIsLoading(true);
                     saveUser({...user}, userId);
                 }}>
