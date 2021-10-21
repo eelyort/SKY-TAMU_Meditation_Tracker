@@ -1,11 +1,11 @@
 
-import { Typography, CircularProgress, IconButton } from "@mui/material";
+import { Typography, CircularProgress, IconButton, Button } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React from "react";
 import { Link } from "react-router-dom";
 
-const userTypes = ["Admin", "Member"];
+import { userTypes } from "./UsersConstants";
 
 const UsersPage = (props) => {
     const { isAdmin = true } = props
@@ -29,6 +29,9 @@ const UsersPage = (props) => {
 
     console.log(users);
 
+    const showLink = (user) => `/members/${user.id}`;
+    const editLink = (user) => `/members/${user.id}/edit`;
+
     return (
         <div className={'users-wrapper flex-spacer'}>
             <Typography variant={"h2"}>
@@ -36,19 +39,19 @@ const UsersPage = (props) => {
             </Typography>
             {users ? (
                 users.map((user, userIndex) => (
-                    <div className={'user-div'}>
-                        <Typography variant={"h5"}>
+                    <div className={'user-div'} key={`user ${user.id}`}>
+                        <Typography variant={"h5"} className={'user-text-center'} component={Link} to={showLink(user)}>
                             {`${user.firstname} ${user.lastname}`}
                         </Typography>
                         <div className={'flex-spacer'} />
                         {isAdmin ? (
                             <div className={'user-actions'}>
-                                <Typography variant={"body1"}>
+                                <Button variant={"outlined"} color='secondary' component={Link} to={editLink(user)}>
                                     {userTypes[user.user_type]}
-                                </Typography>
-                                {/* <IconButton color="secondary" aria-label={`edit user '${user.firstname} ${user.lastname}'`} component={Link} to={`/members/${user.user_id}`}>
+                                </Button>
+                                <IconButton color="secondary" aria-label={`edit user '${user.firstname} ${user.lastname}'`} component={Link} to={editLink(user)}>
                                     <EditIcon />
-                                </IconButton> */}
+                                </IconButton>
                                 <IconButton color="secondary" aria-label={`delete user '${user.firstname} ${user.lastname}'`}>
                                     <DeleteIcon />
                                 </IconButton>

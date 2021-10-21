@@ -4,13 +4,15 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @user = User.all
-    respond_to do |format|
-      format.json { render json: @user, status: :ok}
-    end
+    render_user
+    # respond_to do |format|
+    #   format.json { render json: @user, status: :ok}
+    # end
   end
 
   # GET /users/1 or /users/1.json
   def show
+    render_user
   end
 
   # GET /users/new
@@ -20,7 +22,6 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    format.json { render json: @user }
   end
 
   # POST /users or /users.json
@@ -42,8 +43,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
+        format.json { render json: @user, status: :ok}
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -65,9 +65,16 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
     end
+    # passback user as json for React to render it
+    def render_user
+      respond_to do |format|
+        format.json { render json: @user, status: :ok}
+      end
+    end
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.fetch(:user, {})
+      # params.fetch(:user)
+      params.require(:user).permit(:id, :username, :firstname, :lastname, :user_type, :created_at, :updated_at)
     end
 end
