@@ -12,7 +12,8 @@ import UsersShowEditPage from "./pages/users/UsersShowEditPage";
 import ShowEventPage from "./pages/ShowEventPage";
 import LoginPage from "./pages/LoginPage";
 import SocialMediaPage from "./pages/SocialMediaPage";
-
+import AttendancePage from "./pages/AttendancePage";
+import NewAttendancesPage from "./pages/NewAttendance";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -26,6 +27,7 @@ const theme = createTheme({
     },
   },
 });
+
 
 export default () => (
   <ThemeProvider theme={theme}>
@@ -56,6 +58,12 @@ export default () => (
         </Route>
         <Route path="/socialmedia" exact>
           <SocialMediaPage />
+        </Route>
+        <Route path="/attendance" exact>
+          <AttendancePage />
+        </Route>
+        <Route path="/newAttendance" exact>
+          <NewAttendancesPage />
         </Route>
 
         {/* Example stuff */}
