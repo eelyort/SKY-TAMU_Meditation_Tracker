@@ -10,6 +10,8 @@ import EventsPage from "./pages/EventsPage";
 import MembersPage from "./pages/MembersPage";
 import LoginPage from "./pages/LoginPage";
 import SocialMediaPage from "./pages/SocialMediaPage";
+import AttendancePage from "./pages/AttendancePage";
+import NewAttendancesPage from "./pages/NewAttendance";
 
 export default () => (
   <div className="wrapper">
@@ -30,6 +32,12 @@ export default () => (
         </Route>
         <Route path="/socialmedia" exact>
           <SocialMediaPage />
+        </Route>
+        <Route path="/attendance" exact>
+          <AttendancePage />
+        </Route>
+        <Route path="/newAttendance" exact>
+          <NewAttendancesPage />
         </Route>
 
         {/* Example stuff */}

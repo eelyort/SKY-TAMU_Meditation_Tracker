@@ -7,7 +7,15 @@ Rails.application.routes.draw do
       delete '/destroy/:id', to: 'recipes#destroy'
     end
   end
+  resources :attendances do
+    member do
+      get :delete
+    end
+  end
+
   root 'homepage#index'
   get '/*path' => 'homepage#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+
 end

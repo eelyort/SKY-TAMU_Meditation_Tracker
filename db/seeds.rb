@@ -14,3 +14,8 @@
       instruction: 'In a medium saucepan, stir the clotted cream, butter, and cornflour over a low-ish heat and bring to a low simmer. Turn off the heat and keep warm.'
     )
   end
+9.times do |i|
+  Attendance.create(
+    RSVP: 'Yes'
+  )
+end
