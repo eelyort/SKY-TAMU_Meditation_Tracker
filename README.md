@@ -2,18 +2,7 @@
 
 # Introduction
 
-This project was created by Texas A&M Students as part of CSCE 431.
-
-This was created as a website for the student organization, SKY@TAMU.
-SKY@TAMU is a meditation club, for the website, there are three main parts.
-
-Firstly, the website allows members to register for accounts, view other members, and get in contact with other users via social media.
-
-Secondly, the website allows club admins to post, edit, and delete events. These events are then displayed for everyone to see to allow anyone to get event details when needed.
-
-Lastly, there is RSVP and Attendance tracking so the club officers can view how many people are attending each event and have a running total of "hours meditated."
-
-All edit/deleting requires club officers to login as an admin via Google OAuth (Log in with Google).
+Application Description
 
 # Requirements
 
