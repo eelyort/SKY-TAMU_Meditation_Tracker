@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { userTypes } from "./UsersConstants";
 
 const UsersPage = (props) => {
-    const { isAdmin = true } = props
+    const { isAdmin = true } = props;
     const [users, setUsers] = React.useState(undefined);
 
     // componentDidMount
@@ -110,7 +110,8 @@ const UsersPage = (props) => {
                 <>
                     {users.map((user, userIndex) => (
                         <div className={'user-div'} key={`user ${user.id}`}>
-                            <Typography variant={"h5"} className={'user-text-center'} component={Link} to={showLink(user)}>
+                            {/* <Typography variant={"h5"} className={'user-text-center'} component={Link} to={showLink(user)}> */}
+                            <Typography variant={"h5"} className={'user-text-center'}>
                                 {`${user.firstname} ${user.lastname}`}
                             </Typography>
                             <div className={'flex-spacer'} />

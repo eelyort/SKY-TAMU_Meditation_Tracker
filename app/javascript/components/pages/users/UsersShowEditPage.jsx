@@ -62,7 +62,7 @@ const UsersShowEditPage = (props) => {
 
     let showEdit = null;
     if (user) {
-        showEdit = isEdit ? (
+        showEdit = (
             <Box
             component="form"
             sx={{
@@ -113,6 +113,9 @@ const UsersShowEditPage = (props) => {
                     }))}
                 />
                 <br/>
+                <Button variant={"contained"} color={"secondary"} aria-labelledby={"Back To All Users"} component={Link} to={'/members'}>
+                    Back
+                </Button>
                 <Button variant={"contained"} color={"secondary"} aria-labelledby={"Save Changes"} onClick={() => {
                     setIsLoading(true);
                     saveUser({...user}, userId);
@@ -120,9 +123,6 @@ const UsersShowEditPage = (props) => {
                     Save
                 </Button>
             </Box>
-        ) : (
-            <>
-            </>
         );
     }
 
