@@ -7,10 +7,13 @@ import Recipe from "./example/ExampleRecipe";
 import NewRecipe from "./example/ExampleNewRecipe";
 import Header from "./Header";
 import EventsPage from "./pages/EventsPage";
-import MembersPage from "./pages/MembersPage";
+import UsersPage from "./pages/users/UsersPage";
+import UsersShowEditPage from "./pages/users/UsersShowEditPage";
+import ShowEventPage from "./pages/ShowEventPage";
 import LoginPage from "./pages/LoginPage";
 import SocialMediaPage from "./pages/SocialMediaPage";
-
+import AttendancePage from "./pages/AttendancePage";
+import NewAttendancesPage from "./pages/NewAttendance";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -25,6 +28,7 @@ const theme = createTheme({
   },
 });
 
+
 export default () => (
   <ThemeProvider theme={theme}>
     <Router>
@@ -36,14 +40,30 @@ export default () => (
         <Route path="/events" exact>
           <EventsPage />
         </Route>
-        <Route path="/members" exact>
-          <MembersPage />
+        <Route path="/event/:id" exact component={ShowEventPage}>
         </Route>
+
+        <Route path="/members" exact>
+          <UsersPage />
+        </Route>
+        <Route path="/members/:userId" exact>
+          <UsersShowEditPage />
+        </Route>
+        <Route path="/members/:userId/edit" exact>
+          <UsersShowEditPage />
+        </Route>
+
         <Route path="/login" exact>
           <LoginPage />
         </Route>
         <Route path="/socialmedia" exact>
           <SocialMediaPage />
+        </Route>
+        <Route path="/attendance" exact>
+          <AttendancePage />
+        </Route>
+        <Route path="/newAttendance" exact>
+          <NewAttendancesPage />
         </Route>
 
         {/* Example stuff */}
