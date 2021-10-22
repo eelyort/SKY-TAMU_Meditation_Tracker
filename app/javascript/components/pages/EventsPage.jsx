@@ -5,6 +5,7 @@ import AddEventForm from './AddEventForm'
 import EditEvent from './EditEvent'
 
 const EventsPage = (props) => {
+  const { isAdmin = true } = props;
 
   var state = {
     title: "",
@@ -63,8 +64,29 @@ const EventsPage = (props) => {
 
     if (answer) {
       const { title, time, description } = state;
-      const event_id = events.length + 1
+      var event_id = events.length + 1
       const admin_id = 101
+
+      var uniqueID = false;
+     
+
+      while (uniqueID == false) {
+        var skip = false;
+
+        events.forEach(event => {
+          console.log("Database ID", event.event_id)
+          console.log("Attempt ID", event_id, "\n")
+          if(event.event_id == event_id) {
+            event_id += 1;
+            skip = true;
+          }
+        });
+        if(skip){
+          skip = false;
+          continue;
+        }
+        uniqueID = true;
+      }
 
       const body = {
         event_id,
@@ -191,7 +213,7 @@ const EventsPage = (props) => {
 //     backgroundColor: '#white'
 //   }
 
-  var addBtn = {
+  var addBtnStyle = {
     position: "absolute",
     top: "2%",
     right: "2%",
@@ -200,7 +222,7 @@ const EventsPage = (props) => {
 
   if (events.length != 0) {
     const eventCards = events.map( (event, index) => 
-      <Card key={event.event_id} style={index == 0 ? cardStyle0 : cardStyle1}>
+      <Card key={event.event_id} style={index == 0 ? cardStyle0 : cardStyle0}>
         <CardActionArea onClick={() => {goToEvent(index+1)}}>
           <CardHeader
             style={headerStyle}
@@ -224,7 +246,7 @@ const EventsPage = (props) => {
     return (
       <>
       <div style={{position: "relative"}}>
-        <button style={addBtn} onClick={() => setAddForm(true)}>New Event</button>
+        <button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>
 
         <div style={cardContainer}>
 			{eventCards}
@@ -253,8 +275,20 @@ const EventsPage = (props) => {
   } else {
 
     return (
-        <>
-            <h1>No Events Found</h1>
+        <>  
+
+            <div style={{position: "relative"}}>
+              <h1>No Events Yet</h1>
+              <button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>
+            </div>
+
+            <AddEventForm
+              comp="Event"
+              submitFunc={handleAdd}
+              changeFunc={onChange}
+              trigger={addForm} 
+              setTrigger={setAddForm}>
+            </AddEventForm>
         </>
     );
   }
