@@ -15,6 +15,15 @@ ActiveRecord::Schema.define(version: 2021_10_09_182016) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "events", primary_key: "event_id", id: :serial, force: :cascade do |t|
+    t.integer "admin_id"
+    t.string "title"
+    t.text "description"
+    t.string "time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "recipes", force: :cascade do |t|
     t.string "name", null: false
     t.text "ingredients", null: false
