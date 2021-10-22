@@ -181,7 +181,7 @@ const EventsPage = (props) => {
 
   var cardContainer = {
     display: 'grid',
-    gridTemplateColumns: "repeat(1fr)",
+    gridTemplateColumns: "repeat(3, 1fr)",
     justifyContent: 'center',
     alignItems: 'stretch',
     margin: "5% 15% 5% 15%"
