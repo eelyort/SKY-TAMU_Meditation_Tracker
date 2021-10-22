@@ -14,6 +14,11 @@ Rails.application.routes.draw do
       delete '/destroy/:id', to: 'recipes#destroy'
     end
   end
+  resources :attendances do
+    member do
+      get :delete
+    end
+  end
 
   resources :users do
     member do
@@ -26,5 +31,5 @@ Rails.application.routes.draw do
   get '*a', to: redirect('/'), constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'
   }
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.htm
 end
