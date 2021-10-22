@@ -3,13 +3,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Menu, IconButton, Button, Typography, Toolbar, AppBar, MenuItem } from '@mui/material';
 import { Link } from "react-router-dom";
 
-const menuItems = [{'text': 'Events', 'url': '/events'}, {'text': 'Members', 'url': '/members'}];
+const menuItems = [{'text': 'Events', 'url': '/events'}, {'text': 'Members', 'url': '/members'}, {'text': 'Social Media', 'url': '/socialmedia'}, {'text': 'Attendance', 'url': '/attendance'}];
 
 const Header = () => {
     const [menuAnchor, setMenuAnchor] = React.useState(null);
 
     return (
-        <AppBar position="static">
+        <AppBar position="static" color="secondary">
             <Toolbar>
                 <IconButton
                     id="basic-button"
@@ -44,7 +44,7 @@ const Header = () => {
                     SKY@TAMU
                 </Button>
                 <div className="flex-spacer" />
-                <Button color="inherit">Login</Button>
+                <Button color="inherit" component={Link} to={"/login"}>Login</Button>
             </Toolbar>
         </AppBar>
     );
