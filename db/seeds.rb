@@ -14,13 +14,3 @@
       instruction: 'In a medium saucepan, stir the clotted cream, butter, and cornflour over a low-ish heat and bring to a low simmer. Turn off the heat and keep warm.'
     )
   end
-
-# users
-9.times do |i|
-  User.create(
-    username: "username #{i}",
-    firstname: "firstname #{i}",
-    lastname: "lastname #{i}",
-    user_type: 1,
-  )
-end
