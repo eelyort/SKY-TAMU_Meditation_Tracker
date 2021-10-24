@@ -8,6 +8,25 @@ const menuItems = [{'text': 'Events', 'url': '/events'}, {'text': 'Members', 'ur
 const Header = () => {
     const [menuAnchor, setMenuAnchor] = React.useState(null);
 
+    const oauthLogin = () => {
+        const token = document.querySelector('meta[name="csrf-token"]').content;
+        fetch('/admins/auth/google_oauth2', {
+            method: "POST",
+            headers: {
+                "X-CSRF-Token": token,
+                "Content-Type": "application/json"
+            },
+        })
+            .then(response => {
+              if (response.ok) {
+                return response.json();
+              }
+              throw new Error("Network response was not ok.");
+            })
+            .then(response => this.props.history.push(`/recipe/${response.id}`))
+            .catch(error => console.log(error.message));
+    };
+
     return (
         <AppBar position="static" color="secondary">
             <Toolbar>
@@ -44,7 +63,8 @@ const Header = () => {
                     SKY@TAMU
                 </Button>
                 <div className="flex-spacer" />
-                <Button color="inherit" component={Link} to={"/login"}>Login</Button>
+                <Button color="inherit" onClick={() => oauthLogin()}>Login</Button>
+                {/* <Button color="inherit" component={Link} to={"/login"}>Login</Button> */}
             </Toolbar>
         </AppBar>
     );
