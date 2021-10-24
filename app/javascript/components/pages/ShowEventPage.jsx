@@ -46,7 +46,7 @@ const ShowEventPage = (props) => {
             <>
             <div style={cardStyle}>
                 <h1>{event.title}</h1>
-                <p style={{borderBottom: "1px solid black", marginBottom: "5%"}}>Event Location: | {event.time} </p>
+                <p style={{borderBottom: "1px solid black", marginBottom: "5%"}}>Event Time: | {event.time} </p>
                 <div>
                     <p>{event.description}</p>
                     <p>RSVP Link: </p>
@@ -62,7 +62,7 @@ const ShowEventPage = (props) => {
             <h1>Event Static Title</h1>
             <div>
                 <p>Event Description</p>
-                <p>Event Location: | Event Date: </p>
+                <p>Event Time: | Event Date: </p>
                 <p>RSVP Link: </p>
                 <p>Attendance: </p>
             </div>

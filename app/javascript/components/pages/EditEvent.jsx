@@ -58,6 +58,28 @@ function EditEvent(props) {
         color: "white"
     }
 
+    const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "" }]);
+
+    // handle input change
+    const handleInputChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...inputList];
+        list[index][name] = value;
+        setInputList(list);
+    };
+
+    // handle click event of the Remove button
+    const handleRemoveClick = index => {
+        const list = [...inputList];
+        list.splice(index, 1);
+        setInputList(list);
+    };
+
+    // handle click event of the Add button
+    const handleAddClick = () => {
+        setInputList([...inputList, { virtual_link: "", building: "", room: "", city: "", stateloc: "" }]);
+    };
+
     return (props.trigger) ? (
         <>
             <div style={popup}>
@@ -78,6 +100,50 @@ function EditEvent(props) {
 
                         <label>Event Description:</label>
                         <textarea required style={inputStyle} id={"edit-description"+String(props.event.event_id)} defaultValue={props.event.description}  type="text" onChange={props.changeFunc}/>
+
+                        <label>Locations</label>
+                        {inputList.map((x, i) => {
+                            return (
+                            <div className="box">
+                                <input
+                                name="virtual_link"
+                                placeholder="Enter Virtual Link"
+                                value={x.virtual_link}
+                                onChange={e => handleInputChange(e, i)}
+                                />
+                                <input
+                                name="building"
+                                placeholder="Enter Building"
+                                value={x.building}
+                                onChange={e => handleInputChange(e, i)}
+                                />
+                                <input
+                                name="room"
+                                placeholder="Enter Room"
+                                value={x.room}
+                                onChange={e => handleInputChange(e, i)}
+                                />
+                                <input
+                                name="city"
+                                placeholder="Enter City"
+                                value={x.city}
+                                onChange={e => handleInputChange(e, i)}
+                                />
+                                <input
+                                name="stateloc"
+                                placeholder="Enter State"
+                                value={x.stateloc}
+                                onChange={e => handleInputChange(e, i)}
+                                />
+                                <div className="btn-box">
+                                {inputList.length !== 1 && <button
+                                    className="mr10"
+                                    onClick={() => handleRemoveClick(i)}>Remove</button>}
+                                {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
+                                </div>
+                            </div>
+                            );
+                        })}
 
                         <input style={confirmStyle} type="submit" value="Confirm Edit" />
                         <button style={deleteStyle} type="button" name={String(props.event.event_id)} onClick={props.deleteFunc}>Delete Event</button>
