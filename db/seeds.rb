@@ -49,7 +49,7 @@ Location.create([
     building: "Zachry",
     room: "244",
     city: "College Station",
-    state: "Texas"
+    stateloc: "Texas"
   },
   {
     location_id: 2,
@@ -58,6 +58,6 @@ Location.create([
     building: "MSC",
     room: "598",
     city: "College Station",
-    state: "Texas"
+    stateloc: "Texas"
   }
 ])

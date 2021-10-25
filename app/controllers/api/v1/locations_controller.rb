@@ -1,9 +1,10 @@
 class Api::V1::LocationsController < ApplicationController
   before_action :set_location, only: [:show, :edit, :update, :destroy]
+  wrap_parameters format: []
 
   # GET /locations or /locations.json
   def index
-    @locations = Location.all
+    @locations = Location.all.order("id ASC")
     render json: @locations
   end
 
@@ -27,7 +28,7 @@ class Api::V1::LocationsController < ApplicationController
 
   # POST /locations or /locations.json
   def create
-    @location = location.create!(location_params)
+    @location = Location.create!(location_params)
     if @location
       render json: @location
     else
@@ -58,6 +59,6 @@ class Api::V1::LocationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def location_params
-      params.permit(:location_id, :location_id, :virtual_link, :building, :room, :city, :state)
+      params.permit(:location_id, :event_id, :virtual_link, :building, :room, :city, :stateloc)
     end
 end

@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_164150) do
     t.string "building"
     t.string "room"
     t.string "city"
-    t.string "state"
+    t.string "stateloc"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

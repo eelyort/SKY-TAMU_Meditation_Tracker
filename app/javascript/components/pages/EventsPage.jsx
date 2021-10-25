@@ -29,8 +29,7 @@ const EventsPage = (props) => {
   }
 
 
-  const databaseRequest = (method, body, event_id) => {
-    var url = "/api/v1/events";
+  const databaseRequest = (method, body, event_id, url = "/api/v1/events", callback = () => NULL) => {
 
     if(method == "DELETE" || method == "PATCH") {
       url += "/"+String(event_id);
@@ -49,6 +48,7 @@ const EventsPage = (props) => {
 
     .then(response => {
       if (response.ok) {
+        callback();
         return response.json();
       }
       throw new Error("Network response was not ok.");
@@ -245,7 +245,8 @@ const EventsPage = (props) => {
         deleteFunc={handleDelete}
         changeFunc={onChange}
         trigger={editEvent} 
-        setTrigger={setEditEvent}>
+        setTrigger={setEditEvent}
+        databaseRequest={databaseRequest}>
       </EditEvent>
       </>
     );
