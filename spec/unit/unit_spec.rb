@@ -1,6 +1,7 @@
 # location: spec/unit/unit_spec.rb
 require 'rails_helper'
 
+# Events
 # Sunny day test
 RSpec.describe Event, type: :model do
   subject do
@@ -108,3 +109,51 @@ RSpec.describe Event, type: :model do
     expect(subject).not_to be_valid
   end
 end
+
+# Users
+# Sunny day test
+RSpec.describe User, type: :model do
+  subject do
+    described_class.new(username: 'testemail@tamu.edu', firstname: 'firstName', lastname: 'lastName', user_type: 1)
+  end
+
+  it 'is valid with complete valid attributes' do
+    expect(subject).to be_valid
+  end
+
+  it 'is valid with minimal valid attributes' do
+    subject.firstname = nil
+    subject.lastname = nil
+    subject.user_type = nil
+    expect(subject).to be_valid
+  end
+
+  it 'is valid and succesfully creates in database with complete attributes' do
+    params = {username: 'testemail@tamu.edu', firstname: 'firstName', lastname: 'lastName', user_type: 1}
+    one = described_class.create!(params)
+    expect(one).to be_valid
+  end
+
+  it 'is valid and succesfully creates in database with minimal attributes' do
+    params = {username: 'testemail@tamu.edu'}
+    one = described_class.create!(params)
+    expect(one).to be_valid
+  end
+
+  it 'succesfully creates in database with correct default values' do
+    params = {username: 'testemail@tamu.edu'}
+    one = described_class.create!(params)
+    expect(one).to have_attributes(:user_type => 1)
+  end
+ end
+ # Rainy Day Test: username
+ RSpec.describe User, type: :model do
+  subject do
+    described_class.new(username: 'testemail@tamu.edu', firstname: 'firstName', lastname: 'lastName', user_type: 1)
+  end
+
+  it 'is invalid with an empty username' do
+    subject.username = nil
+    expect(subject).not_to be_valid
+  end
+ end

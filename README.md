@@ -44,7 +44,9 @@ Download this code repository by using git:
 
 An RSpec test suite is available and can be ran using:
 
-  `rspec spec/`
+  * `rspec ./spec`
+    * `rspec ./spec/unit/unit_spec.rb`
+    * `rspec ./spec/controller/controller_spec.rb`
 
 # Execute Code
 
