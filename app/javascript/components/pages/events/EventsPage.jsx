@@ -163,6 +163,7 @@ const EventsPage = (props) => {
             throw new Error("Network response was not ok.");
         })
         .then(response => setEvents( response ))
+        .catch(error => console.log(error));
   }
   
   const getEventIndex = (event_id) => {

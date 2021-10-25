@@ -18,7 +18,7 @@ function AddEventForm(props) {
     const popupInner = {
         borderRadius: "20px",
         position: 'relative',
-        padding: '32px',
+        padding: '16px',
         width: '100%',
         maxWidth: '640px',
         backgroundColor: 'white'
@@ -32,8 +32,8 @@ function AddEventForm(props) {
 
    const inputStyle = {
         width: "100%",
-        padding: "12px 20px",
-        margin: "8px 0",
+        padding: "12px 0px",
+        margin: "5px 0px 15px 0px",
         display: "inline-block"
     }
 

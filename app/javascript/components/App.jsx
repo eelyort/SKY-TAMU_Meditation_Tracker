@@ -10,7 +10,6 @@ import EventsPage from "./pages/events/EventsPage";
 import ShowEventPage from "./pages/events/ShowEventPage";
 import UsersPage from "./pages/users/UsersPage";
 import UsersShowEditPage from "./pages/users/UsersShowEditPage";
-import ShowEventPage from "./pages/ShowEventPage";
 import LoginPage from "./pages/LoginPage";
 import SocialMediaPage from "./pages/SocialMediaPage";
 import AttendancePage from "./pages/AttendancePage";
