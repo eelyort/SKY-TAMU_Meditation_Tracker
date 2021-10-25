@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_10_15_182827) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
-
+  
   create_table "recipes", force: :cascade do |t|
     t.string "name", null: false
     t.text "ingredients", null: false
@@ -28,15 +28,6 @@ ActiveRecord::Schema.define(version: 2021_10_15_182827) do
     t.string "image", default: "https://raw.githubusercontent.com/do-community/react_rails_recipe/master/app/assets/images/Sammy_Meal.jpg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "firstname"
-    t.string "lastname"
-    t.integer "user_type", default: 1
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
 end
