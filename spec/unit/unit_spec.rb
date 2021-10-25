@@ -4,27 +4,44 @@ require 'rails_helper'
 # Sunny day test
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(event_id: "1", admin_id: "101", title: 'Meditation', Description:'This is a test description', time:"October 01, 2021")
+    described_class.new(event_id: 0, admin_id: 0, title: 'Meditation', description:'This is a test description', time:"October 01, 2021")
   end
 
   it 'is valid with valid attributes' do
     expect(subject).to be_valid
+  end
+
+
+  it 'is valid and created on database' do
+    params = {event_id: 15, admin_id: 0, title: 'Meditation', description:'This is a test description', time:"October 01, 2021"}
+    one = Event.create!(params)
+    expect(one).to be_valid
   end
  end
 
 # Rainy day test - Event ID
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(event_id: "1", admin_id: "101", title: 'Meditation', Description:'This is a test description', time:"October 01, 2021")
+    described_class.new(event_id: 0, admin_id: 0, title: 'Meditation', description:'This is a test description', time:"October 01, 2021")
   end
 
-  it 'Event ID is invalid (needs to be integer)' do
+  it 'ID is invalid (needs to be integer)' do
     subject.event_id = "test"
     expect(subject).not_to be_valid
   end
 
-  it 'Event ID cannot be empty' do
+  it 'ID cannot be empty' do
     subject.event_id = nil
+		expect(subject).not_to be_valid
+	end
+
+  it 'ID cannot be a float (needs to be integer)' do
+    subject.event_id = 1.567
+		expect(subject).not_to be_valid
+	end
+
+  it 'ID cannot be less than zero' do
+    subject.event_id = -1
 		expect(subject).not_to be_valid
 	end
 end
@@ -32,16 +49,26 @@ end
 # Rainy day test - Admin ID
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(event_id: "1", admin_id: "101", title: 'Meditation', Description:'This is a test description', time:"October 01, 2021")
+    described_class.new(event_id: 0, admin_id: 0, title: 'Meditation', description:'This is a test description', time:"October 01, 2021")
   end
 
-  it 'Admin ID is invalid (needs to be integer)' do
+  it 'admin ID is invalid (needs to be integer)' do
     subject.admin_id = "test"
     expect(subject).not_to be_valid
   end
 
-  it 'Admin ID cannot be empty' do
+  it 'admin ID cannot be empty' do
     subject.admin_id = nil
+		expect(subject).not_to be_valid
+	end
+
+  it 'admin ID cannot be a float (needs to be integer)' do
+    subject.admin_id = 1.567
+		expect(subject).not_to be_valid
+	end
+
+  it 'admin ID cannot be less than zero' do
+    subject.admin_id = -1
 		expect(subject).not_to be_valid
 	end
 end
@@ -49,28 +76,35 @@ end
 # Rainy day test - title
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(event_id: "1", admin_id: "101", Description:'This is a test description', time:"October 01, 2021")
+    described_class.new(event_id: 0, admin_id: 0, title: 'Meditation', description:'This is a test description', time:"October 01, 2021")
   end
 
-	it 'Title is invalid (needs to be string)' do
-    subject.title = 31
-    expect(subject).not_to be_valid
-  end
-
-  it 'Title cant be empty' do
+  it 'title cannot be empty' do
     subject.title = nil
     expect(subject).not_to be_valid
   end
 end
 
-# Rainy day test - authdescriptionor
+# Rainy day test - description
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(event_id: "1", admin_id: "101", title: 'Meditation', Description:'This is a test description', time:"October 01, 2021")
+    described_class.new(event_id: 0, admin_id: 0, title: 'Meditation', description:'This is a test description', time:"October 01, 2021")
   end
 
-  it 'Author cant be empty' do
-    subject.author = nil
+  it 'description cannot be empty' do
+    subject.description = nil
+    expect(subject).not_to be_valid
+  end
+end
+
+# Rainy day test - time
+RSpec.describe Event, type: :model do
+  subject do
+    described_class.new(event_id: 0, admin_id: 0, title: 'Meditation', description:'This is a test description', time:"October 01, 2021")
+  end
+
+  it 'time cannot be empty' do
+    subject.time = nil
     expect(subject).not_to be_valid
   end
 end
