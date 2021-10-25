@@ -5,6 +5,7 @@ import AddEventForm from './AddEventForm'
 import EditEvent from './EditEvent'
 
 const EventsPage = (props) => {
+  const { isAdmin = true } = props;
 
   var state = {
     title: "",
@@ -16,6 +17,7 @@ const EventsPage = (props) => {
   const [addForm, setAddForm] = useState(false)
   const [editEvent, setEditEvent] = useState(false)
   const [eventIndex, setEventIndex] = useState(0)
+  const [eventsEmpty, setEventsEmpty] = useState(false)
 
 
   const onChange = (e) => {
@@ -56,59 +58,83 @@ const EventsPage = (props) => {
     .catch(error => console.log(error.message));
   }
 
+  const checkUniqueId = (event_id) => {
+    var uniqueID = false;
 
-  const handleAdd = (e) => {
-    e.preventDefault();
-    const answer = window.confirm("Are you sure you would like to add this event?");
+    while (uniqueID == false) {
+      var skip = false;
 
-    if (answer) {
-      const { title, time, description } = state;
-      const event_id = events.length + 1
-      const admin_id = 101
-
-      const body = {
-        event_id,
-        admin_id,
-        title,
-        description,
-        time
-      };
-
-      databaseRequest("POST", body, event_id);
-
-      setAddForm(false)
-      window.location.reload(true);
-    }
-  };
-
-
-  const handleEdit = (e) => {
-    e.preventDefault();
-
-    const answer = window.confirm("Are you sure you would like to edit this event?");
-
-      if (answer) {
-        const event_id =  e.target.name
-        const admin_id = 101
-
-        const title = document.getElementById("edit-title"+String(event_id)).value;
-        const time = document.getElementById("edit-time"+String(event_id)).value;
-        const description = document.getElementById("edit-description"+String(event_id)).value;
-
-        const body = {
-          event_id,
-          admin_id,
-          title,
-          description,
-          time
-        };
-
-        databaseRequest("PATCH", body, event_id)
-        
-        setEditEvent(false)
-        window.location.reload(true);
+      events.forEach(event => {
+        console.log("Database ID", event.event_id)
+        console.log("Attempt ID", event_id, "\n")
+        if(event.event_id == event_id) {
+          event_id += 1;
+          skip = true;
+        }
+      });
+      if(skip){
+        skip = false;
+        continue;
       }
-  };
+      uniqueID = true;
+    }
+    return event_id;
+  }
+
+	const handleAdd = (e) => {
+		e.preventDefault();
+		const answer = window.confirm("Are you sure you would like to add this event?");
+
+		if (answer) {
+			const { title, time, description } = state;
+			var event_id = events.length + 1
+			const admin_id = 101
+
+			event_id = checkUniqueId(event_id)
+
+			const body = {
+				event_id,
+				admin_id,
+				title,
+				description,
+				time
+			};
+
+			databaseRequest("POST", body, event_id);
+
+			setAddForm(false)
+			window.location.reload(true);
+		}
+	};
+
+
+	const handleEdit = (e) => {
+		e.preventDefault();
+
+		const answer = window.confirm("Are you sure you would like to edit this event?");
+
+		if (answer) {
+			const event_id =  e.target.name
+			const admin_id = 101
+
+			const title = document.getElementById("edit-title"+String(event_id)).value;
+			const time = document.getElementById("edit-time"+String(event_id)).value;
+			const description = document.getElementById("edit-description"+String(event_id)).value;
+
+			const body = {
+				event_id,
+				admin_id,
+				title,
+				description,
+				time
+			};
+
+			databaseRequest("PATCH", body, event_id)
+			
+			setEditEvent(false)
+			window.location.reload(true);
+		}
+	};
 
 
   const handleDelete = (e) => {
@@ -138,7 +164,15 @@ const EventsPage = (props) => {
         })
         .then(response => setEvents( response ))
   }
-
+  
+  const getEventIndex = (event_id) => {
+	events.forEach(event => {
+		var i = 0
+        if(event.event_id == event_id) {
+		  return i;
+        }
+    });
+  }
 
   function loadEvents() {
     useEffect(() => {
@@ -159,7 +193,7 @@ const EventsPage = (props) => {
 
   var cardContainer = {
     display: 'grid',
-    gridTemplateColumns: "repeat(1fr)",
+    gridTemplateColumns: "repeat(3, 1fr)",
     justifyContent: 'center',
     alignItems: 'stretch',
     margin: "5% 15% 5% 15%"
@@ -191,7 +225,7 @@ const EventsPage = (props) => {
 //     backgroundColor: '#white'
 //   }
 
-  var addBtn = {
+  var addBtnStyle = {
     position: "absolute",
     top: "2%",
     right: "2%",
@@ -200,8 +234,8 @@ const EventsPage = (props) => {
 
   if (events.length != 0) {
     const eventCards = events.map( (event, index) => 
-      <Card key={event.event_id} style={index == 0 ? cardStyle0 : cardStyle1}>
-        <CardActionArea onClick={() => {goToEvent(index+1)}}>
+      <Card key={event.event_id} style={index == 0 ? cardStyle0 : cardStyle0}>
+        <CardActionArea onClick={() => {goToEvent(event.event_id)}}>
           <CardHeader
             style={headerStyle}
             title={event.title}
@@ -210,12 +244,11 @@ const EventsPage = (props) => {
           </CardActionArea>
 
           <CardContent>
-            <Typography color="text.secondary">
+            <Typography style={{whiteSpace: 'pre-line'}} color="text.secondary">
               {event.description}
             </Typography>
           </CardContent>
 
-          {/*<button style={{position:"relative", left: "30%"}} onClick={() => {goToEvent(index+1)}}>View More</button>*/}
           <button onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>
       </Card>
       
@@ -224,10 +257,10 @@ const EventsPage = (props) => {
     return (
       <>
       <div style={{position: "relative"}}>
-        <button style={addBtn} onClick={() => setAddForm(true)}>New Event</button>
+        <button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>
 
         <div style={cardContainer}>
-			{eventCards}
+				{eventCards}
         </div>
       </div>
 
@@ -253,8 +286,21 @@ const EventsPage = (props) => {
   } else {
 
     return (
-        <>
-            <h1>No Events Found</h1>
+        <>  
+
+            <div style={{position: "relative"}}>
+              <h1>Loading Events...</h1>
+
+              <button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>
+            </div>
+
+            <AddEventForm
+              comp="Event"
+              submitFunc={handleAdd}
+              changeFunc={onChange}
+              trigger={addForm} 
+              setTrigger={setAddForm}>
+            </AddEventForm>
         </>
     );
   }
