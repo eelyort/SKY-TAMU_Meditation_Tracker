@@ -102,7 +102,7 @@ const AttendancePage = (props) => {
     const editLink = (attendance) => `/attendances/${attendance.id}/edit`;
 
     return (
-        <div className={'users=-wrapper flex-spacer'}>
+        <div className={'users-wrapper flex-spacer'}>
             <Typography variant={"h2"}>
                 Attendance
             </Typography>
