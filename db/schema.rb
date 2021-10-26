@@ -30,6 +30,18 @@ ActiveRecord::Schema.define(version: 2021_10_15_182827) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.integer "location_id"
+    t.integer "event_id"
+    t.string "virtual_link"
+    t.string "building"
+    t.string "room"
+    t.string "city"
+    t.string "stateloc"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "recipes", force: :cascade do |t|
     t.string "name", null: false
     t.text "ingredients", null: false

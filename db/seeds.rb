@@ -54,3 +54,24 @@ Event.create([
     time: "Every Thursday"
   }
 ])
+
+Location.create([
+  {
+    location_id: 1,
+    event_id: 2,
+    virtual_link: "google.com",
+    building: "Zachry",
+    room: "244",
+    city: "College Station",
+    stateloc: "Texas"
+  },
+  {
+    location_id: 2,
+    event_id: 2,
+    virtual_link: "bing.com",
+    building: "MSC",
+    room: "598",
+    city: "College Station",
+    stateloc: "Texas"
+  }
+])

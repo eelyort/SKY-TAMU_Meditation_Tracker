@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  
+  namespace :api do
+    namespace :v1 do
+      resources :locations, param: :id
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :events, param: :id
+    end
+  end
 
     # root to: 'dashboards#show'
     # devise_for :admins, controllers: { omniauth_callbacks: 'admins/omniauth_callbacks' }
