@@ -130,7 +130,7 @@ const UsersPage = (props) => {
                             ) : (null)}
                         </div>
                     ))}
-                    {deleteConfirmationDialog(users[deleteUserIndex], deleteUserIndex)}
+                    {users.length > 0 ? deleteConfirmationDialog(users[deleteUserIndex], deleteUserIndex) : null}
                 </>
             ) : (<CircularProgress />)}
             {isLoading ? (
