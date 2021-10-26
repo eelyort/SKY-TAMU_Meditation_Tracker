@@ -1,4 +1,3 @@
-
 import {
     Typography, CircularProgress, IconButton, Button,
     Dialog, DialogTitle, DialogActions,
@@ -7,16 +6,15 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React from "react";
 import { Link } from "react-router-dom";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
-import { userTypes } from "./UsersConstants";
-
-const UsersPage = (props) => {
-    const { isAdmin = true } = props;
-    const [users, setUsers] = React.useState(undefined);
+const AttendancePage = (props) => {
+    const { isAdmin = true } = props
+    const [attendance, setAttendance] = React.useState(undefined);
 
     // componentDidMount
-    const fetchUsers = () => {
-        const url = "/users";
+    const fetchAttendance = () => {
+        const url = "/attendances";
         fetch(url)
             .then(response => {
                 if (response.ok) {
@@ -25,31 +23,32 @@ const UsersPage = (props) => {
                 throw new Error("Network response was not ok.");
             })
             .then(response => {
-                setUsers(response);
+                console.log(response);
+                setAttendance(response);
             })
             .catch(err => console.log("Error: " + err));
     }
     React.useEffect(() => {
-        fetchUsers();
+        fetchAttendance();
     }, []);
 
     // delete handler
     const [isLoading, setIsLoading] = React.useState(false);
     const [deleteConfirmOpen, setDeleteConfirmOpen] = React.useState(false);
-    const [deleteUserIndex, setDeleteUserIndex] = React.useState(0);
-    const deleteConfirmationDialog = (userToDelete, userToDeleteIndex) => (
+    const [deleteAttendanceIndex, setDeleteAttendanceIndex] = React.useState(0);
+    const deleteConfirmationDialog = (attendanceToDelete, attendanceToDeleteIndex) => (
         <Dialog
             open={deleteConfirmOpen}
             onClose={() => setDeleteConfirmOpen(false)}
-            aria-labelledby="delete-user-confirmation-box"
+            aria-labelledby="delete-Attendance-confirmation-box"
         >
             <DialogTitle id="alert-dialog-title">
-                {`Delete User ${userToDelete.firstname} ${userToDelete.lastname}?`}
+                {`Delete this Attendance?`}
             </DialogTitle>
             <DialogActions>
             <Button
                 onClick={() => setDeleteConfirmOpen(false)}
-                aria-labelledby={`Cancel Delete User ${userToDelete.firstname} ${userToDelete.lastname}`}
+                aria-labelledby={`Cancel Delete Attendance`}
             >
                 Cancel
             </Button>
@@ -58,8 +57,8 @@ const UsersPage = (props) => {
                     setIsLoading(true);
                     const {
                         id
-                    } = userToDelete;
-                    const url = `/users/${id}`;
+                    } = attendanceToDelete;
+                    const url = `/attendances/${id}`;
                     const token = document.querySelector('meta[name="csrf-token"]').content;
 
                     fetch(url, {
@@ -78,12 +77,12 @@ const UsersPage = (props) => {
                         .then(() => {
                             setIsLoading(false);
                             setDeleteConfirmOpen(false);
-                            setDeleteUserIndex(0);
-                            fetchUsers();
+                            setDeleteAttendanceIndex(0);
+                            fetchAttendance();
                         })
                         .catch(error => console.log(error.message));
                 }}
-                aria-labelledby={`Confirm Delete User ${userToDelete.firstname} ${userToDelete.lastname}`}
+                aria-labelledby={`Confirm Delete Attendance`}
                 autoFocus
             >
                 Yes, Delete
@@ -91,48 +90,45 @@ const UsersPage = (props) => {
             </DialogActions>
         </Dialog>
     );
-    const deleteUser = (userIndex) => {
-        setDeleteUserIndex(userIndex);
+    const deleteAttendance = (attendanceIndex) => {
+        console.log("hello")
+        setDeleteAttendanceIndex(attendanceIndex);
         setDeleteConfirmOpen(true);
     };
 
-    console.log(users);
+    console.log(attendance);
 
-    const showLink = (user) => `/members/${user.id}`;
-    const editLink = (user) => `/members/${user.id}/edit`;
+    const showLink = (attendance) => `/attendances/${attendance.id}`;
+    const editLink = (attendance) => `/attendances/${attendance.id}/edit`;
 
     return (
-        <div className={'users-wrapper flex-spacer'}>
+        <div className={'users=-wrapper flex-spacer'}>
             <Typography variant={"h2"}>
-                Members
+                Attendance
             </Typography>
-            {users ? (
+            {attendance ? (
                 <>
-                    {users.map((user, userIndex) => (
-                        <div className={'user-div'} key={`user ${user.id}`}>
-                            {/* <Typography variant={"h5"} className={'user-text-center'} component={Link} to={showLink(user)}> */}
-                            <Typography variant={"h5"} className={'user-text-center'}>
-                                {`${user.firstname} ${user.lastname}`}
+                    {attendance.map((attendance, attendanceIndex) => (
+                        <div className={'user-div'} key={`user ${attendance.id}`}>
+                            <Typography variant={"h5"} className={'user-text-center'} component={Link} to={showLink(attendance)}>
+                                {`${attendance.RSVP}`}
                             </Typography>
                             <div className={'flex-spacer'} />
                             {isAdmin ? (
                                 <div className={'user-actions'}>
-                                    <Button variant={"outlined"} color='secondary' component={Link} to={editLink(user)} aria-labelledby={`Edit User ${user.firstname} ${user.firstname}`}>
-                                        {userTypes[user.user_type]}
-                                    </Button>
-                                    <IconButton color="secondary" aria-labelledby={`Edit user '${user.firstname} ${user.lastname}'`} component={Link} to={editLink(user)}>
-                                        <EditIcon />
-                                    </IconButton>
-                                    <IconButton color="secondary" aria-labelledby={`Delete user '${user.firstname} ${user.lastname}'`} onClick={() => deleteUser(userIndex)}>
+                                    <IconButton color="secondary" aria-labelledby={`Delete Attendance`} onClick={() => deleteAttendance(attendanceIndex)}>
                                         <DeleteIcon />
                                     </IconButton>
                                 </div>
                             ) : (null)}
                         </div>
                     ))}
-                    {deleteConfirmationDialog(users[deleteUserIndex], deleteUserIndex)}
+                    {deleteConfirmationDialog(attendance[deleteAttendanceIndex], deleteAttendanceIndex)}
                 </>
             ) : (<CircularProgress />)}
+            <IconButton color="secondary" aria-labelledby={`New Attendance`} component={Link} to={'/newAttendance'}>
+                <AddCircleOutlineIcon />
+            </IconButton>
             {isLoading ? (
                 <div className="users-is-loading">
                     <div className="users-loading-circle">
@@ -144,4 +140,4 @@ const UsersPage = (props) => {
     );
 }
 
-export default UsersPage;
+export default AttendancePage;
