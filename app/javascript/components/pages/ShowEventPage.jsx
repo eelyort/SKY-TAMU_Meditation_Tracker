@@ -29,6 +29,19 @@ const ShowEventPage = (props) => {
             .then(response => setEvent( response ))
     }
 
+    const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "" }]);
+
+    const getInputList = () => {
+        const url = "/api/v1/locations";
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Network response was not ok.");
+            })
+            .then(response => setInputList(response))
+    }
 
     function loadEvent() {
         useEffect(() => {
@@ -36,10 +49,18 @@ const ShowEventPage = (props) => {
         }, []);
     }
     
+    function loadInputList() {
+        useEffect(() => {
+            getInputList()
+        }, []);
+        }
     
+    loadInputList()
+
     loadEvent()
     console.log(event)
 
+        
 
     if (event.length != 0) {
         return(
@@ -51,6 +72,25 @@ const ShowEventPage = (props) => {
                     <p>{event.description}</p>
                     <p>RSVP Link: </p>
                     <p>Attendance: </p>
+                    <p>Locations:</p>
+                        {inputList.map((x, i) => {
+                            if(x.event_id == props.match.params.id || !x.event_id){
+                                return (
+                                <div>
+                                    <ul>
+                                        <li>Virtual Link: {x.virtual_link}</li>
+                                        <li>Building: {x.building}</li>
+                                        <li>Room: {x.room}</li>
+                                        <li>City: {x.city}</li>
+                                        <li>State: {x.stateloc}</li>
+                                    </ul>
+                                </div>
+                                );
+                            }
+                            else{
+                                return null;
+                            }
+                        })}
                 </div>
             </div>
             </>
