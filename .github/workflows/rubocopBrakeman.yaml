@@ -17,10 +17,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Ruby and install gems
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
+      - name: Setup Ruby, JRuby and TruffleRuby
+        uses: ruby/setup-ruby@v1.84.0
+
       # Add or Replace any other security checks here
       - name: Run security checks
         run: |
