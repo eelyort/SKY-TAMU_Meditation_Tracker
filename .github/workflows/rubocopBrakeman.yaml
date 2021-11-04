@@ -19,6 +19,8 @@ jobs:
 
       - name: Setup Ruby, JRuby and TruffleRuby
         uses: ruby/setup-ruby@v1.84.0
+        run: |
+          bundle install
 
       # Add or Replace any other security checks here
       - name: Run security checks
