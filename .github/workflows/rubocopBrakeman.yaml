@@ -20,14 +20,21 @@ jobs:
       - name: Setup Ruby, JRuby and TruffleRuby
         uses: ruby/setup-ruby@v1.84.0
 
-      - name: Bundle Install
+      - name: Start ruby server
         run: |
           bundle install
+          rails db:create
+          rails db:migrate
+          rails s --binding=localhost
 
       # Add or Replace any other security checks here
       - name: Run security checks
         run: |
           brakeman -q -w2
+      # Add or Replace any other security checks here
+      - name: Run rspec
+        run: |
+          rspec ./spec
       # Add or Replace any other Linters here
       - name: Run linters
         run: |
