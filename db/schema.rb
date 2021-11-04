@@ -15,12 +15,6 @@ ActiveRecord::Schema.define(version: 2021_10_15_182827) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "attendances", force: :cascade do |t|
-    t.string "RSVP"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "admins", force: :cascade do |t|
     t.string "email", null: false
     t.string "full_name"
@@ -29,6 +23,21 @@ ActiveRecord::Schema.define(version: 2021_10_15_182827) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
+  end
+
+  create_table "attendances", force: :cascade do |t|
+    t.string "RSVP"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "events", primary_key: "event_id", id: :serial, force: :cascade do |t|
+    t.integer "admin_id"
+    t.string "title"
+    t.text "description"
+    t.string "time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "recipes", force: :cascade do |t|
