@@ -19,9 +19,10 @@ function EditEvent(props) {
     }
 
     const popupInner = {
+        fontFamily: "Arial, Helvetica, sans-serif",
         borderRadius: "20px",
         position: 'relative',
-        padding: '32px',
+        padding: '16px',
         width: '100%',
         maxWidth: '640px',
         backgroundColor: 'white'
@@ -33,11 +34,23 @@ function EditEvent(props) {
         right: '16px'
     }
 
-   const inputStyle = {
+    const inputStyle = {
+        fontFamily: "Arial, Helvetica, sans-serif",
+        textIndent: "1em",
         width: "100%",
-        padding: "12px 20px",
-        margin: "8px 0",
+        padding: "12px 0px",
+        margin: "5px 0px 15px 0px",
         display: "inline-block"
+    }
+    
+    const textAreaStyle = {
+        inputStyle,
+        minHeight: "100px",
+        minWidth: "100%",
+        maxWidth: "100%",
+        fontFamily: "Arial, Helvetica, sans-serif",
+        textIndent: "1em",
+        padding: "12px 0px"
     }
 
     const confirmStyle = {
@@ -152,19 +165,38 @@ function EditEvent(props) {
                     <button style={closeBtn} onClick={() => props.setTrigger(false)}>Cancel</button>
                     {props.children}
 
-                    <h1>Edit {props.event.title}</h1>
+                    <h1>Editing {"\"" + props.event.title + "\""}</h1>
 
                     <div>
-                        <form id= "add-event" name={String(props.event.event_id)} onSubmit={props.submitFunc}> 
+                        <form 
+                            id= "add-event" 
+                            name={String(props.event.event_id)} 
+                            onSubmit={props.submitFunc}> 
 
                         <label>Event Title:</label>
-                        <input required style={inputStyle} id={"edit-title"+String(props.event.event_id)} defaultValue={props.event.title}  type="string" onChange={props.changeFunc}/>
+                        <input 
+                            required 
+                            style={inputStyle} 
+                            id={"edit-title"+String(props.event.event_id)} 
+                            defaultValue={props.event.title}  
+                            type="string" onChange={props.changeFunc}/>
 
                         <label>Event Time:</label>
-                        <input required style={inputStyle} id={"edit-time"+String(props.event.event_id)} defaultValue={props.event.time}  type="string" onChange={props.changeFunc}/>
+                        <input 
+                            required 
+                            style={inputStyle} 
+                            id={"edit-time"+String(props.event.event_id)} 
+                            defaultValue={props.event.time} 
+                            type="string" 
+                            onChange={props.changeFunc}/>
 
                         <label>Event Description:</label>
-                        <textarea required style={inputStyle} id={"edit-description"+String(props.event.event_id)} defaultValue={props.event.description}  type="text" onChange={props.changeFunc}/>
+                        <textarea   
+                            required style={textAreaStyle} 
+                            id={"edit-description"+String(props.event.event_id)} 
+                            defaultValue={props.event.description}  
+                            type="text" 
+                            onChange={props.changeFunc}/>
 
                         <label>Locations</label>
                         {inputList.map((x, i) => {

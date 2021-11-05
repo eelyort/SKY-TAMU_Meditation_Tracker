@@ -5,7 +5,7 @@ const ShowEventPage = (props) => {
     const [event, setEvent] = useState([])
 
     const cardStyle = {
-        backgroundColor: "#69306D",
+        backgroundColor: "#C8A2C8",
         color: "black",
         border: "2px solid black",
         margin: "5% 10% 0% 10%",
