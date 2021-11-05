@@ -58,7 +58,7 @@ function EditEvent(props) {
         color: "white"
     }
 
-    const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "" }]);
+    const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "", date: "", time: "" }]);
 
     const getInputList = () => {
         const url = "/api/v1/locations";
@@ -69,7 +69,7 @@ function EditEvent(props) {
                 }
                 throw new Error("Network response was not ok.");
             })
-            .then(response => setInputList([...response, { virtual_link: "", building: "", room: "", city: "", stateloc: "" }]))
+            .then(response => setInputList([...response, { virtual_link: "", building: "", room: "", city: "", stateloc: "", date: "", time: "" }]))
     }
 
     // handle input change
@@ -81,7 +81,7 @@ function EditEvent(props) {
         setInputList(list);
 
         if(index != inputList.length-1){
-            const { virtual_link, building, room, city, stateloc, id } = inputList[index];
+            const { virtual_link, building, room, city, stateloc, date, time, id } = inputList[index];
             const event_id = props.event.event_id
 
             const body = {
@@ -90,7 +90,9 @@ function EditEvent(props) {
                 building,
                 room,
                 city,
-                stateloc
+                stateloc,
+                date,
+                time
             };
 
             props.databaseRequest("PATCH", body, id, "/api/v1/locations", () => getInputList());
@@ -118,7 +120,7 @@ function EditEvent(props) {
         const answer = window.confirm("Are you sure you would like to add this location?");
 
         if (answer) {
-            const { virtual_link, building, room, city, stateloc, id } = inputList[inputList.length-1];
+            const { virtual_link, building, room, city, stateloc, date, time, id } = inputList[inputList.length-1];
             const event_id = props.event.event_id
     
             const body = {
@@ -127,13 +129,15 @@ function EditEvent(props) {
                 building,
                 room,
                 city,
-                stateloc
+                stateloc,
+                date,
+                time
             };
     
             props.databaseRequest("POST", body, id, "/api/v1/locations", () => getInputList());
         }
 
-        setInputList([...inputList, { virtual_link: "", building: "", room: "", city: "", stateloc: "" }]);
+        setInputList([...inputList, { virtual_link: "", building: "", room: "", city: "", stateloc: "", date: "", time: "" }]);
     };
 
     function loadInputList() {
@@ -159,9 +163,6 @@ function EditEvent(props) {
 
                         <label>Event Title:</label>
                         <input required style={inputStyle} id={"edit-title"+String(props.event.event_id)} defaultValue={props.event.title}  type="string" onChange={props.changeFunc}/>
-
-                        <label>Event Time:</label>
-                        <input required style={inputStyle} id={"edit-time"+String(props.event.event_id)} defaultValue={props.event.time}  type="string" onChange={props.changeFunc}/>
 
                         <label>Event Description:</label>
                         <textarea required style={inputStyle} id={"edit-description"+String(props.event.event_id)} defaultValue={props.event.description}  type="text" onChange={props.changeFunc}/>
@@ -201,6 +202,18 @@ function EditEvent(props) {
                                     placeholder="Enter State"
                                     value={x.stateloc}
                                     onChange={e => handleInputChange(e, i)}
+                                    />
+                                    <input
+                                    name="date"
+                                    value={x.date}
+                                    onChange={e => handleInputChange(e, i)}
+                                    type="date"
+                                    />
+                                    <input
+                                    name="time"
+                                    value={x.time}
+                                    onChange={e => handleInputChange(e, i)}
+                                    type="time"
                                     />
                                     <div className="btn-box">
                                     {inputList.length !== 1 && <button

@@ -60,9 +60,6 @@ function AddEventForm(props) {
                         <label>Event Title:</label>
                         <input name="title" style={inputStyle} type="string" placeholder="Event Title" onChange={props.changeFunc} required/>
 
-                        <label>Event Time:</label>
-                        <input name="time" style={inputStyle} type="string" placeholder="Event Time" onChange={props.changeFunc} required/>
-
                         <label>Event Description:</label>
                         <textarea name="description" style={inputStyle} type="text" placeholder="Event Description..." onChange={props.changeFunc} required/>
 

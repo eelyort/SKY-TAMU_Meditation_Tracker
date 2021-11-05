@@ -5,7 +5,6 @@ class CreateEvents < ActiveRecord::Migration[6.1]
       t.integer :admin_id
       t.string :title
       t.text :description
-      t.string :time
 
       t.timestamps
     end

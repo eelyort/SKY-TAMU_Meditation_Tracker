@@ -29,7 +29,7 @@ const ShowEventPage = (props) => {
             .then(response => setEvent( response ))
     }
 
-    const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "" }]);
+    const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "", date: "", time: "" }]);
 
     const getInputList = () => {
         const url = "/api/v1/locations";
@@ -67,7 +67,6 @@ const ShowEventPage = (props) => {
             <>
             <div style={cardStyle}>
                 <h1>{event.title}</h1>
-                <p style={{borderBottom: "1px solid black", marginBottom: "5%"}}>Event Time: | {event.time} </p>
                 <div>
                     <p>{event.description}</p>
                     <p>RSVP Link: </p>
@@ -83,6 +82,8 @@ const ShowEventPage = (props) => {
                                         <li>Room: {x.room}</li>
                                         <li>City: {x.city}</li>
                                         <li>State: {x.stateloc}</li>
+                                        <li>Date: {x.date}</li>
+                                        <li>Time: {x.datetime}</li>
                                     </ul>
                                 </div>
                                 );
@@ -102,7 +103,6 @@ const ShowEventPage = (props) => {
             <h1>Event Static Title</h1>
             <div>
                 <p>Event Description</p>
-                <p>Event Time: | Event Date: </p>
                 <p>RSVP Link: </p>
                 <p>Attendance: </p>
             </div>

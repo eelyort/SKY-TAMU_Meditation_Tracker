@@ -9,7 +9,6 @@ const EventsPage = (props) => {
 
   var state = {
     title: "",
-    time: "",
     description: ""
   };
 
@@ -23,8 +22,6 @@ const EventsPage = (props) => {
   const onChange = (e) => {
     if (e.target.name == "title"){
       state.title = e.target.value
-    } else if (e.target.name == "time") {
-      state.time = e.target.value
     } else {
       state.description = e.target.value
     }
@@ -86,7 +83,7 @@ const EventsPage = (props) => {
 		const answer = window.confirm("Are you sure you would like to add this event?");
 
 		if (answer) {
-			const { title, time, description } = state;
+			const { title, description } = state;
 			var event_id = events.length + 1
 			const admin_id = 101
 
@@ -96,8 +93,7 @@ const EventsPage = (props) => {
 				event_id,
 				admin_id,
 				title,
-				description,
-				time
+				description
 			};
 
 			databaseRequest("POST", body, event_id);
@@ -118,15 +114,13 @@ const EventsPage = (props) => {
 			const admin_id = 101
 
 			const title = document.getElementById("edit-title"+String(event_id)).value;
-			const time = document.getElementById("edit-time"+String(event_id)).value;
 			const description = document.getElementById("edit-description"+String(event_id)).value;
 
 			const body = {
 				event_id,
 				admin_id,
 				title,
-				description,
-				time
+				description
 			};
 
 			databaseRequest("PATCH", body, event_id)
@@ -240,7 +234,6 @@ const EventsPage = (props) => {
           <CardHeader
             style={headerStyle}
             title={event.title}
-            subheader={<Typography style={headerStyle}>{event.time}</Typography>}
           />
           </CardActionArea>
 

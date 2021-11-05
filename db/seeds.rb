@@ -34,15 +34,13 @@ Event.create([
     event_id: 1,
     admin_id: 101,
     title: "Online SKY Happiness Retreat",
-    description: "3-session Retreat which trains participants in the evidence-based SKY meditation practice, breathwork practices, yoga, social connection, emotional intelligence, and mindful leadership. SKY Meditation has been shown to significantly reduce anxiety and depression, lower stress markers, and increase wellbeing, focus, and optimism. This is one of the most powerful programs that we offer, and we support committed students with scholarships also for the retreat.",
-    time: "Sept 18-20"
+    description: "3-session Retreat which trains participants in the evidence-based SKY meditation practice, breathwork practices, yoga, social connection, emotional intelligence, and mindful leadership. SKY Meditation has been shown to significantly reduce anxiety and depression, lower stress markers, and increase wellbeing, focus, and optimism. This is one of the most powerful programs that we offer, and we support committed students with scholarships also for the retreat."
   },
   {
     event_id: 2,
     admin_id: 101,
     title: "SKY @ TAMU Discord Server",
-    description: "Join an informal discord community of like-minded people, share your thoughts, ask questions or any information.",
-    time: "2021-10-09"
+    description: "Join an informal discord community of like-minded people, share your thoughts, ask questions or any information."
   },
   {
     event_id: 3,
@@ -50,8 +48,7 @@ Event.create([
     title: "Breath Breaks",
     description: "A guided meditation, breathwork, & connection session (30 minutes) tailored for small/large groups virtually every week led by a certified 
                   meditation and breathwork instructor from SKY Campus Happiness. All of these instructors have offered to lead these free of charge. 
-                  Session is open to anyone and no meditation experience required.",
-    time: "Every Thursday"
+                  Session is open to anyone and no meditation experience required."
   }
 ])
 
@@ -63,7 +60,9 @@ Location.create([
     building: "Zachry",
     room: "244",
     city: "College Station",
-    stateloc: "Texas"
+    stateloc: "Texas",
+    date: "11-11-2011",
+    time: "2000-01-01T14:44:00.000Z"
   },
   {
     location_id: 2,
@@ -72,6 +71,8 @@ Location.create([
     building: "MSC",
     room: "598",
     city: "College Station",
-    stateloc: "Texas"
+    stateloc: "Texas",
+    date: "11-11-2011",
+    time: "2000-01-01T14:44:00.000Z"
   }
 ])

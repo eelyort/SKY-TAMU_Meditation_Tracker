@@ -59,6 +59,6 @@ class Api::V1::LocationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def location_params
-      params.permit(:location_id, :event_id, :virtual_link, :building, :room, :city, :stateloc)
+      params.permit(:location_id, :event_id, :virtual_link, :building, :room, :city, :stateloc, :date, :time)
     end
 end
