@@ -31,4 +31,4 @@ jobs:
       # Add or Replace any other Linters here
       - name: Run linters
         run: |
-          rubocop --parallel --out rubocop.txt
+          rubocop --parallel
