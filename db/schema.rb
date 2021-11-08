@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< Updated upstream
 ActiveRecord::Schema.define(version: 2021_10_15_182827) do
 
   # These are extensions that must be enabled in order to support this database
@@ -21,6 +22,40 @@ ActiveRecord::Schema.define(version: 2021_10_15_182827) do
     t.datetime "updated_at", precision: 6, null: false
   end
   
+=======
+ActiveRecord::Schema.define(version: 2021_10_21_164150) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "attendances", force: :cascade do |t|
+    t.string "RSVP"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "events", primary_key: "event_id", id: :serial, force: :cascade do |t|
+    t.integer "admin_id"
+    t.string "title"
+    t.text "description"
+    t.string "time"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.integer "location_id"
+    t.integer "event_id"
+    t.string "virtual_link"
+    t.string "building"
+    t.string "room"
+    t.string "city"
+    t.string "stateloc"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+>>>>>>> Stashed changes
   create_table "recipes", force: :cascade do |t|
     t.string "name", null: false
     t.text "ingredients", null: false
@@ -30,4 +65,16 @@ ActiveRecord::Schema.define(version: 2021_10_15_182827) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< Updated upstream
+=======
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "firstname"
+    t.string "lastname"
+    t.integer "user_type", default: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+>>>>>>> Stashed changes
 end
