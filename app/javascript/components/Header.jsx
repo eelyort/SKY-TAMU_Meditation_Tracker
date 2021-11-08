@@ -11,7 +11,8 @@ const Header = () => {
     const oauthLogin = () => {
         const token = document.querySelector('meta[name="csrf-token"]').content;
         fetch('/admins/auth/google_oauth2', {
-            method: "POST",
+            mode: "no-cors",
+            method: "GET",
             headers: {
                 "X-CSRF-Token": token,
                 "Content-Type": "application/json"
@@ -21,6 +22,7 @@ const Header = () => {
               if (response.ok) {
                 return response.json();
               }
+              console.log(response);
               throw new Error("Network response was not ok.");
             })
             .then(response => this.props.history.push(`/recipe/${response.id}`))
