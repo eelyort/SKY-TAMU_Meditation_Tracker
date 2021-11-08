@@ -37,7 +37,7 @@ end
 end
 Event.create([
                {
-                #  event_id: 1,
+                 #  event_id: 1,
                  admin_id: 101,
                  title: 'Online SKY Happiness Retreat',
                  description: '3-session Retreat which trains participants in the evidence-based SKY
@@ -50,7 +50,7 @@ Event.create([
                  time: 'Sept 18-20'
                },
                {
-                #  event_id: 2,
+                 #  event_id: 2,
                  admin_id: 101,
                  title: 'SKY @ TAMU Discord Server',
                  description: 'Join an informal discord community of like-minded people,
@@ -58,7 +58,7 @@ Event.create([
                  time: '2021-10-09'
                },
                {
-                #  event_id: 3,
+                 #  event_id: 3,
                  admin_id: 101,
                  title: 'Breath Breaks',
                  description: "A guided meditation, breathwork,
