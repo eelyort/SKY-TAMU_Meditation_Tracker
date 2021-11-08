@@ -76,7 +76,7 @@ const ShowEventPage = (props) => {
                         {inputList.map((x, i) => {
                             if(x.event_id == props.match.params.id || !x.event_id){
                                 return (
-                                <div>
+                                <div key={x.id}>
                                     <ul>
                                         <li>Virtual Link: {x.virtual_link}</li>
                                         <li>Building: {x.building}</li>
@@ -99,13 +99,7 @@ const ShowEventPage = (props) => {
 
     return (
         <div style={cardStyle}>
-            <h1>Event Static Title</h1>
-            <div>
-                <p>Event Description</p>
-                <p>Event Time: | Event Date: </p>
-                <p>RSVP Link: </p>
-                <p>Attendance: </p>
-            </div>
+            <h1>Event Not Found</h1>
         </div>
     );
 }
