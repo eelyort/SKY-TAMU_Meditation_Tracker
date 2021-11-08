@@ -21,7 +21,7 @@ function Item(props)
                             {props.item.name}
                         </Typography>
                         
-                        <Typography variant="h2">
+                        <Typography variant="h4">
                             {props.item.description}
                         </Typography>
 
