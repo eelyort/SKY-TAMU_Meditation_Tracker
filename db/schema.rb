@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_211_021_164_150) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension 'plpgsql'
+ActiveRecord::Schema.define(version: 2021_10_21_164150) do
 
-  create_table 'attendances', force: :cascade do |t|
-    t.string 'RSVP'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "attendances", force: :cascade do |t|
+    t.string "RSVP"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "events", primary_key: "event_id", id: :serial, force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.integer "admin_id"
     t.string "title"
     t.text "description"
@@ -31,7 +30,6 @@ ActiveRecord::Schema.define(version: 20_211_021_164_150) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.integer "location_id"
     t.integer "event_id"
     t.string "virtual_link"
     t.string "building"
@@ -44,21 +42,22 @@ ActiveRecord::Schema.define(version: 20_211_021_164_150) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table 'recipes', force: :cascade do |t|
-    t.string 'name', null: false
-    t.text 'ingredients', null: false
-    t.text 'instruction', null: false
-    t.string 'image', default: 'https://raw.githubusercontent.com/do-community/react_rails_recipe/master/app/assets/images/Sammy_Meal.jpg'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+  create_table "recipes", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "ingredients", null: false
+    t.text "instruction", null: false
+    t.string "image", default: "https://raw.githubusercontent.com/do-community/react_rails_recipe/master/app/assets/images/Sammy_Meal.jpg"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table 'users', force: :cascade do |t|
-    t.string 'username'
-    t.string 'firstname'
-    t.string 'lastname'
-    t.integer 'user_type', default: 1
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "firstname"
+    t.string "lastname"
+    t.integer "user_type", default: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
+
 end

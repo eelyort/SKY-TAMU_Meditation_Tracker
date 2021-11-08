@@ -130,15 +130,9 @@ function EditEvent(props) {
                         <label>Locations</label>
                         {inputList.map((x, i) => {
                             if(x.event_id == props.event.id || !x.event_id){
-                                var keyID;
-                                if (x.id == undefined)
-                                    keyID = 0
-                                else
-                                    keyID = x.id
-
                                 return (
                                    
-                                <div key={keyID} className="box">
+                                <div className="box">
                                     <input
                                     name="virtual_link"
                                     placeholder="Enter Virtual Link"
