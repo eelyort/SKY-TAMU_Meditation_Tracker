@@ -5,7 +5,7 @@ const ShowEventPage = (props) => {
     const [event, setEvent] = useState([])
 
     const cardStyle = {
-        backgroundColor: "#69306D",
+        backgroundColor: "#C8A2C8",
         color: "black",
         border: "2px solid black",
         margin: "5% 10% 0% 10%",
@@ -75,7 +75,7 @@ const ShowEventPage = (props) => {
                         {inputList.map((x, i) => {
                             if(x.event_id == props.match.params.id || !x.event_id){
                                 return (
-                                <div>
+                                <div key={x.id}>
                                     <ul>
                                         <li>Virtual Link: {x.virtual_link}</li>
                                         <li>Building: {x.building}</li>
@@ -100,12 +100,7 @@ const ShowEventPage = (props) => {
 
     return (
         <div style={cardStyle}>
-            <h1>Event Static Title</h1>
-            <div>
-                <p>Event Description</p>
-                <p>RSVP Link: </p>
-                <p>Attendance: </p>
-            </div>
+            <h1>Event Not Found</h1>
         </div>
     );
 }
