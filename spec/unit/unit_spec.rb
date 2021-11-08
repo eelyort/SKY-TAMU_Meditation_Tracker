@@ -7,8 +7,7 @@ require 'rails_helper'
 # Sunny day test
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(admin_id: 0, title: 'Meditation', description: 'This is a test description',
-                        time: 'October 01, 2021')
+    described_class.new(admin_id: 0, title: 'Meditation', description:'This is a test description')
   end
 
   it 'is valid with valid attributes' do
@@ -16,8 +15,7 @@ RSpec.describe Event, type: :model do
   end
 
   it 'is valid and created on database' do
-    params = { admin_id: 0, title: 'Meditation', description: 'This is a test description',
-               time: 'October 01, 2021' }
+    params = { admin_id: 0, title: 'Meditation', description: 'This is a test description' }
     one = Event.create!(params)
     expect(one).to be_valid
   end
@@ -26,8 +24,7 @@ end
 # Rainy day test - Admin ID
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(admin_id: 0, title: 'Meditation', description: 'This is a test description',
-                        time: 'October 01, 2021')
+    described_class.new(admin_id: 0, title: 'Meditation', description:'This is a test description')
   end
 
   it 'admin ID is invalid (needs to be integer)' do
@@ -54,8 +51,7 @@ end
 # Rainy day test - title
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(admin_id: 0, title: 'Meditation', description: 'This is a test description',
-                        time: 'October 01, 2021')
+    described_class.new(admin_id: 0, title: 'Meditation', description:'This is a test description')
   end
 
   it 'title cannot be empty' do
@@ -67,25 +63,11 @@ end
 # Rainy day test - description
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(admin_id: 0, title: 'Meditation', description: 'This is a test description',
-                        time: 'October 01, 2021')
+    described_class.new(admin_id: 0, title: 'Meditation', description:'This is a test description')
   end
 
   it 'description cannot be empty' do
     subject.description = nil
-    expect(subject).not_to be_valid
-  end
-end
-
-# Rainy day test - time
-RSpec.describe Event, type: :model do
-  subject do
-    described_class.new(admin_id: 0, title: 'Meditation', description: 'This is a test description',
-                        time: 'October 01, 2021')
-  end
-
-  it 'time cannot be empty' do
-    subject.time = nil
     expect(subject).not_to be_valid
   end
 end
@@ -142,31 +124,29 @@ end
 # Sunny day test
 RSpec.describe Location, type: :model do
   subject do
-    described_class.new(event_id: 0, virtual_link: 'test link', building: 'test building',
-                        room: 'test room', city: 'test city', stateloc: 'test state')
+    described_class.new(event_id: 0, virtual_link: 'test link', building:'test building', room:'test room', city:'test city', stateloc:'test state', date:'11-11-2011', time:'17:53')
   end
 
   it 'is valid with valid attributes' do
     expect(subject).to be_valid
   end
 
+
   it 'is valid and created on database' do
-    params = { event_id: 0, virtual_link: 'test link', building: 'test building', room: 'test room',
-               city: 'test city', stateloc: 'test state' }
+    params = {event_id: 0, virtual_link: 'test link', building:'test building', room:'test room', city:'test city', stateloc:'test state', date:'11-11-2011', time:'17:53'}
     one = Location.create!(params)
     expect(one).to be_valid
   end
-end
+ end
 
 # Rainy day test - Event ID
 RSpec.describe Location, type: :model do
   subject do
-    described_class.new(event_id: 0, virtual_link: 'test link', building: 'test building',
-                        room: 'test room', city: 'test city', stateloc: 'test state')
+    described_class.new(event_id: 0, virtual_link: 'test link', building:'test building', room:'test room', city:'test city', stateloc:'test state', date:'11-11-2011', time:'17:53')
   end
 
   it 'event ID is invalid (needs to be integer)' do
-    subject.event_id = 'test'
+    subject.event_id = "test"
     expect(subject).not_to be_valid
   end
 

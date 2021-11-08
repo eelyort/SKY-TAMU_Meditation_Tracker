@@ -64,7 +64,7 @@ module Api
 
       # Only allow a list of trusted parameters through.
       def location_params
-        params.permit(:event_id, :virtual_link, :building, :room, :city, :stateloc)
+        params.permit(:event_id, :virtual_link, :building, :room, :city, :stateloc, :date, :time)
       end
     end
   end

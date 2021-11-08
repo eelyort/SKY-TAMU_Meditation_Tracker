@@ -5,11 +5,9 @@ one:
   admin_id: 1
   title: MyString
   description: MyText
-  time: 2021-10-09
 
 two:
   event_id: 1
   admin_id: 1
   title: MyString
   description: MyText
-  time: 2021-10-09

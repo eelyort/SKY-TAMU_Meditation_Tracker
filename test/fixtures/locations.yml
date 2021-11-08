@@ -8,6 +8,8 @@ one:
   room: MyString
   city: MyString
   state: MyString
+  date: null
+  time: null
 
 two:
   location_id: 1
@@ -17,3 +19,5 @@ two:
   room: MyString
   city: MyString
   state: MyString
+  date: null
+  time: null
