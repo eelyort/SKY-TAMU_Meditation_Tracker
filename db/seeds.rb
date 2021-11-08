@@ -62,7 +62,7 @@ Location.create([
     city: "College Station",
     stateloc: "Texas",
     date: "11-11-2011",
-    time: "2000-01-01T14:44:00.000Z"
+    time: "17:53"
   },
   {
     location_id: 2,
@@ -73,6 +73,6 @@ Location.create([
     city: "College Station",
     stateloc: "Texas",
     date: "11-11-2011",
-    time: "2000-01-01T14:44:00.000Z"
+    time: "17:53"
   }
 ])

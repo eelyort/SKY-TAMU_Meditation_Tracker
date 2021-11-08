@@ -150,7 +150,7 @@ RSpec.describe User, type: :model do
 # Sunny day test
 RSpec.describe Location, type: :model do
   subject do
-    described_class.new(location_id: 0, event_id: 0, virtual_link: 'test link', building:'test building', room:'test room', city:'test city', stateloc:'test state', date:'11-11-2011', time:'2000-01-01T14:44:00.000Z')
+    described_class.new(location_id: 0, event_id: 0, virtual_link: 'test link', building:'test building', room:'test room', city:'test city', stateloc:'test state', date:'11-11-2011', time:'17:53')
   end
 
   it 'is valid with valid attributes' do
@@ -159,7 +159,7 @@ RSpec.describe Location, type: :model do
 
 
   it 'is valid and created on database' do
-    params = {location_id: 15, event_id: 0, virtual_link: 'test link', building:'test building', room:'test room', city:'test city', stateloc:'test state', date:'11-11-2011', time:'2000-01-01T14:44:00.000Z'}
+    params = {location_id: 15, event_id: 0, virtual_link: 'test link', building:'test building', room:'test room', city:'test city', stateloc:'test state', date:'11-11-2011', time:'17:53'}
     one = Location.create!(params)
     expect(one).to be_valid
   end
@@ -168,7 +168,7 @@ RSpec.describe Location, type: :model do
 # Rainy day test - Event ID
 RSpec.describe Location, type: :model do
   subject do
-    described_class.new(location_id: 0, event_id: 0, virtual_link: 'test link', building:'test building', room:'test room', city:'test city', stateloc:'test state', date:'11-11-2011', time:'2000-01-01T14:44:00.000Z')
+    described_class.new(location_id: 0, event_id: 0, virtual_link: 'test link', building:'test building', room:'test room', city:'test city', stateloc:'test state', date:'11-11-2011', time:'17:53')
   end
 
   it 'event ID is invalid (needs to be integer)' do
