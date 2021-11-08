@@ -17,7 +17,7 @@ const EventsPage = (props) => {
   const [addForm, setAddForm] = useState(false)
   const [editEvent, setEditEvent] = useState(false)
   const [eventIndex, setEventIndex] = useState(0)
-  const [eventsEmpty, setEventsEmpty] = useState(false)
+  //const [eventsEmpty, setEventsEmpty] = useState(false)
 
 
   const onChange = (e) => {
@@ -30,11 +30,10 @@ const EventsPage = (props) => {
     }
   }
 
-
-  const databaseRequest = (method, body, event_id, url = "/api/v1/events", callback = () => NULL) => {
+  const databaseRequest = (method, body, id, url = "/api/v1/events", callback = () => NULL) => {
 
     if(method == "DELETE" || method == "PATCH") {
-      url += "/"+String(event_id);
+      url += "/" + String(id);
     }
     
     const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -58,49 +57,23 @@ const EventsPage = (props) => {
     .catch(error => console.log(error.message));
   }
 
-  const checkUniqueId = (event_id) => {
-    var uniqueID = false;
-
-    while (uniqueID == false) {
-      var skip = false;
-
-      events.forEach(event => {
-        console.log("Database ID", event.event_id)
-        console.log("Attempt ID", event_id, "\n")
-        if(event.event_id == event_id) {
-          event_id += 1;
-          skip = true;
-        }
-      });
-      if(skip){
-        skip = false;
-        continue;
-      }
-      uniqueID = true;
-    }
-    return event_id;
-  }
-
 	const handleAdd = (e) => {
 		e.preventDefault();
 		const answer = window.confirm("Are you sure you would like to add this event?");
 
 		if (answer) {
 			const { title, time, description } = state;
-			var event_id = events.length + 1
 			const admin_id = 101
 
-			event_id = checkUniqueId(event_id)
 
 			const body = {
-				event_id,
 				admin_id,
 				title,
 				description,
 				time
 			};
 
-			databaseRequest("POST", body, event_id);
+			databaseRequest("POST", body, 0);
 
 			setAddForm(false)
 			window.location.reload(true);
@@ -122,7 +95,6 @@ const EventsPage = (props) => {
 			const description = document.getElementById("edit-description"+String(event_id)).value;
 
 			const body = {
-				event_id,
 				admin_id,
 				title,
 				description,
@@ -164,15 +136,6 @@ const EventsPage = (props) => {
         })
         .then(response => setEvents( response ))
         .catch(error => console.log(error));
-  }
-  
-  const getEventIndex = (event_id) => {
-	events.forEach(event => {
-		var i = 0
-        if(event.event_id == event_id) {
-		  return i;
-        }
-    });
   }
 
   function loadEvents() {
@@ -222,10 +185,6 @@ const EventsPage = (props) => {
     color: 'white'
   }
 
-//   var contentStyle = {
-//     backgroundColor: '#white'
-//   }
-
   var addBtnStyle = {
     position: "absolute",
     top: "2%",
@@ -235,8 +194,8 @@ const EventsPage = (props) => {
 
   if (events.length != 0) {
     const eventCards = events.map( (event, index) => 
-      <Card key={event.event_id} style={index == 0 ? cardStyle0 : cardStyle0}>
-        <CardActionArea onClick={() => {goToEvent(event.event_id)}}>
+      <Card key={event.id} style={index == 0 ? cardStyle0 : cardStyle0}>
+        <CardActionArea onClick={() => {goToEvent(event.id)}}>
           <CardHeader
             style={headerStyle}
             title={event.title}
@@ -245,7 +204,7 @@ const EventsPage = (props) => {
           </CardActionArea>
 
           <CardContent>
-            <Typography style={{whiteSpace: 'pre-line'}} color="text.secondary">
+            <Typography style={{whiteSpace: 'pre-line', textAlign: 'center'}} color="text.secondary">
               {event.description}
             </Typography>
           </CardContent>

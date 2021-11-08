@@ -6,71 +6,6 @@ import React, { useState, useEffect } from 'react';
 
 function EditEvent(props) {
 
-    const popup = {
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        width: '100%',
-        height: '100vh',
-        backgroundColor: "gray",
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-
-    const popupInner = {
-        fontFamily: "Arial, Helvetica, sans-serif",
-        borderRadius: "20px",
-        position: 'relative',
-        padding: '16px',
-        width: '100%',
-        maxWidth: '640px',
-        backgroundColor: 'white'
-    }
-
-    const closeBtn = {
-        position: 'absolute',
-        top: '16px',
-        right: '16px'
-    }
-
-    const inputStyle = {
-        fontFamily: "Arial, Helvetica, sans-serif",
-        textIndent: "1em",
-        width: "100%",
-        padding: "12px 0px",
-        margin: "5px 0px 15px 0px",
-        display: "inline-block"
-    }
-    
-    const textAreaStyle = {
-        inputStyle,
-        minHeight: "100px",
-        minWidth: "100%",
-        maxWidth: "100%",
-        fontFamily: "Arial, Helvetica, sans-serif",
-        textIndent: "1em",
-        padding: "12px 0px"
-    }
-
-    const confirmStyle = {
-        width: "100%",
-        padding: "12px 20px",
-        margin: "8px 0",
-        display: "inline-block",
-        backgroundColor: "DodgerBlue",
-        color: "white"
-    }
-
-    const deleteStyle = {
-        width: "100%",
-        padding: "12px 20px",
-        margin: "8px 0",
-        display: "inline-block",
-        backgroundColor: "red",
-        color: "white"
-    }
-
     const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "" }]);
 
     const getInputList = () => {
@@ -95,7 +30,7 @@ function EditEvent(props) {
 
         if(index != inputList.length-1){
             const { virtual_link, building, room, city, stateloc, id } = inputList[index];
-            const event_id = props.event.event_id
+            const event_id = props.event.id
 
             const body = {
                 event_id,
@@ -129,10 +64,9 @@ function EditEvent(props) {
     // handle click event of the Add button
     const handleAddClick = () => {
         const answer = window.confirm("Are you sure you would like to add this location?");
-
         if (answer) {
             const { virtual_link, building, room, city, stateloc, id } = inputList[inputList.length-1];
-            const event_id = props.event.event_id
+            const event_id = props.event.id
     
             const body = {
                 event_id,
@@ -142,7 +76,6 @@ function EditEvent(props) {
                 city,
                 stateloc
             };
-    
             props.databaseRequest("POST", body, id, "/api/v1/locations", () => getInputList());
         }
 
@@ -160,9 +93,9 @@ function EditEvent(props) {
 
     return (props.trigger) ? (
         <>
-            <div style={popup}>
-                <div style={popupInner}>
-                    <button style={closeBtn} onClick={() => props.setTrigger(false)}>Cancel</button>
+            <div className='popup'>
+                <div className='popupInner'>
+                    <button className='closeBtn' onClick={() => props.setTrigger(false)}>Cancel</button>
                     {props.children}
 
                     <h1>Editing {"\"" + props.event.title + "\""}</h1>
@@ -170,40 +103,47 @@ function EditEvent(props) {
                     <div>
                         <form 
                             id= "add-event" 
-                            name={String(props.event.event_id)} 
+                            name={String(props.event.id)} 
                             onSubmit={props.submitFunc}> 
 
                         <label>Event Title:</label>
                         <input 
                             required 
-                            style={inputStyle} 
-                            id={"edit-title"+String(props.event.event_id)} 
+                            className='inputStyle'
+                            id={"edit-title"+String(props.event.id)} 
                             defaultValue={props.event.title}  
                             type="string" onChange={props.changeFunc}/>
 
                         <label>Event Time:</label>
                         <input 
                             required 
-                            style={inputStyle} 
-                            id={"edit-time"+String(props.event.event_id)} 
+                            className='inputStyle'
+                            id={"edit-time"+String(props.event.id)} 
                             defaultValue={props.event.time} 
                             type="string" 
                             onChange={props.changeFunc}/>
 
                         <label>Event Description:</label>
                         <textarea   
-                            required style={textAreaStyle} 
-                            id={"edit-description"+String(props.event.event_id)} 
+                            required 
+                            className='textAreaStyle'
+                            id={"edit-description"+String(props.event.id)} 
                             defaultValue={props.event.description}  
                             type="text" 
                             onChange={props.changeFunc}/>
 
                         <label>Locations</label>
                         {inputList.map((x, i) => {
-                            console.log(x.event_id, props.event.id);
-                            if(x.event_id == props.event.event_id || !x.event_id){
+                            if(x.event_id == props.event.id || !x.event_id){
+                                var keyID;
+                                if (x.id == undefined)
+                                    keyID = 0
+                                else
+                                    keyID = x.id
+
                                 return (
-                                <div className="box">
+                                   
+                                <div key={keyID} className="box">
                                     <input
                                     name="virtual_link"
                                     placeholder="Enter Virtual Link"
@@ -248,8 +188,8 @@ function EditEvent(props) {
                             }
                         })}
 
-                        <input style={confirmStyle} type="submit" value="Confirm Edit" />
-                        <button style={deleteStyle} type="button" name={String(props.event.event_id)} onClick={props.deleteFunc}>Delete Event</button>
+                        <input className='submitStyle' type="submit" value="Confirm Edit" />
+                        <button className='deleteStyle' type="button" name={String(props.event.id)} onClick={props.deleteFunc}>Delete Event</button>
 
                         </form>
                     </div>
