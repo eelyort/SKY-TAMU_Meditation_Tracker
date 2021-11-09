@@ -1,0 +1,21 @@
+Layout/EndOfLine:
+   Enabled: False
+
+AllCops:
+   Exclude:
+      - 'db/**/*'
+      - 'script/**/*'
+      - 'bin/**/*'
+      - 'config/**/*'
+      - 'script/**/*' 
+      - 'bin/{rails,rake}'
+      - !ruby/regexp /old_and_unused\.rb$/
+      - 'node_modules/**/*'
+      - 'tmp/**/*'
+      - 'vendor/**/*'
+      - '.git/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - config/**/*
+    - spec/**/*

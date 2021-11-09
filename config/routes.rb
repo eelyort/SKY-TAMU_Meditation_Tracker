@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
+
   namespace :api do
     namespace :v1 do
       get 'recipes/index'
@@ -7,7 +10,7 @@ Rails.application.routes.draw do
       delete '/destroy/:id', to: 'recipes#destroy'
     end
   end
-  
+
   resources :attendances do
     member do
       get :delete

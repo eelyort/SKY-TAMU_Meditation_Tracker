@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  location_id: 1
+  event_id: 1
+  virtual_link: MyString
+  building: MyString
+  room: MyString
+  city: MyString
+  state: MyString
+  date: null
+  time: null
+
+two:
+  location_id: 1
+  event_id: 1
+  virtual_link: MyString
+  building: MyString
+  room: MyString
+  city: MyString
+  state: MyString
+  date: null
+  time: null

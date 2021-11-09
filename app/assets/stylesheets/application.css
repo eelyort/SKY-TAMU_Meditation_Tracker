@@ -50,10 +50,12 @@ html, body, body > div:first-of-type {
   width: 100%;
   margin: 0;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .wrapper {
   /* background-color: rgba(151, 22, 190, 0.2); */
-  height: 100%;
+  height: 75vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -92,11 +94,10 @@ html, body, body > div:first-of-type {
 .homepage-hero .text {
   color: white;
   font-size: 4rem;
-  position: absolute;
-  top: 50%;
-  left: 10%;
-  transform: translateY(-50%);
-  width: 80%;
+  /* position: absolute; */
+  transform: translateY(25%);
+  height: 100%;
+  width: 100%;
   text-align: center;
 }
 
@@ -107,4 +108,127 @@ html, body, body > div:first-of-type {
 }
 .homepage-content-wrapper:nth-of-type(odd) {
   background-color: rgba(200, 162, 200, 0.6);
+}
+
+/* users page */
+.users-wrapper {
+  background-color: var(--cornsilk);
+  padding: 25px 140px;
+  position: relative;
+}
+.users-wrapper .user-div {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  border-style: solid none none none;
+  border-color: rgba(14, 16, 61, 0.308);
+  border-width: 1px;
+}
+.users-wrapper .user-div .user-text-center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.users-wrapper .user-div .user-actions {
+  display: flex;
+  flex-direction: row;
+  margin: 12px 0 16px;
+}
+.users-wrapper .user-div .user-actions > * {
+  margin: 2px 8px;
+}
+.users-wrapper .MuiCircularProgress-root {
+  margin: 20px 0;
+}
+/* .users-wrapper > .MuiFormControl-root {
+  margin: 8px !important;
+} */
+.users-wrapper > h2 {
+  margin-bottom: 6px;
+}
+.users-wrapper .users-is-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  background-color: #575757;
+  opacity: 40%;
+}
+.users-wrapper .users-is-loading .users-loading-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.wrapper .homepage-hero .text a {
+  background-color: #0e103dff; 
+  padding: 5px; 
+  border-radius: 5px;
+}
+.carousel-swipe {
+  user-select: none; 
+  touch-action: pan-y; 
+  transform-origin: 50% 50% 0px;
+}
+
+/*CSS for Event Pages*/
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popupInner {
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 20px;
+  position: relative;
+  padding: 16px;
+  width: 100%;
+  max-width: 640px;
+  background-Color: white;
+}
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+.inputStyle {
+  font-family: Arial, Helvetica, sans-serif;
+  text-indent: 1em;
+  width: 100%;
+  padding: 12px 0px;
+  margin: 5px 0px 15px 0px;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.textAreaStyle {
+  min-height: 100px;
+  min-width: 100%;
+  max-width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 12px 12px;
+  box-sizing: border-box;
+}
+.submitStyle {
+  background-color: DodgerBlue;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  color: white;
+}
+.deleteStyle {
+  background-color: red;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  color: white;
 }
