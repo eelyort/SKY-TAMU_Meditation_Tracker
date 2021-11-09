@@ -6,16 +6,12 @@ import Recipes from "./example/ExampleRecipes";
 import Recipe from "./example/ExampleRecipe";
 import NewRecipe from "./example/ExampleNewRecipe";
 import Header from "./Header";
-<<<<<<< Updated upstream
 import EventsPage from "./pages/EventsPage";
 import MembersPage from "./pages/MembersPage";
-=======
 import Footer from './Footer';
-import EventsPage from "./pages/events/EventsPage";
-import ShowEventPage from "./pages/events/ShowEventPage";
-import UsersPage from "./pages/users/UsersPage";
-import UsersShowEditPage from "./pages/users/UsersShowEditPage";
->>>>>>> Stashed changes
+//import ShowEventPage from "./pages/events/ShowEventPage";
+//import UsersPage from "./pages/users/UsersPage";
+//import UsersShowEditPage from "./pages/users/UsersShowEditPage";
 import LoginPage from "./pages/LoginPage";
 import SocialMediaPage from "./pages/SocialMediaPage";
 import AttendancePage from "./pages/AttendancePage";

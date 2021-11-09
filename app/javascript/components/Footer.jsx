@@ -12,41 +12,30 @@ const Footer = () => {
   return (
     <Box>
       <h1 style={{ color: "rgb(200, 162, 200)", 
-                   textAlign: "center", 
-                   marginTop: "-50px" }}>
-        GeeksforGeeks: A Computer Science Portal for Geeks
+                   textAlign: "marginLeft" }}>
+        SKY@TAMU
       </h1>
       <Container>
         <Row>
           <Column>
-            <Heading>About Us</Heading>
-            <FooterLink href="#">Aim</FooterLink>
-            <FooterLink href="#">Vision</FooterLink>
-            <FooterLink href="#">Testimonials</FooterLink>
-          </Column>
-          <Column>
-            <Heading>Services</Heading>
-            <FooterLink href="#">Writing</FooterLink>
-            <FooterLink href="#">Internships</FooterLink>
-            <FooterLink href="#">Coding</FooterLink>
-            <FooterLink href="#">Teaching</FooterLink>
-          </Column>
-          <Column>
-            <Heading>Contact Us</Heading>
-            <FooterLink href="#">Uttar Pradesh</FooterLink>
-            <FooterLink href="#">Ahemdabad</FooterLink>
-            <FooterLink href="#">Indore</FooterLink>
-            <FooterLink href="#">Mumbai</FooterLink>
-          </Column>
-          <Column>
-            <Heading>Social Media</Heading>
             <FooterLink href="#">
-              <i className="fab fa-facebook-f">
+              <i className="fab fa-testimonials">
                 <span style={{ marginLeft: "10px" }}>
-                  Facebook
+                  Testimonials
                 </span>
               </i>
             </FooterLink>
+          </Column>
+          <Column>
+            <FooterLink href="#">
+              <i className="fab fa-contactus">
+                <span style={{ marginLeft: "10px" }}>
+                  Contact Us
+                </span>
+              </i>
+            </FooterLink>
+          </Column>
+          <Column>
             <FooterLink href="#">
               <i className="fab fa-instagram">
                 <span style={{ marginLeft: "10px" }}>
@@ -54,17 +43,12 @@ const Footer = () => {
                 </span>
               </i>
             </FooterLink>
+          </Column>
+          <Column>
             <FooterLink href="#">
-              <i className="fab fa-twitter">
+              <i className="fab fa-discord">
                 <span style={{ marginLeft: "10px" }}>
-                  Twitter
-                </span>
-              </i>
-            </FooterLink>
-            <FooterLink href="#">
-              <i className="fab fa-youtube">
-                <span style={{ marginLeft: "10px" }}>
-                  Youtube
+                  Discord
                 </span>
               </i>
             </FooterLink>
