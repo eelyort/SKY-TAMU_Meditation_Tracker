@@ -66,6 +66,10 @@ html, body, body > div:first-of-type {
   flex-grow: 1;
 }
 
+.custom-google-login {
+  color: inherit;
+}
+
 /* Homepage Stuff */
 .homepage.wrapper {
   overflow: hidden;

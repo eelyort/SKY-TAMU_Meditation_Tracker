@@ -67,3 +67,4 @@ gem 'simplecov', require: false, group: :test
 gem 'devise'
 gem 'omniauth'
 gem "omniauth-google-oauth2", "~> 0.2.1"
+gem 'httparty'
