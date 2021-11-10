@@ -53,5 +53,11 @@ Rails.application.routes.draw do
   get '*a', to: redirect('/'), constraints: lambda { |req|
     req.path.exclude? 'rails/active_storage'
   }
+
+  # OAuth
+  # skip Devise default roots
+  # mount_devise_token_auth_for 'User', at: 'auth', skip: [:omniauth_callbacks]
+  # oauth route
+  post 'auth/request', to:'authorization#get_authorization'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.htm
 end
