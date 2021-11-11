@@ -6,6 +6,7 @@ import Recipes from "./example/ExampleRecipes";
 import Recipe from "./example/ExampleRecipe";
 import NewRecipe from "./example/ExampleNewRecipe";
 import Header from "./Header";
+import Footer from "./Footer"
 import EventsPage from "./pages/events/EventsPage";
 import ShowEventPage from "./pages/events/ShowEventPage";
 import UsersPage from "./pages/users/UsersPage";
@@ -80,6 +81,7 @@ export default () => (
           <NewRecipe />
         </Route>
       </Switch>
+      <Footer />
     </Router>
   </ThemeProvider>
 );

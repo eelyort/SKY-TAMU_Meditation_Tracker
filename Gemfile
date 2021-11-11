@@ -45,6 +45,7 @@ group :development do
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'brakeman'
   gem 'spring'
 end
 
@@ -63,4 +64,7 @@ gem 'rubocop', '~> 1.22', require: false
 
 gem 'simplecov', require: false, group: :test
 
-gem 'brakeman'
+gem 'devise'
+gem 'omniauth'
+gem "omniauth-google-oauth2", "~> 0.2.1"
+gem 'httparty'
