@@ -21,17 +21,15 @@ ActiveRecord::Schema.define(version: 2021_10_21_164150) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "events", primary_key: "event_id", id: :serial, force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.integer "admin_id"
     t.string "title"
     t.text "description"
-    t.string "time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "locations", force: :cascade do |t|
-    t.integer "location_id"
     t.integer "event_id"
     t.string "virtual_link"
     t.string "building"
