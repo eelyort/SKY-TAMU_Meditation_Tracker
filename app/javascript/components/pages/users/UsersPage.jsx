@@ -101,6 +101,10 @@ const UsersPage = (props) => {
     const showLink = (user) => `/members/${user.id}`;
     const editLink = (user) => `/members/${user.id}/edit`;
 
+    var bioStyle = {
+      color: "#706f6f"
+    }
+
     return (
         <div className={'users-wrapper flex-spacer'}>
             <Typography variant={"h2"}>
@@ -111,23 +115,28 @@ const UsersPage = (props) => {
                     {users.map((user, userIndex) => (
                         <div className={'user-div'} key={`user ${user.id}`}>
                             {/* <Typography variant={"h5"} className={'user-text-center'} component={Link} to={showLink(user)}> */}
-                            <Typography variant={"h5"} className={'user-text-center'}>
-                                {`${user.firstname} ${user.lastname}`}
+                            <div className={'user-header'}>
+                              <Typography variant={"h5"} className={'user-text-center'}>
+                                  {`${user.firstname} ${user.lastname}`}
+                              </Typography>
+                              <div className={'flex-spacer'} />
+                              {isAdmin ? (
+                                  <div className={'user-actions'}>
+                                      <Button variant={"outlined"} color='secondary' component={Link} to={editLink(user)} aria-labelledby={`Edit User ${user.firstname} ${user.firstname}`}>
+                                          {userTypes[user.user_type]}
+                                      </Button>
+                                      <IconButton color="secondary" aria-labelledby={`Edit user '${user.firstname} ${user.lastname}'`} component={Link} to={editLink(user)}>
+                                          <EditIcon />
+                                      </IconButton>
+                                      <IconButton color="secondary" aria-labelledby={`Delete user '${user.firstname} ${user.lastname}'`} onClick={() => deleteUser(userIndex)}>
+                                          <DeleteIcon />
+                                      </IconButton>
+                                  </div>
+                              ) : (null)}
+                            </div>
+                            <Typography variant={"h6"} className={'user-text-bottom'} style={bioStyle}>
+                                {`${user.bio}`}
                             </Typography>
-                            <div className={'flex-spacer'} />
-                            {isAdmin ? (
-                                <div className={'user-actions'}>
-                                    <Button variant={"outlined"} color='secondary' component={Link} to={editLink(user)} aria-labelledby={`Edit User ${user.firstname} ${user.firstname}`}>
-                                        {userTypes[user.user_type]}
-                                    </Button>
-                                    <IconButton color="secondary" aria-labelledby={`Edit user '${user.firstname} ${user.lastname}'`} component={Link} to={editLink(user)}>
-                                        <EditIcon />
-                                    </IconButton>
-                                    <IconButton color="secondary" aria-labelledby={`Delete user '${user.firstname} ${user.lastname}'`} onClick={() => deleteUser(userIndex)}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                </div>
-                            ) : (null)}
                         </div>
                     ))}
                     {users.length > 0 ? deleteConfirmationDialog(users[deleteUserIndex], deleteUserIndex) : null}

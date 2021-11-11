@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_164150) do
     t.string "username"
     t.string "firstname"
     t.string "lastname"
+    t.string "bio"
     t.integer "user_type", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

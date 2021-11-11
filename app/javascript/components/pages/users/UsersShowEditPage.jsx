@@ -112,6 +112,16 @@ const UsersShowEditPage = (props) => {
                         lastname: e.target.value,
                     }))}
                 />
+                <TextField
+                    variant={"outlined"}
+                    label={"Bio Information"}
+                    aria-labelledby={"Enter Last Name"}
+                    value={user.bio}
+                    onChange={e => setUser(old => ({
+                        ...old,
+                        bio: e.target.value,
+                    }))}
+                />
                 <br/>
                 <Button variant={"contained"} color={"secondary"} aria-labelledby={"Back To All Users"} component={Link} to={'/members'}>
                     Back
