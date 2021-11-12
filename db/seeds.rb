@@ -32,6 +32,7 @@ end
     username: "username #{i}",
     firstname: "firstname #{i}",
     lastname: "lastname #{i}",
+    bio: "bio #{i}",
     user_type: 1
   )
 end

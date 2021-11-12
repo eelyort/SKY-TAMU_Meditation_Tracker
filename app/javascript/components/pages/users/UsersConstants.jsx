@@ -1,1 +1,1 @@
-export const userTypes = ["Admin", "Member"];
+export const userTypes = ["Admin", "Member", "Guest"];
