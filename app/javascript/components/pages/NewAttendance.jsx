@@ -2,13 +2,24 @@ import { Typography, CircularProgress, Select, Button, MenuItem, TextField, Box 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React from "react";
+import Cookies from 'universal-cookie';
+import useCookie from '../UseCookie'; 
 import { Link, useParams, useLocation, useHistory } from "react-router-dom";
 
+
+
+
 const NewAttendancesPage = (props) => {
+    const { eventId } = useParams();
     const [attendance, setAttendance] = React.useState({'RSVP':'Yes'});
     const [isLoading, setIsLoading] = React.useState(false);
     const history = useHistory();
 
+    const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
+    const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
+    const isAdmin = currentUser?.user_type === 0;
+    const email = currentUser?.username;
+    const userId = currentUser?.id;
     // update
     const saveAttendance = (attendanceToSave, attendanceId) => {
       const url = `/attendances`;
@@ -19,7 +30,7 @@ const NewAttendancesPage = (props) => {
           "X-CSRF-Token": token,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({'attendance': attendanceToSave})
+        body: JSON.stringify({'attendance': attendanceToSave, 'event_id': eventId, 'user_id': userId})
       })
       .then(response => {
         if (response.ok) {
