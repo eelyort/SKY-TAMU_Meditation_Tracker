@@ -23,14 +23,20 @@ const NewAttendancesPage = (props) => {
     // update
     const saveAttendance = (attendanceToSave, attendanceId) => {
       const url = `/attendances`;
+      let body = {
+         ...attendanceToSave,
+         "event_id": parseInt(eventId),
+         "user_id": userId
+      }
       const token = document.querySelector('meta[name="csrf-token"]').content;
+      console.log(JSON.stringify({'attendance': attendanceToSave, 'event_id': eventId, 'user_id': userId})      )
       fetch(url, {
         method: "POST",
         headers: {
           "X-CSRF-Token": token,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({'attendance': attendanceToSave, 'event_id': eventId, 'user_id': userId})
+        body: JSON.stringify({'attendance': body})
       })
       .then(response => {
         if (response.ok) {
@@ -70,12 +76,13 @@ const NewAttendancesPage = (props) => {
                 <MenuItem value={'No'} key={`Attendance Type Neg-RSVP`} aria-labelledby={'Attendance Type'}>{'No'}</MenuItem>
                 </Select>
                 <br/>
-                <Button variant={"contained"} color={"secondary"} aria-labelledby={"Save Changes"} onClick={() => {
+                <Button disabled={!userId} variant={"contained"} color={"secondary"} aria-labelledby={"Save Changes"} onClick={() => {
                     setIsLoading(true);
                     saveAttendance({...attendance}, attendance.id);
                 }}>
                     Save
                 </Button>
+                {!userId ? (<h1>Please Login and Refresh Page</h1>) : null}
             </Box>
         );
     }
