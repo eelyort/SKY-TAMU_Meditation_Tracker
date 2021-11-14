@@ -133,7 +133,7 @@ const Header = () => {
                             </Button>
                         </>
                     ) : (
-                        <GoogleAPI className="GoogleLogin" clientId="117887850590-ekck049bkcopmo0v73v5f7mt4b7afm5r.apps.googleusercontent.com">
+                        <GoogleAPI className="GoogleLogin" clientId="117887850590-2cuglpp4ufantojicnktl8aeclhmkpgs.apps.googleusercontent.com">
                             <div>
                                 <CustomGoogleLogin
                                     access="offline"
