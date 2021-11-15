@@ -33,55 +33,59 @@ const theme = createTheme({
 export default () => (
   <ThemeProvider theme={theme}>
     <Router>
-      <Header />
-      <Switch>
-        <Route path="/" exact>
-          <HomePage />
-        </Route>
-        <Route path="/events" exact>
-          <EventsPage />
-        </Route>
-        <Route path="/event/:id" exact component={ShowEventPage}>
-        </Route>
+      <div className={'top-wrapper'}>
+        <Header />
+        <div className={'top-content'}>
+          <Switch>
+            <Route path="/" exact>
+              <HomePage />
+            </Route>
+            <Route path="/events" exact>
+              <EventsPage />
+            </Route>
+            <Route path="/event/:id" exact component={ShowEventPage}>
+            </Route>
 
-        <Route path="/members" exact>
-          <UsersPage />
-        </Route>
-        <Route path="/members/:userId" exact>
-          <UsersShowEditPage />
-        </Route>
-        <Route path="/members/:userId/edit" exact>
-          <UsersShowEditPage />
-        </Route>
+            <Route path="/members" exact>
+              <UsersPage />
+            </Route>
+            <Route path="/members/:userId" exact>
+              <UsersShowEditPage />
+            </Route>
+            <Route path="/members/:userId/edit" exact>
+              <UsersShowEditPage />
+            </Route>
 
-        <Route path="/login" exact>
-          <LoginPage />
-        </Route>
-        <Route path="/socialmedia" exact>
-          <SocialMediaPage />
-        </Route>
-        <Route path="/attendance" exact>
-          <AttendancePage />
-        </Route>
-        <Route path="/newAttendance/:eventId" exact>
-          <NewAttendancesPage />
-        </Route>
+            <Route path="/login" exact>
+              <LoginPage />
+            </Route>
+            <Route path="/socialmedia" exact>
+              <SocialMediaPage />
+            </Route>
+            <Route path="/attendance" exact>
+              <AttendancePage />
+            </Route>
+            <Route path="/newAttendance" exact>
+              <NewAttendancesPage />
+            </Route>
 
-        {/* Example stuff */}
-        <Route path="/recipeshome" exact>
-          <RecipesHomePage />
-        </Route>
-        <Route path="/recipes" exact>
-          <Recipes />
-        </Route>
-        <Route path="/recipe/:id" exact component={Recipe}>
-          {/*TODO: use useParams() hook instead*/}
-        </Route>
-        <Route path="/recipe" exact>
-          <NewRecipe />
-        </Route>
-      </Switch>
-      <Footer />
+            {/* Example stuff */}
+            <Route path="/recipeshome" exact>
+              <RecipesHomePage />
+            </Route>
+            <Route path="/recipes" exact>
+              <Recipes />
+            </Route>
+            <Route path="/recipe/:id" exact component={Recipe}>
+              {/*TODO: use useParams() hook instead*/}
+            </Route>
+            <Route path="/recipe" exact>
+              <NewRecipe />
+            </Route>
+          </Switch>
+        </div>
+        <Footer />
+      </div>
     </Router>
   </ThemeProvider>
 );

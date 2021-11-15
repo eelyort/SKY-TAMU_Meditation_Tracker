@@ -3,11 +3,11 @@ import styled from 'styled-components';
 export const Box = styled.div`
   padding: 10px 10px 0px 10px;
   background: purple;
-  position: absolute;
+  position: sticky;
   bottom: 0;
   height 150px;
   width: 100%;
-  
+  padding: 20px;
    
   @media (max-width: 1000px) {
     padding: 70px 30px;
