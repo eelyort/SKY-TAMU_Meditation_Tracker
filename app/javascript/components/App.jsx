@@ -59,9 +59,6 @@ export default () => (
             <Route path="/login" exact>
               <LoginPage />
             </Route>
-            <Route path="/socialmedia" exact>
-              <SocialMediaPage />
-            </Route>
             <Route path="/attendance" exact>
               <AttendancePage />
             </Route>
