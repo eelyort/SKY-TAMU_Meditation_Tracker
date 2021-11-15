@@ -97,7 +97,7 @@ function AddEventForm(props) {
                     <div>
                         <form 
                             id= "add-event" 
-                            onSubmit={props.submitFunc}> 
+                            onSubmit={(e)=>props.submitFunc(e, inputList)}> 
 
                         <label>Event Title:</label>
                         <input 

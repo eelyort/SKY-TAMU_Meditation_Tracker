@@ -54,7 +54,7 @@ const EventsPage = (props) => {
     .catch(error => console.log(error.message));
   }
 
-	const handleAdd = (e) => {
+	const handleAdd = (e, inputList=[]) => {
 		e.preventDefault();
 		const answer = window.confirm("Are you sure you would like to add this event?");
 
@@ -70,6 +70,8 @@ const EventsPage = (props) => {
 			};
 
 			databaseRequest("POST", body, 0);
+      
+      getEventID(body, inputList);
 
 			setAddForm(false)
 			window.location.reload(true);
@@ -130,6 +132,49 @@ const EventsPage = (props) => {
         })
         .then(response => setEvents( response ))
         .catch(error => console.log(error));
+  }
+
+  function saveNewInputList(event_id, inputList){
+    for(let i = 0; i < inputList.length-1; i++){
+      const { virtual_link, building, room, city, stateloc, date, time, id } = inputList[i] 
+
+      const body = {
+          event_id,
+          virtual_link,
+          building,
+          room,
+          city,
+          stateloc,
+          date,
+          time
+      };
+      databaseRequest("POST", body, id, "/api/v1/locations", () => getInputList());
+    }
+  }
+
+  function getEventID(body, inputList) {
+    const url = "/api/v1/events";
+    fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Network response was not ok.");
+        })
+        .then(response => {
+          console.log(response);
+          for(let i = response.length-1; i >= 0; i--){
+            const { title, description, admin_id } = response[i];
+            const { title: originalTitle, description: originalDesc, admin_id: originalAdminID } = body;
+            if(title == originalTitle && description == originalDesc && admin_id == originalAdminID){
+              saveNewInputList(response[i].id, inputList);
+              break;
+            }
+          }
+        })
+        .catch(error => console.log(error));
+
+    
   }
 
   function loadEvents() {
