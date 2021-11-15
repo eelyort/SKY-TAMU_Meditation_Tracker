@@ -65,8 +65,8 @@ User.create([
   },
   {
     username: "markuslink@tamu.edu",
-    firstname: "Austin",
-    lastname: "Pitts",
+    firstname: "Markus",
+    lastname: "Link",
     bio: "bio",
     user_type: 0
   }
