@@ -11,9 +11,25 @@ import { Link, useParams, useLocation, useHistory } from "react-router-dom";
 
 const NewAttendancesPage = (props) => {
     const { eventId } = useParams();
-    const [attendance, setAttendance] = React.useState({'RSVP':'Yes'});
+    const [attendance, setAttendance] = React.useState({'RSVP':'Yes', 'location_id': -1});
     const [isLoading, setIsLoading] = React.useState(false);
     const history = useHistory();
+    const [locationList, setLocationList] = React.useState([]);
+
+    const getLocationList = () => {
+        const url = "/api/v1/locations";
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Network response was not ok.");
+            })
+            .then(response => setLocationList([...response]))
+    };
+    React.useEffect(() => {
+        getLocationList();
+    }, []);
 
     const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
     const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
@@ -26,7 +42,7 @@ const NewAttendancesPage = (props) => {
       let body = {
          ...attendanceToSave,
          "event_id": parseInt(eventId),
-         "user_id": userId
+         "user_id": userId,
       }
       const token = document.querySelector('meta[name="csrf-token"]').content;
       console.log(JSON.stringify({'attendance': attendanceToSave, 'event_id': eventId, 'user_id': userId})      )
@@ -72,8 +88,29 @@ const NewAttendancesPage = (props) => {
                         RSVP: e.target.value,
                     }))}
                 >
-                <MenuItem value={'Yes'} key={`Attendance Type RSVP`} aria-labelledby={'Attendance Type'}>{'Yes'}</MenuItem>
-                <MenuItem value={'No'} key={`Attendance Type Neg-RSVP`} aria-labelledby={'Attendance Type'}>{'No'}</MenuItem>
+                    <MenuItem value={'Yes'} key={`Attendance Type RSVP`} aria-labelledby={'Attendance Type'}>{'Yes'}</MenuItem>
+                    <MenuItem value={'No'} key={`Attendance Type Neg-RSVP`} aria-labelledby={'Attendance Type'}>{'No'}</MenuItem>
+                </Select>
+                <Select
+                    value={attendance.location_id}
+                    label="Attendance Location?"
+                    aria-labelledby={`Select Attendance Location`}
+                    onChange={e => setAttendance(old => ({
+                        ...old,
+                        location_id: e.target.value,
+                    }))}
+                >
+                    <MenuItem value={-1} key={`No location selection`} aria-labelledby={'No location selection'}>Select Location</MenuItem>
+                    {
+                        (locationList) ? (
+                            locationList.filter(loc => ("" + loc.event_id) === ("" + eventId)).map(loc => (
+                                <MenuItem value={loc.id} key={`Location ${loc.room}`} aria-labelledby={`Location ${loc.room}`}>{`${loc.building} - ${loc.room}`}</MenuItem>
+                            ))
+                        ) : (
+                            <MenuItem value={-1} key={`No location selection`} aria-labelledby={'No location selection'}>Locations Loading...</MenuItem>
+                        )
+                    }
+                    <MenuItem value={'No'} key={`Attendance Type Neg-RSVP`} aria-labelledby={'Attendance Type'}>{'No'}</MenuItem>
                 </Select>
                 <br/>
                 <Button disabled={!userId} variant={"contained"} color={"secondary"} aria-labelledby={"Save Changes"} onClick={() => {
