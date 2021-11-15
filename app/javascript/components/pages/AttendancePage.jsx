@@ -119,7 +119,7 @@ const AttendancePage = (props) => {
             {attendance ? (
                 <>
                     {attendance.map((attendance, attendanceIndex) => (
-                        <div className={'user-div'} key={`user ${attendance.id}`}>
+                        <div className={'user-div attendance'} key={`user ${attendance.id}`}>
                             <Typography variant={"h5"} className={'user-text-center'} component={Link} to={showLink(attendance)}>
                                 {`${attendance.RSVP}`}
                             </Typography>
