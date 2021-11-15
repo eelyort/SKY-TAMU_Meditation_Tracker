@@ -68,8 +68,8 @@ Location.create([
     room: "244",
     city: "College Station",
     stateloc: "Texas",
-    date: "11-11-2011",
-    time: "17:53"
+    start_time: "",
+    end_time: ""
   },
   {
     # location_id: 2,
@@ -79,7 +79,7 @@ Location.create([
     room: "598",
     city: "College Station",
     stateloc: "Texas",
-    date: "11-11-2011",
-    time: "17:53"
+    start_time: "",
+    end_time: ""
   }
 ])

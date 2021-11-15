@@ -29,7 +29,7 @@ const ShowEventPage = (props) => {
             .then(response => setEvent( response ))
     }
 
-    const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "", date: "", time: "" }]);
+    const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "", start_time: "", end_time: "" }]);
 
     const getInputList = () => {
         const url = "/api/v1/locations";
@@ -82,8 +82,8 @@ const ShowEventPage = (props) => {
                                         <li>Room: {x.room}</li>
                                         <li>City: {x.city}</li>
                                         <li>State: {x.stateloc}</li>
-                                        <li>Date: {x.date}</li>
-                                        <li>Time: {x.time}</li>
+                                        <li>Start Time: {x.start_time}</li>
+                                        <li>End Time: {x.end_time}</li>
                                     </ul>
                                 </div>
                                 );

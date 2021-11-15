@@ -136,7 +136,7 @@ const EventsPage = (props) => {
 
   function saveNewInputList(event_id, inputList){
     for(let i = 0; i < inputList.length-1; i++){
-      const { virtual_link, building, room, city, stateloc, date, time, id } = inputList[i] 
+      const { virtual_link, building, room, city, stateloc, start_time, end_time, id } = inputList[i] 
 
       const body = {
           event_id,
@@ -145,8 +145,8 @@ const EventsPage = (props) => {
           room,
           city,
           stateloc,
-          date,
-          time
+          start_time,
+          end_time
       };
       databaseRequest("POST", body, id, "/api/v1/locations", () => getInputList());
     }
