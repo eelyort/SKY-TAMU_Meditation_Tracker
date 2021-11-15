@@ -7,9 +7,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import React from "react";
 import { Link } from "react-router-dom";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import Cookies from 'universal-cookie';
+import useCookie from '../UseCookie';
 
 const AttendancePage = (props) => {
-    const { isAdmin = true } = props
+    // const { isAdmin = true } = props
+    const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
+    const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
+    const isAdmin = (currentUser?.user_type === 0) ?? false;
+    const email = currentUser?.username;
+    const userId = currentUser?.id;
+
     const [attendance, setAttendance] = React.useState(undefined);
 
     // componentDidMount
