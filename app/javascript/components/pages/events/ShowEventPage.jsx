@@ -84,7 +84,7 @@ const ShowEventPage = (props) => {
                                         <li>City: {x.city}</li>
                                         <li>State: {x.stateloc}</li>
                                         <li>Date: {x.date}</li>
-                                        <li>Time: {x.string}</li>
+                                        <li>Time: {x.time}</li>
                                     </ul>
                                 </div>
                                 );
