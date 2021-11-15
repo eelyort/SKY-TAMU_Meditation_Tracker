@@ -11,10 +11,6 @@ import {
 const Footer = () => {
   return (
     <Box>
-      <h1 style={{ color: "rgb(200, 162, 200)", 
-                   textAlign: "marginLeft" }}>
-        SKY@TAMU
-      </h1>
       <Container>
         <Row>
           <Column>
@@ -27,7 +23,7 @@ const Footer = () => {
             </FooterLink>
           </Column>
           <Column>
-            <FooterLink href="#">
+            <FooterLink href="mailto:email@gmail.com">
               <i className="fab fa-contactus">
                 <span style={{ marginLeft: "10px" }}>
                   Contact Us
@@ -36,7 +32,7 @@ const Footer = () => {
             </FooterLink>
           </Column>
           <Column>
-            <FooterLink href="#">
+            <FooterLink href="https://www.instagram.com/skyattamu/">
               <i className="fab fa-instagram">
                 <span style={{ marginLeft: "10px" }}>
                   Instagram
@@ -45,7 +41,7 @@ const Footer = () => {
             </FooterLink>
           </Column>
           <Column>
-            <FooterLink href="#">
+            <FooterLink href="https://discord.gg/fmxHPE9nck">
               <i className="fab fa-discord">
                 <span style={{ marginLeft: "10px" }}>
                   Discord
