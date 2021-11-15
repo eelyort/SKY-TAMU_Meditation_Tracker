@@ -1,7 +1,7 @@
 
 import {
     Typography, CircularProgress, IconButton, Button,
-    Dialog, DialogTitle, DialogActions,
+    Dialog, DialogTitle, DialogActions, Tooltip,
 } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -141,7 +141,21 @@ const UsersPage = (props) => {
                                           <DeleteIcon />
                                       </IconButton>
                                   </div>
-                              ) : (null)}
+                              ) : (
+                                <Tooltip title="Please log in as an admin and refresh to delete/edit">
+                                    <div className={'user-actions'}>
+                                        <Button variant={"outlined"} color='secondary' aria-labelledby={`Edit User ${user.firstname} ${user.firstname}`} disabled>
+                                            {userTypes[user.user_type]}
+                                        </Button>
+                                        <IconButton color="secondary" aria-labelledby={`Edit user '${user.firstname} ${user.lastname}'`} disabled>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <IconButton color="secondary" aria-labelledby={`Delete user '${user.firstname} ${user.lastname}'`} disabled>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </div>
+                                </Tooltip>
+                              )}
                             </div>
                             <Typography variant={"h6"} className={'user-text-bottom'} style={bioStyle}>
                                 {`${user.bio}`}
