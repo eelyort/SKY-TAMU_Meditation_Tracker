@@ -3,9 +3,20 @@ import { Button, Typography, Card, CardContent,  CardHeader, CardActionArea } fr
 import { Link } from "react-router-dom";
 import AddEventForm from './AddEventForm'
 import EditEvent from './EditEvent'
+import Cookies from 'universal-cookie';
+import useCookie from '../../UseCookie';
 
 const EventsPage = (props) => {
-  const { isAdmin = true } = props;
+
+  const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
+  const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
+  const isAdmin = currentUser?.user_type === 0;
+  const email = currentUser?.username;
+  const userId = currentUser?.id;
+
+  console.log("Event Admin", isAdmin)
+  console.log("Event Email", email)
+  console.log("Event userId", userId)
 
   var state = {
     title: "",
@@ -54,7 +65,7 @@ const EventsPage = (props) => {
     .catch(error => console.log(error.message));
   }
 
-	const handleAdd = (e) => {
+	const handleAdd = (e, inputList=[]) => {
 		e.preventDefault();
 		const answer = window.confirm("Are you sure you would like to add this event?");
 
@@ -70,6 +81,8 @@ const EventsPage = (props) => {
 			};
 
 			databaseRequest("POST", body, 0);
+      
+      getEventID(body, inputList);
 
 			setAddForm(false)
 			window.location.reload(true);
@@ -130,6 +143,49 @@ const EventsPage = (props) => {
         })
         .then(response => setEvents( response ))
         .catch(error => console.log(error));
+  }
+
+  function saveNewInputList(event_id, inputList){
+    for(let i = 0; i < inputList.length-1; i++){
+      const { virtual_link, building, room, city, stateloc, date, time, id } = inputList[i] 
+
+      const body = {
+          event_id,
+          virtual_link,
+          building,
+          room,
+          city,
+          stateloc,
+          date,
+          time
+      };
+      databaseRequest("POST", body, id, "/api/v1/locations", () => getInputList());
+    }
+  }
+
+  function getEventID(body, inputList) {
+    const url = "/api/v1/events";
+    fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Network response was not ok.");
+        })
+        .then(response => {
+          console.log(response);
+          for(let i = response.length-1; i >= 0; i--){
+            const { title, description, admin_id } = response[i];
+            const { title: originalTitle, description: originalDesc, admin_id: originalAdminID } = body;
+            if(title == originalTitle && description == originalDesc && admin_id == originalAdminID){
+              saveNewInputList(response[i].id, inputList);
+              break;
+            }
+          }
+        })
+        .catch(error => console.log(error));
+
+    
   }
 
   function loadEvents() {
@@ -201,8 +257,9 @@ const EventsPage = (props) => {
               {event.description}
             </Typography>
           </CardContent>
-
-          <button onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>
+          
+          {isAdmin ? (<button onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>) : null}
+          
       </Card>
       
     );
@@ -210,7 +267,7 @@ const EventsPage = (props) => {
     return (
       <>
       <div style={{position: "relative"}}>
-        <button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>
+      {isAdmin ? (<button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>) : null}
 
         <div style={cardContainer}>
 				{eventCards}
@@ -224,7 +281,7 @@ const EventsPage = (props) => {
         trigger={addForm} 
         setTrigger={setAddForm}>
       </AddEventForm>
-
+      
       <EditEvent
         event={events[eventIndex]}
         submitFunc={handleEdit}
@@ -245,7 +302,7 @@ const EventsPage = (props) => {
             <div style={{position: "relative"}}>
               <h1>Loading Events...</h1>
 
-              <button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>
+              {isAdmin ? (<button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>) : null}
             </div>
 
             <AddEventForm

@@ -2,24 +2,41 @@ import { Typography, CircularProgress, Select, Button, MenuItem, TextField, Box 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React from "react";
+import Cookies from 'universal-cookie';
+import useCookie from '../UseCookie'; 
 import { Link, useParams, useLocation, useHistory } from "react-router-dom";
 
+
+
+
 const NewAttendancesPage = (props) => {
+    const { eventId } = useParams();
     const [attendance, setAttendance] = React.useState({'RSVP':'Yes'});
     const [isLoading, setIsLoading] = React.useState(false);
     const history = useHistory();
 
+    const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
+    const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
+    const isAdmin = currentUser?.user_type === 0;
+    const email = currentUser?.username;
+    const userId = currentUser?.id;
     // update
     const saveAttendance = (attendanceToSave, attendanceId) => {
       const url = `/attendances`;
+      let body = {
+         ...attendanceToSave,
+         "event_id": parseInt(eventId),
+         "user_id": userId
+      }
       const token = document.querySelector('meta[name="csrf-token"]').content;
+      console.log(JSON.stringify({'attendance': attendanceToSave, 'event_id': eventId, 'user_id': userId})      )
       fetch(url, {
         method: "POST",
         headers: {
           "X-CSRF-Token": token,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({'attendance': attendanceToSave})
+        body: JSON.stringify({'attendance': body})
       })
       .then(response => {
         if (response.ok) {
@@ -59,12 +76,13 @@ const NewAttendancesPage = (props) => {
                 <MenuItem value={'No'} key={`Attendance Type Neg-RSVP`} aria-labelledby={'Attendance Type'}>{'No'}</MenuItem>
                 </Select>
                 <br/>
-                <Button variant={"contained"} color={"secondary"} aria-labelledby={"Save Changes"} onClick={() => {
+                <Button disabled={!userId} variant={"contained"} color={"secondary"} aria-labelledby={"Save Changes"} onClick={() => {
                     setIsLoading(true);
                     saveAttendance({...attendance}, attendance.id);
                 }}>
                     Save
                 </Button>
+                {!userId ? (<h1>Please Login and Refresh Page</h1>) : null}
             </Box>
         );
     }
