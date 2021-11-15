@@ -9,9 +9,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import { userTypes } from "./UsersConstants";
+import Cookies from 'universal-cookie';
+import useCookie from '../../UseCookie';
 
 const UsersPage = (props) => {
-    const { isAdmin = true } = props;
+    //const { isAdmin = true } = props;
+
+    const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
+    const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
+    const isAdmin = (currentUser?.user_type === 0) ?? false;
+    const email = currentUser?.username;
+    const userId = currentUser?.id;
+
     const [users, setUsers] = React.useState(undefined);
 
     // componentDidMount
