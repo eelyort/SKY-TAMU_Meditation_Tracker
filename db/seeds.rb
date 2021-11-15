@@ -27,6 +27,50 @@ end
 end
 
 # users
+User.create([
+  {
+    username: "troylee3006@tamu.edu",
+    firstname: "Troy",
+    lastname: "Lee",
+    bio: "bio",
+    user_type: 0
+  },
+  {
+    username: "daniel.hott@tamu.edu",
+    firstname: "Dani",
+    lastname: "Hott",
+    bio: "bio",
+    user_type: 0
+  },
+  {
+    username: "shawn_martinez821@tamu.edu",
+    firstname: "Shawn",
+    lastname: "Martinez",
+    bio: "bio",
+    user_type: 0
+  },
+  {
+    username: "apitts175@tamu.edu",
+    firstname: "Austin",
+    lastname: "Pitts",
+    bio: "bio",
+    user_type: 0
+  },
+  {
+    username: "pranav1999@tamu.edu",
+    firstname: "Pranav",
+    lastname: "Kumar",
+    bio: "bio",
+    user_type: 0
+  },
+  {
+    username: "markuslink@tamu.edu",
+    firstname: "Austin",
+    lastname: "Pitts",
+    bio: "bio",
+    user_type: 0
+  }
+])
 9.times do |i|
   User.create(
     username: "username #{i}",
