@@ -15,7 +15,7 @@ const Footer = () => {
         <Row>
           <Column>
             <FooterLink href="#">
-              <i className="fab fa-donate">
+              <i className="fab fa-donate" target="_blank">
                 <span style={{ marginLeft: "10px" }}>
                   Donate
                 </span>
@@ -23,7 +23,7 @@ const Footer = () => {
             </FooterLink>
           </Column>
           <Column>
-            <FooterLink href="mailto:email@gmail.com">
+            <FooterLink href="mailto:email@gmail.com" target="_blank">
               <i className="fab fa-contactus">
                 <span style={{ marginLeft: "10px" }}>
                   Contact Us
@@ -32,7 +32,7 @@ const Footer = () => {
             </FooterLink>
           </Column>
           <Column>
-            <FooterLink href="https://www.instagram.com/skyattamu/">
+            <FooterLink href="https://www.instagram.com/skyattamu/" target="_blank">
               <i className="fab fa-instagram">
                 <span style={{ marginLeft: "10px" }}>
                   Instagram
@@ -41,7 +41,7 @@ const Footer = () => {
             </FooterLink>
           </Column>
           <Column>
-            <FooterLink href="https://discord.gg/fmxHPE9nck">
+            <FooterLink href="https://discord.gg/fmxHPE9nck" target="_blank">
               <i className="fab fa-discord">
                 <span style={{ marginLeft: "10px" }}>
                   Discord
