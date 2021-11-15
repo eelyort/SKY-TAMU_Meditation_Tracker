@@ -129,81 +129,87 @@ function EditEvent(props) {
                             type="text" 
                             onChange={props.changeFunc}/>
 
-                        <label>Locations</label>
-                        {inputList.map((x, i) => {
-                            if(x.event_id == props.event.id || !x.event_id){
-                                return (
-                                   
-                                <div className="box">
-                                    <input
-                                    name="virtual_link"
-                                    placeholder="Enter Virtual Link"
-                                    value={x.virtual_link}
-                                    onChange={e => handleInputChange(e, i)}
-                                    />
-                                    <input
-                                    name="building"
-                                    placeholder="Enter Building"
-                                    value={x.building}
-                                    onChange={e => handleInputChange(e, i)}
-                                    />
-                                    <input
-                                    name="room"
-                                    placeholder="Enter Room"
-                                    value={x.room}
-                                    onChange={e => handleInputChange(e, i)}
-                                    />
-                                    <input
-                                    name="city"
-                                    placeholder="Enter City"
-                                    value={x.city}
-                                    onChange={e => handleInputChange(e, i)}
-                                    />
-                                    <input
-                                    name="stateloc"
-                                    placeholder="Enter State"
-                                    value={x.stateloc}
-                                    onChange={e => handleInputChange(e, i)}
-                                    />
-                                    <div>
-                                    <TextField
-                                        id="datetime-local"
-                                        name="start_time"
-                                        value={x.start_time}
-                                        label="Start Time"
-                                        type="datetime-local"
-                                        sx={{ width: 250 }}
-                                        InputLabelProps={{
-                                        shrink: true,
-                                        }}
+                        <div style={{maxHeight: "150px", overflowY: "auto"}}>
+                            <label>Locations</label>
+                            {inputList.map((x, i) => {
+                                if(x.event_id == props.event.id || !x.event_id){
+                                    return (
+                                    
+                                    <div className="box">
+                                        <input
+                                        name="virtual_link"
+                                        placeholder="Enter Virtual Link"
+                                        value={x.virtual_link}
                                         onChange={e => handleInputChange(e, i)}
-                                    />
-                                    <TextField
-                                        id="datetime-local"
-                                        name="end_time"
-                                        value={x.end_time}
-                                        label="End Time"
-                                        type="datetime-local"
-                                        sx={{ width: 250 }}
-                                        InputLabelProps={{
-                                        shrink: true,
-                                        }}
+                                        />
+                                        <input
+                                        name="building"
+                                        placeholder="Enter Building"
+                                        value={x.building}
                                         onChange={e => handleInputChange(e, i)}
-                                    />
+                                        />
+                                        <input
+                                        name="room"
+                                        placeholder="Enter Room"
+                                        value={x.room}
+                                        onChange={e => handleInputChange(e, i)}
+                                        />
+                                        <input
+                                        name="city"
+                                        placeholder="Enter City"
+                                        value={x.city}
+                                        onChange={e => handleInputChange(e, i)}
+                                        />
+                                        <input
+                                        name="stateloc"
+                                        placeholder="Enter State"
+                                        value={x.stateloc}
+                                        onChange={e => handleInputChange(e, i)}
+                                        />
+                                        <div>
+                                        <TextField
+                                            id="datetime-local"
+                                            name="start_time"
+                                            value={x.start_time}
+                                            label="Start Time"
+                                            type="datetime-local"
+                                            sx={{ width: 250 }}
+                                            InputLabelProps={{
+                                            shrink: true,
+                                            }}
+                                            onChange={e => handleInputChange(e, i)}
+                                        />
+                                        <TextField
+                                            id="datetime-local"
+                                            name="end_time"
+                                            value={x.end_time}
+                                            label="End Time"
+                                            type="datetime-local"
+                                            sx={{ width: 250 }}
+                                            InputLabelProps={{
+                                            shrink: true,
+                                            }}
+                                            onChange={e => handleInputChange(e, i)}
+                                        />
+                                        </div>
+                                        <div className="btn-box">
+                                        {inputList.length !== 1 && <button
+                                            className="mr10"
+                                            onClick={e => handleRemoveClick(e, i)}>Remove</button>}
+                                        {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
+                                        </div>
                                     </div>
-                                    <div className="btn-box">
-                                    {inputList.length !== 1 && <button
-                                        className="mr10"
-                                        onClick={e => handleRemoveClick(e, i)}>Remove</button>}
-                                    {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
-                                    </div>
-                                </div>
+                                
                                 );
+                                
                             }
+                            
                             else{
                                 return null;
                             }
-                        })}
+                            
+                            })}
+                        </div>
 
                         <input className='submitStyle' type="submit" value="Confirm Edit" />
                         <button className='deleteStyle' type="button" name={String(props.event.id)} onClick={props.deleteFunc}>Delete Event</button>

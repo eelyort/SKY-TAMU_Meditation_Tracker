@@ -6,7 +6,7 @@ import { GoogleAPI, CustomGoogleLogin } from 'react-google-oauth';
 import Cookies from 'universal-cookie';
 import useCookie from './UseCookie';
 
-const menuItems = [{'text': 'Events', 'url': '/events'}, {'text': 'Members', 'url': '/members'}, {'text': 'Social Media', 'url': '/socialmedia'}, {'text': 'Attendance', 'url': '/attendance'}];
+const menuItems = [{'text': 'Events', 'url': '/events'}, {'text': 'Members', 'url': '/members'}, {'text': 'Attendance', 'url': '/attendance'}];
 
 const Header = () => {
     const [loginSuccessAlertOpen, setLoginSuccessAlertOpen] = React.useState(false);

@@ -2,10 +2,10 @@ import styled from 'styled-components';
    
 export const Box = styled.div`
   padding: 10px 10px 0px 10px;
-  background: purple;
+  background: rgb(14, 16, 61);
   position: sticky;
   bottom: 0;
-  height 150px;
+  height 75px;
   width: 100%;
   padding: 20px;
    

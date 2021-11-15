@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :username
       t.string :firstname
       t.string :lastname
-      t.string :bio
+      t.string :bio, default: 'Please enter a bio'
       t.integer :user_type, default: 1
 
       t.timestamps
