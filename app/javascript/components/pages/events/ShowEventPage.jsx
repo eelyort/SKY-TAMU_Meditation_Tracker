@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 
 const ShowEventPage = (props) => {
     const [event, setEvent] = useState([])
@@ -69,7 +70,7 @@ const ShowEventPage = (props) => {
                 <h1>{event.title}</h1>
                 <div>
                     <p>{event.description}</p>
-                    <p>RSVP Link: </p>
+                    <p>RSVP Link: <Link to={`/newattendance/${event.id}`}>CLICK</Link></p>
                     <p>Attendance: </p>
                     <p>Locations:</p>
                         {inputList.map((x, i) => {

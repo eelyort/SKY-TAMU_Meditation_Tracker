@@ -1,16 +1,26 @@
 import {
     Typography, CircularProgress, IconButton, Button,
-    Dialog, DialogTitle, DialogActions,
+    Dialog, DialogTitle, DialogActions, Tooltip,
 } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React from "react";
 import { Link } from "react-router-dom";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import Cookies from 'universal-cookie';
+import useCookie from '../UseCookie';
 
 const AttendancePage = (props) => {
-    const { isAdmin = true } = props
     const [attendance, setAttendance] = React.useState(undefined);
+
+    // user stuff
+    const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
+    const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
+    const isAdmin = (currentUser?.user_type === 0) ?? false;
+    const email = currentUser?.username;
+    const userId = currentUser?.id;
+
+    console.log(`AttendancePage isAdmin: ${isAdmin}`);
 
     // componentDidMount
     const fetchAttendance = () => {
@@ -120,15 +130,25 @@ const AttendancePage = (props) => {
                                         <DeleteIcon />
                                     </IconButton>
                                 </div>
-                            ) : (null)}
+                            ) : (
+                                <div className={'user-actions'}>
+                                    <Tooltip title="Please log in as an admin to delete">
+                                        <IconButton color="secondary" aria-labelledby={`Delete Attendance`}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </div>
+                            )}
                         </div>
                     ))}
                     {deleteConfirmationDialog(attendance[deleteAttendanceIndex], deleteAttendanceIndex)}
                 </>
             ) : (<CircularProgress />)}
-            <IconButton color="secondary" aria-labelledby={`New Attendance`} component={Link} to={'/newAttendance'}>
-                <AddCircleOutlineIcon />
-            </IconButton>
+            {isAdmin ? (
+                <IconButton color="secondary" aria-labelledby={`New Attendance`} component={Link} to={'/newAttendance'}>
+                    <AddCircleOutlineIcon />
+                </IconButton>
+            ) : null}
             {isLoading ? (
                 <div className="users-is-loading">
                     <div className="users-loading-circle">

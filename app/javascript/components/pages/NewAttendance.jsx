@@ -2,24 +2,57 @@ import { Typography, CircularProgress, Select, Button, MenuItem, TextField, Box 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React from "react";
+import Cookies from 'universal-cookie';
+import useCookie from '../UseCookie'; 
 import { Link, useParams, useLocation, useHistory } from "react-router-dom";
 
+
+
+
 const NewAttendancesPage = (props) => {
-    const [attendance, setAttendance] = React.useState({'RSVP':'Yes'});
+    const { eventId } = useParams();
+    const [attendance, setAttendance] = React.useState({'RSVP':'Yes', 'location_id': -1});
     const [isLoading, setIsLoading] = React.useState(false);
     const history = useHistory();
+    const [locationList, setLocationList] = React.useState([]);
 
+    const getLocationList = () => {
+        const url = "/api/v1/locations";
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Network response was not ok.");
+            })
+            .then(response => setLocationList([...response]))
+    };
+    React.useEffect(() => {
+        getLocationList();
+    }, []);
+
+    const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
+    const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
+    const isAdmin = currentUser?.user_type === 0;
+    const email = currentUser?.username;
+    const userId = currentUser?.id;
     // update
     const saveAttendance = (attendanceToSave, attendanceId) => {
       const url = `/attendances`;
+      let body = {
+         ...attendanceToSave,
+         "event_id": parseInt(eventId),
+         "user_id": userId,
+      }
       const token = document.querySelector('meta[name="csrf-token"]').content;
+      console.log(JSON.stringify({'attendance': attendanceToSave, 'event_id': eventId, 'user_id': userId})      )
       fetch(url, {
         method: "POST",
         headers: {
           "X-CSRF-Token": token,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({'attendance': attendanceToSave})
+        body: JSON.stringify({'attendance': body})
       })
       .then(response => {
         if (response.ok) {
@@ -55,16 +88,38 @@ const NewAttendancesPage = (props) => {
                         RSVP: e.target.value,
                     }))}
                 >
-                <MenuItem value={'Yes'} key={`Attendance Type RSVP`} aria-labelledby={'Attendance Type'}>{'Yes'}</MenuItem>
-                <MenuItem value={'No'} key={`Attendance Type Neg-RSVP`} aria-labelledby={'Attendance Type'}>{'No'}</MenuItem>
+                    <MenuItem value={'Yes'} key={`Attendance Type RSVP`} aria-labelledby={'Attendance Type'}>{'Yes'}</MenuItem>
+                    <MenuItem value={'No'} key={`Attendance Type Neg-RSVP`} aria-labelledby={'Attendance Type'}>{'No'}</MenuItem>
+                </Select>
+                <Select
+                    value={attendance.location_id}
+                    label="Attendance Location?"
+                    aria-labelledby={`Select Attendance Location`}
+                    onChange={e => setAttendance(old => ({
+                        ...old,
+                        location_id: e.target.value,
+                    }))}
+                >
+                    <MenuItem value={-1} key={`No location selection`} aria-labelledby={'No location selection'}>Select Location</MenuItem>
+                    {
+                        (locationList) ? (
+                            locationList.filter(loc => ("" + loc.event_id) === ("" + eventId)).map(loc => (
+                                <MenuItem value={loc.id} key={`Location ${loc.room}`} aria-labelledby={`Location ${loc.room}`}>{`${loc.building} - ${loc.room}`}</MenuItem>
+                            ))
+                        ) : (
+                            <MenuItem value={-1} key={`No location selection`} aria-labelledby={'No location selection'}>Locations Loading...</MenuItem>
+                        )
+                    }
+                    <MenuItem value={'No'} key={`Attendance Type Neg-RSVP`} aria-labelledby={'Attendance Type'}>{'No'}</MenuItem>
                 </Select>
                 <br/>
-                <Button variant={"contained"} color={"secondary"} aria-labelledby={"Save Changes"} onClick={() => {
+                <Button disabled={!userId} variant={"contained"} color={"secondary"} aria-labelledby={"Save Changes"} onClick={() => {
                     setIsLoading(true);
                     saveAttendance({...attendance}, attendance.id);
                 }}>
                     Save
                 </Button>
+                {!userId ? (<h1>Please Login and Refresh Page</h1>) : null}
             </Box>
         );
     }
