@@ -65,7 +65,7 @@ export default () => (
             <Route path="/attendance" exact>
               <AttendancePage />
             </Route>
-            <Route path="/newAttendance" exact>
+            <Route path="/newAttendance/:eventId" exact>
               <NewAttendancesPage />
             </Route>
 
