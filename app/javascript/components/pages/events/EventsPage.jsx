@@ -3,9 +3,20 @@ import { Button, Typography, Card, CardContent,  CardHeader, CardActionArea } fr
 import { Link } from "react-router-dom";
 import AddEventForm from './AddEventForm'
 import EditEvent from './EditEvent'
+import Cookies from 'universal-cookie';
+import useCookie from '../../UseCookie';
 
 const EventsPage = (props) => {
-  const { isAdmin = true } = props;
+
+  const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
+  const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
+  const isAdmin = currentUser?.user_type === 0;
+  const email = currentUser?.username;
+  const userId = currentUser?.id;
+
+  console.log("Event Admin", isAdmin)
+  console.log("Event Email", email)
+  console.log("Event userId", userId)
 
   var state = {
     title: "",
@@ -246,8 +257,9 @@ const EventsPage = (props) => {
               {event.description}
             </Typography>
           </CardContent>
-
-          <button onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>
+          
+          {isAdmin ? (<button onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>) : null}
+          
       </Card>
       
     );
@@ -255,7 +267,7 @@ const EventsPage = (props) => {
     return (
       <>
       <div style={{position: "relative"}}>
-        <button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>
+      {isAdmin ? (<button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>) : null}
 
         <div style={cardContainer}>
 				{eventCards}
@@ -269,7 +281,7 @@ const EventsPage = (props) => {
         trigger={addForm} 
         setTrigger={setAddForm}>
       </AddEventForm>
-
+      
       <EditEvent
         event={events[eventIndex]}
         submitFunc={handleEdit}
@@ -290,7 +302,7 @@ const EventsPage = (props) => {
             <div style={{position: "relative"}}>
               <h1>Loading Events...</h1>
 
-              <button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>
+              {isAdmin ? (<button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>) : null}
             </div>
 
             <AddEventForm
