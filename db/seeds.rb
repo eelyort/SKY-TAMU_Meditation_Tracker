@@ -20,74 +20,125 @@
       Turn off the heat and keep warm.'
   )
 end
-9.times do |_i|
-  Attendance.create(
-    RSVP: 'Yes'
-  )
-end
+
+Location.create(
+  event_id: 1,
+  virtual_link: 'N/A',
+  building: 'Zachary',
+  room: '431',
+  city: 'College Station',
+  stateloc: 'TX',
+)
+Location.create(
+  event_id: 1,
+  virtual_link: 'tamu.zoom.com/xxxx',
+  building: 'Zoom',
+)
+Attendance.create(
+  RSVP: 'Yes',
+  user_id: 1,
+  event_id: 1,
+  location_id: 1
+)
 
 # users
+User.create([
+  {
+    username: "troylee3006@tamu.edu",
+    firstname: "Troy",
+    lastname: "Lee",
+    bio: "bio",
+    user_type: 0
+  },
+  {
+    username: "daniel.hott@tamu.edu",
+    firstname: "Dani",
+    lastname: "Hott",
+    bio: "bio",
+    user_type: 0
+  },
+  {
+    username: "shawn_martinez821@tamu.edu",
+    firstname: "Shawn",
+    lastname: "Martinez",
+    bio: "bio",
+    user_type: 0
+  },
+  {
+    username: "apitts175@tamu.edu",
+    firstname: "Austin",
+    lastname: "Pitts",
+    bio: "bio",
+    user_type: 0
+  },
+  {
+    username: "pranav1999@tamu.edu",
+    firstname: "Pranav",
+    lastname: "Kumar",
+    bio: "bio",
+    user_type: 0
+  },
+  {
+    username: "markuslink@tamu.edu",
+    firstname: "Markus",
+    lastname: "Link",
+    bio: "bio",
+    user_type: 0
+  }
+])
 9.times do |i|
   User.create(
     username: "username #{i}",
     firstname: "firstname #{i}",
     lastname: "lastname #{i}",
+    bio: "bio #{i}",
     user_type: 1
   )
 end
 Event.create([
-               {
-                 event_id: 1,
-                 admin_id: 101,
-                 title: 'Online SKY Happiness Retreat',
-                 description: '3-session Retreat which trains participants in the evidence-based SKY
-                  meditation practice,
-                  breathwork practices, yoga, social connection, emotional intelligence, and mindful leadership.
-                  SKY Meditation has been shown to significantly reduce anxiety and depression,
-                  lower stress markers, and increase wellbeing, focus, and optimism.
-                  This is one of the most powerful programs that we offer,
-                  and we support committed students with scholarships also for the retreat.',
-                 time: 'Sept 18-20'
-               },
-               {
-                 event_id: 2,
-                 admin_id: 101,
-                 title: 'SKY @ TAMU Discord Server',
-                 description: 'Join an informal discord community of like-minded people,
-                  share your thoughts, ask questions or any information.',
-                 time: '2021-10-09'
-               },
-               {
-                 event_id: 3,
-                 admin_id: 101,
-                 title: 'Breath Breaks',
-                 description: "A guided meditation, breathwork,
-                  & connection session (30 minutes) tailored for small/large groups
-                  virtually every week led by a certified
-                  meditation and breathwork instructor from SKY Campus Happiness.
-                  All of these instructors have offered to lead these free of charge.
-                  Session is open to anyone and no meditation experience required.",
-                 time: 'Every Thursday'
-               }
-             ])
+  {
+    # event_id: 1,
+    admin_id: 101,
+    title: "Online SKY Happiness Retreat",
+    description: "3-session Retreat which trains participants in the evidence-based SKY meditation practice, breathwork practices, yoga, social connection, emotional intelligence, and mindful leadership. SKY Meditation has been shown to significantly reduce anxiety and depression, lower stress markers, and increase wellbeing, focus, and optimism. This is one of the most powerful programs that we offer, and we support committed students with scholarships also for the retreat."
+  },
+  {
+    # event_id: 2,
+    admin_id: 101,
+    title: "SKY @ TAMU Discord Server",
+    description: "Join an informal discord community of like-minded people, share your thoughts, ask questions or any information."
+  },
+  {
+    # event_id: 3,
+    admin_id: 101,
+    title: "Breath Breaks",
+    description: "A guided meditation, breathwork, & connection session (30 minutes) tailored for small/large groups virtually every week led by a certified 
+                  meditation and breathwork instructor from SKY Campus Happiness. All of these instructors have offered to lead these free of charge. 
+                  Session is open to anyone and no meditation experience required."
+  }
+])
 
 Location.create([
-                  {
-                    location_id: 1,
-                    event_id: 2,
-                    virtual_link: 'google.com',
-                    building: 'Zachry',
-                    room: '244',
-                    city: 'College Station',
-                    stateloc: 'Texas'
-                  },
-                  {
-                    location_id: 2,
-                    event_id: 2,
-                    virtual_link: 'bing.com',
-                    building: 'MSC',
-                    room: '598',
-                    city: 'College Station',
-                    stateloc: 'Texas'
-                  }
-                ])
+  {
+    # location_id: 1,
+    event_id: 2,
+    virtual_link: "google.com",
+    building: "Zachry",
+    room: "244",
+    city: "College Station",
+    stateloc: "Texas",
+    start_time: "",
+    end_time: ""
+  },
+  {
+    # location_id: 2,
+    event_id: 2,
+    virtual_link: "bing.com",
+    building: "MSC",
+    room: "598",
+    city: "College Station",
+    stateloc: "Texas",
+    start_time: "",
+    end_time: ""
+  }
+])

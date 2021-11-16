@@ -47,6 +47,11 @@ An RSpec test suite is available and can be ran using:
   * `rspec ./spec`
     * `rspec ./spec/unit/unit_spec.rb`
     * `rspec ./spec/controller/controller_spec.rb`
+    * simplecov is run aswell during this.
+
+Others:
+  * rubocop: `rubocop -A`
+  * brakeman: `brakeman`
 
 # Execute Code
 
@@ -120,7 +125,7 @@ An RSpec test suite is available and can be ran using:
 
 # CI/CD
 
-TBD
+Github actions will automatically run the test suite, a heroku pipeline manages deployment.
 
 # Support
 

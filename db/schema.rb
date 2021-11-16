@@ -17,27 +17,30 @@ ActiveRecord::Schema.define(version: 2021_10_21_164150) do
 
   create_table "attendances", force: :cascade do |t|
     t.string "RSVP"
+    t.integer "user_id"
+    t.integer "event_id"
+    t.integer "location_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "events", primary_key: "event_id", id: :serial, force: :cascade do |t|
+  create_table "events", force: :cascade do |t|
     t.integer "admin_id"
     t.string "title"
     t.text "description"
-    t.string "time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "locations", force: :cascade do |t|
-    t.integer "location_id"
     t.integer "event_id"
     t.string "virtual_link"
     t.string "building"
     t.string "room"
     t.string "city"
     t.string "stateloc"
+    t.string "start_time"
+    t.string "end_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -55,6 +58,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_164150) do
     t.string "username"
     t.string "firstname"
     t.string "lastname"
+    t.string "bio"
     t.integer "user_type", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -3,13 +3,23 @@ import { Button, Typography, Card, CardContent,  CardHeader, CardActionArea } fr
 import { Link } from "react-router-dom";
 import AddEventForm from './AddEventForm'
 import EditEvent from './EditEvent'
+import Cookies from 'universal-cookie';
+import useCookie from '../../UseCookie';
 
 const EventsPage = (props) => {
-  const { isAdmin = true } = props;
+
+  const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
+  const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
+  const isAdmin = currentUser?.user_type === 0;
+  const email = currentUser?.username;
+  const userId = currentUser?.id;
+
+  // console.log("Event Admin", isAdmin)
+  // console.log("Event Email", email)
+  // console.log("Event userId", userId)
 
   var state = {
     title: "",
-    time: "",
     description: ""
   };
 
@@ -17,24 +27,21 @@ const EventsPage = (props) => {
   const [addForm, setAddForm] = useState(false)
   const [editEvent, setEditEvent] = useState(false)
   const [eventIndex, setEventIndex] = useState(0)
-  const [eventsEmpty, setEventsEmpty] = useState(false)
+  //const [eventsEmpty, setEventsEmpty] = useState(false)
 
 
   const onChange = (e) => {
     if (e.target.name == "title"){
       state.title = e.target.value
-    } else if (e.target.name == "time") {
-      state.time = e.target.value
     } else {
       state.description = e.target.value
     }
   }
 
-
-  const databaseRequest = (method, body, event_id, url = "/api/v1/events", callback = () => NULL) => {
+  const databaseRequest = (method, body, id, url = "/api/v1/events", callback = () => NULL) => {
 
     if(method == "DELETE" || method == "PATCH") {
-      url += "/"+String(event_id);
+      url += "/" + String(id);
     }
     
     const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -58,49 +65,24 @@ const EventsPage = (props) => {
     .catch(error => console.log(error.message));
   }
 
-  const checkUniqueId = (event_id) => {
-    var uniqueID = false;
-
-    while (uniqueID == false) {
-      var skip = false;
-
-      events.forEach(event => {
-        console.log("Database ID", event.event_id)
-        console.log("Attempt ID", event_id, "\n")
-        if(event.event_id == event_id) {
-          event_id += 1;
-          skip = true;
-        }
-      });
-      if(skip){
-        skip = false;
-        continue;
-      }
-      uniqueID = true;
-    }
-    return event_id;
-  }
-
-	const handleAdd = (e) => {
+	const handleAdd = (e, inputList=[]) => {
 		e.preventDefault();
 		const answer = window.confirm("Are you sure you would like to add this event?");
 
 		if (answer) {
-			const { title, time, description } = state;
-			var event_id = events.length + 1
+			const { title, description } = state;
 			const admin_id = 101
 
-			event_id = checkUniqueId(event_id)
 
 			const body = {
-				event_id,
 				admin_id,
 				title,
-				description,
-				time
+				description
 			};
 
-			databaseRequest("POST", body, event_id);
+			databaseRequest("POST", body, 0);
+      
+      getEventID(body, inputList);
 
 			setAddForm(false)
 			window.location.reload(true);
@@ -118,15 +100,12 @@ const EventsPage = (props) => {
 			const admin_id = 101
 
 			const title = document.getElementById("edit-title"+String(event_id)).value;
-			const time = document.getElementById("edit-time"+String(event_id)).value;
 			const description = document.getElementById("edit-description"+String(event_id)).value;
 
 			const body = {
-				event_id,
 				admin_id,
 				title,
-				description,
-				time
+				description
 			};
 
 			databaseRequest("PATCH", body, event_id)
@@ -165,14 +144,48 @@ const EventsPage = (props) => {
         .then(response => setEvents( response ))
         .catch(error => console.log(error));
   }
-  
-  const getEventIndex = (event_id) => {
-	events.forEach(event => {
-		var i = 0
-        if(event.event_id == event_id) {
-		  return i;
-        }
-    });
+
+  function saveNewInputList(event_id, inputList){
+    for(let i = 0; i < inputList.length-1; i++){
+      const { virtual_link, building, room, city, stateloc, start_time, end_time, id } = inputList[i] 
+
+      const body = {
+          event_id,
+          virtual_link,
+          building,
+          room,
+          city,
+          stateloc,
+          start_time,
+          end_time
+      };
+      databaseRequest("POST", body, id, "/api/v1/locations", () => getInputList());
+    }
+  }
+
+  function getEventID(body, inputList) {
+    const url = "/api/v1/events";
+    fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Network response was not ok.");
+        })
+        .then(response => {
+          console.log(response);
+          for(let i = response.length-1; i >= 0; i--){
+            const { title, description, admin_id } = response[i];
+            const { title: originalTitle, description: originalDesc, admin_id: originalAdminID } = body;
+            if(title == originalTitle && description == originalDesc && admin_id == originalAdminID){
+              saveNewInputList(response[i].id, inputList);
+              break;
+            }
+          }
+        })
+        .catch(error => console.log(error));
+
+    
   }
 
   function loadEvents() {
@@ -183,7 +196,7 @@ const EventsPage = (props) => {
 
 
   loadEvents()
-  console.log(events)
+  //console.log(events)
 
 
   const goToEvent = (event_id) => {
@@ -222,10 +235,6 @@ const EventsPage = (props) => {
     color: 'white'
   }
 
-//   var contentStyle = {
-//     backgroundColor: '#white'
-//   }
-
   var addBtnStyle = {
     position: "absolute",
     top: "2%",
@@ -235,22 +244,24 @@ const EventsPage = (props) => {
 
   if (events.length != 0) {
     const eventCards = events.map( (event, index) => 
-      <Card key={event.event_id} style={index == 0 ? cardStyle0 : cardStyle0}>
-        <CardActionArea onClick={() => {goToEvent(event.event_id)}}>
+      <Card key={event.id} style={index == 0 ? cardStyle0 : cardStyle0}>
+        <CardActionArea onClick={() => {goToEvent(event.id)}}>
           <CardHeader
             style={headerStyle}
             title={event.title}
-            subheader={<Typography style={headerStyle}>{event.time}</Typography>}
+            subheader={<Typography style={headerStyle}>{"Click For More Details"}</Typography>}
           />
-          </CardActionArea>
 
           <CardContent>
-            <Typography style={{whiteSpace: 'pre-line'}} color="text.secondary">
+            <Typography style={{whiteSpace: 'pre-line', textAlign: 'center'}} color="text.secondary">
               {event.description}
             </Typography>
           </CardContent>
-
-          <button onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>
+        
+        </CardActionArea>
+          
+          {isAdmin ? (<button onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>) : null}
+          
       </Card>
       
     );
@@ -258,7 +269,7 @@ const EventsPage = (props) => {
     return (
       <>
       <div style={{position: "relative"}}>
-        <button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>
+      {isAdmin ? (<button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>) : null}
 
         <div style={cardContainer}>
 				{eventCards}
@@ -272,7 +283,7 @@ const EventsPage = (props) => {
         trigger={addForm} 
         setTrigger={setAddForm}>
       </AddEventForm>
-
+      
       <EditEvent
         event={events[eventIndex]}
         submitFunc={handleEdit}
@@ -293,7 +304,7 @@ const EventsPage = (props) => {
             <div style={{position: "relative"}}>
               <h1>Loading Events...</h1>
 
-              <button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>
+              {isAdmin ? (<button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>) : null}
             </div>
 
             <AddEventForm

@@ -59,7 +59,7 @@ class AttendancesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def attendance_params
-    params.require(:attendance).permit(:RSVP)
+    params.require(:attendance).permit(:RSVP, :event_id, :user_id, :location_id)
   end
 
   # passback user as json for React to render it
