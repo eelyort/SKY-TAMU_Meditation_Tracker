@@ -140,10 +140,11 @@ html, body, body > div:first-of-type {
   display: flex;
 }
 .users-wrapper .user-div .user-text-center {
-  flex: grow;
+  /* flex: grow;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%); */
+  padding: 15px 20px 15px 0;
 }
 
 .users-wrapper .user-div .user-header {
