@@ -71,7 +71,7 @@ const ShowEventPage = (props) => {
                 <div>
                     <p>{event.description}</p>
                     <p>RSVP Link: <Link to={`/newattendance/${event.id}`}>CLICK</Link></p>
-                    <p>Attendance: </p>
+                    {/* <p>Attendance: </p> */}
                     <p>Locations:</p>
                         {inputList.map((x, i) => {
                             if(x.event_id == props.match.params.id || !x.event_id){
