@@ -87,6 +87,7 @@ const UsersShowEditPage = (props) => {
                         ...old,
                         user_type: e.target.value,
                     }))}
+                    disabled={!(user.user_type === 0)}
                 >
                     {userTypes.map((label, index) => (
                         <MenuItem value={index} key={`User Type ${label}`} aria-labelledby={label}>{label}</MenuItem>
