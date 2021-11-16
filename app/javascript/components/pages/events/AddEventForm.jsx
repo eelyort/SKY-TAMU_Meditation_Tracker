@@ -153,6 +153,7 @@ function AddEventForm(props) {
                                     value={x.stateloc}
                                     onChange={e => handleInputChange(e, i)}
                                     />
+                                    <div>
                                     <TextField
                                         id="datetime-local"
                                         name="start_time"
@@ -177,6 +178,7 @@ function AddEventForm(props) {
                                         }}
                                         onChange={e => handleInputChange(e, i)}
                                     />
+                                    </div>
                                     <div className="btn-box">
                                     {inputList.length !== 1 && <button
                                         className="mr10"
