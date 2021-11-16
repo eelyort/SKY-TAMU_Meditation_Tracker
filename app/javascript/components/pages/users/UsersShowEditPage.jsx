@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import React from "react";
 import { Link, useParams, useLocation, useHistory } from "react-router-dom";
 import EditableTextField from "../../EditableTextField";
+import useCookie from '../../UseCookie';
 
 import { userTypes } from "./UsersConstants";
 
