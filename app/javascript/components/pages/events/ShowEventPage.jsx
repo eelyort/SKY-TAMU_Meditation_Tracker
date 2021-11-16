@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
+import TextField from '@mui/material/TextField';
 
 const ShowEventPage = (props) => {
     const [event, setEvent] = useState([])
@@ -30,7 +31,7 @@ const ShowEventPage = (props) => {
             .then(response => setEvent( response ))
     }
 
-    const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "", date: "", time: "" }]);
+    const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "", start_time: "", end_time: "" }]);
 
     const getInputList = () => {
         const url = "/api/v1/locations";
@@ -83,8 +84,38 @@ const ShowEventPage = (props) => {
                                         <li>Room: {x.room}</li>
                                         <li>City: {x.city}</li>
                                         <li>State: {x.stateloc}</li>
-                                        <li>Date: {x.date}</li>
-                                        <li>Time: {x.time}</li>
+                                        <li>
+                                            <div>
+                                                <TextField
+                                                    disabled="true"
+                                                    id="datetime-local"
+                                                    name="start_time"
+                                                    value={x.start_time}
+                                                    label="Start Time: "
+                                                    type="datetime-local"
+                                                    sx={{ width: 250 }}
+                                                    InputLabelProps={{
+                                                    shrink: true,
+                                                    }}
+                                                />
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                <TextField
+                                                    disabled="true"
+                                                    id="datetime-local"
+                                                    name="end_time"
+                                                    value={x.end_time}
+                                                    label="End Time: "
+                                                    type="datetime-local"
+                                                    sx={{ width: 250 }}
+                                                    InputLabelProps={{
+                                                    shrink: true,
+                                                    }}
+                                                />
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                                 );

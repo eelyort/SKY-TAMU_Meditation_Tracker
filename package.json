@@ -3,6 +3,10 @@
   "private": true,
   "dependencies": {
     "@babel/preset-react": "^7.14.5",
+    "@date-io/date-fns": "^2.11.0",
+    "@date-io/dayjs": "^2.11.0",
+    "@date-io/luxon": "^2.11.1",
+    "@date-io/moment": "^2.11.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.1",

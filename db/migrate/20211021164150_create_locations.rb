@@ -9,8 +9,8 @@ class CreateLocations < ActiveRecord::Migration[6.1]
       t.string :room
       t.string :city
       t.string :stateloc
-      t.date :date
-      t.string :time
+      t.string :start_time
+      t.string :end_time
 
       t.timestamps
     end
