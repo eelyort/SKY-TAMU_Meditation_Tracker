@@ -29,6 +29,9 @@ const Header = () => {
             "responseGoogle()\n" +
             "----------------------------------------------");
         console.log(response);
+        console.log(response.getAuthResponse());
+        console.log(response.getBasicProfile());
+        console.log(response.getId());
 
         var token = response.Zb;
         const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
