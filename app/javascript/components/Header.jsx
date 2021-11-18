@@ -33,17 +33,17 @@ const Header = () => {
         console.log(response.getBasicProfile());
         console.log(response.getId());
 
-        var token = response.Zb;
+        var token = response.getAuthResponse().access_token;
         const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
         const requestOptions = {
             method: 'POST',
             headers: {
                 "X-CSRF-Token": csrfToken,
-                'Authorization': `Bearer ${response.Zb.accessToken}`,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
-                'access_token': `${response.Zb.accessToken}`
+                'access_token': `${token}`
             },
-            body: JSON.stringify(token)
+            body: JSON.stringify(response.getAuthResponse())
         };
 
         return fetch(`/auth/request`, requestOptions)
