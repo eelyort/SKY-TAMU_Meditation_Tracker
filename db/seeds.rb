@@ -86,15 +86,6 @@ User.create([
     user_type: 0
   }
 ])
-9.times do |i|
-  User.create(
-    username: "username #{i}",
-    firstname: "firstname #{i}",
-    lastname: "lastname #{i}",
-    bio: "bio #{i}",
-    user_type: 1
-  )
-end
 Event.create([
   {
     # event_id: 1,
