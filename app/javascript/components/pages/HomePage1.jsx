@@ -1,18 +1,189 @@
-import React, { useState, useEffect }from 'react';
+import React, { useState, useEffect } from 'react';
+
+/* Added */
+import { Card, CardContent,  CardHeader, CardActionArea } from '@mui/material';
+import AddEventForm from './events/AddEventForm'
+import EditEvent from './events/EditEvent'
+
+import React from 'react';
 import HeroImage from 'images/iStock-1161561165.jpg';
 import Carousel from 'react-material-ui-carousel'
 import { Button, Typography, Paper } from '@mui/material';
 import { Link } from "react-router-dom";
-import { Card, CardContent,  CardHeader, CardActionArea } from '@mui/material';
-import AddEventForm from './events/AddEventForm'
-import EditEvent from './events/EditEvent'
-import AttendancePage from './AttendancePage'
-//import DateTime from DateTime;
-import DateTime from 'react-datetime';
 
 
-var tot_time = 0
-var count1 = 0
+function Item(props)
+{
+    return (
+        <Paper elevation={6}>
+            <div className="wrapper homepage">
+                <div className="homepage-hero">
+                    <div className='overlay'>
+                        <img src={props.item.image} />
+                    </div>
+
+                    <div className='shading overlay'></div>
+
+                    <div className='text'>
+                        <Typography variant="h1">
+                            {props.item.name}
+                        </Typography>
+
+                        <Typography variant="h4">
+                            {props.item.description}
+                        </Typography>
+
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            component={Link}
+                            to={String('/'+ props.item.link)}
+                            onClick={ () => {console.log(String('/'+ props.item.link), "button clicked.")} }
+                        >
+                            {props.item.button}
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </Paper>
+    )
+}
+
+
+const HomePage = (props) => {
+
+/* const [events, setEvents] = useState([])
+var totTime = 0
+var tot_time = 0;
+var i = 0;
+const databaseRequest = (method, body, event_id, url = "/api/v1/events", callback = () => NULL) => {
+
+  if(method == "DELETE" || method == "PATCH") {
+    url += "/"+String(event_id);
+  }
+
+  const token = document.querySelector('meta[name="csrf-token"]').content;
+
+  fetch(url, {
+    method: method,
+    headers: {
+      "X-CSRF-Token": token,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  })
+
+  .then(response => {
+    if (response.ok) {
+      callback();
+      return response.json();
+    }
+    throw new Error("Network response was not ok.");
+  })
+  .catch(error => console.log(error.message));
+} */
+
+/* New add */
+
+/* const getEvents = () => {
+  const url = "/api/v1/events";
+  fetch(url)
+      .then(response => {
+          if (response.ok) {
+              return response.json();
+          }
+          throw new Error("Network response was not ok.");
+      })
+      .then(response => setEvents( response ))
+      .catch(error => console.log(error));
+}
+
+const getEventIndex = (event_id) => {
+events.forEach(event => {
+  if(event.event_id == event_id) {
+    return i;
+      }
+  });
+}
+
+const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "", start_time: "", end_time: "" }]);
+const getInputList = () => {
+    const url = "/api/v1/locations";
+    fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Network response was not ok.");
+        })
+      //  .then(response => setInputList([...response, { virtual_link: "", building: "", room: "", city: "", stateloc: "", start_time: "", end_time: "" }]))
+       .then(response => setInputList( response ))
+       .catch(error => console.log(error));
+}
+
+function loadInputList() {
+  useEffect(() => {
+    getInputList()
+}, []);
+}
+const [attendance, setAttendance] = React.useState(undefined);
+
+// componentDidMount
+const fetchAttendance = () => {
+    const url = "/attendances";
+    fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Network response was not ok.");
+        })
+        .then(response => {
+            console.log(response);
+            setAttendance(response);
+        })
+        .catch(err => console.log("Error: " + err));
+}
+React.useEffect(() => {
+    fetchAttendance();
+}, []);
+
+/*const getEventTimes = () => {
+  events.forEach(event => {
+     totTime = totTime + event.time;
+  });
+}
+*/
+
+/* const getTimeTracker = () => {
+
+ var count = 0;
+
+ inputList.forEach(location => {
+   attendance.forEach(attendance => {
+     if((attendance.RSVP = "Yes") && (attendance.event_id == inputList.event_id))
+         count++;
+    });
+
+    tot_time += count;
+ });
+  /* tot_time = count * (event.time) */
+  // tot_time = count * 16;
+/* } */
+
+/* function loadEvents() {
+  useEffect(() => {
+  //  getEvents()
+//    getEventTimes()
+    //getTimeTracker()
+  }, []);
+} */
+
+
+/* loadEvents()
+console.log(events) */
+
+
 function Item(props)
 {
     return (
@@ -51,180 +222,11 @@ function Item(props)
 }
 
 const HomePage = (props) => {
-   var retData;
-  const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "", start_time: "", end_time: "" }]);
-  const getInputList = () => {
-      const url = "/api/v1/locations";
-      fetch(url)
-          .then(response => {
-              if (response.ok) {
-                 //retData = response.json();
-                  return response.json();
-              }
-              throw new Error("Network response was not ok.");
-          })
-          .then(response => {
-            console.log(response);
-            //setInputList(retData);
-            setInputList([...response, { virtual_link: "", building: "", room: "", city: "", stateloc: "", start_time: "", end_time: "" }])
-          })
-         // .then(response => setInputList( response ))
-         .catch(error => console.log(error));
-  }
-
-/*  function loadInputList() {
-    useEffect(() => {
-      getInputList()
-    }, []);
-  }*/
-
-
-// const [attendances, setAttendances] = React.useState(undefined);
-const [attendances, setAttendances] = useState([]);
-console.log("Here")
-
-// componentDidMount
- const fetchAttendance = () => {
-    const url = "/attendances";
-    fetch(url)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }
-            throw new Error("Network response was not ok.");
-        })
-        .then(response => {
-            console.log(response);
-            setAttendances(response);
-
-        })
-        .catch(err => console.log("Error: " + err));
-}
-
-/* const fetchAttendance = () => {
-    const url = "/attendances";
-    const response = fetch(url);
-    const json = response.json;
-    setAttendances(json.data);
-    console.log(attendances);
-  }
-  */
-
-React.useEffect(() => {
-    fetchAttendance();
-    getInputList();
-    console.log(attendances);
-}, []);
-
-
-
-const getTimeTracker = () => {
-
-   var count;
-   var loop = 0;
-   var time_difference;
-   //getInputList();
-//   console.log("before inputlist log")
-
-  // console.log(inputList)
-  console.log("Length of Locations " + inputList.length);
-    inputList.forEach(location => {
-      count = 0;
-      loop++;
-//      console.log("Inside inputList");
-//    console.log(location.city);
-     attendances.forEach(attendance => {
-//       console.log("Inside attendance");
-//       console.log(attendances.RSVP);
-       if((attendances.RSVP = 'Yes') && (attendance.location_id == location.id && attendance.event_id == location.event_id))
-           count++;
-//           console.log(count);
-      });
-      console.log("Loop " + loop);
-
-      if(location.start_time != ''){
-        var start = new Date(location.start_time);
-  //      var startTime = Date.parse(start);
-        var startHours = start.getHours();
-        var startMin = start.getMinutes();
-        var startDay = start.getDate();
-        var startMonth = start.getMonth();
-        var startYear = start.getYear();
-  //      console.log("start time " + startHours + " : " + startMin);
-        var end = new Date(location.end_time);
-        var endHours = end.getHours();
-        var endMin = end.getMinutes();
-        var endDay = end.getDate();
-        var endMonth = end.getMonth();
-        var endYear = end.getYear();
-
-        var startTotalDays = startYear * startMonth + startDay;
-        var endTotalDays = endYear * endMonth + endDay;
-        console.log("start days " + startTotalDays + "end days " + endTotalDays);
-//        var startTotalHours = startTotalDays * startHours;
-//        var endTotalHours = endTotalDays * endHours;
-//        console.log("start hours " + startTotalHours);
-  //      console.log("end hours " + endTotalHours);
-       if(endTotalDays!=startTotalDays){
-          if(startHours > endHours){
-            time_difference = (Math.abs(endTotalDays - startTotalDays) * 24)
-             - Math.abs(endHours - startHours);
-          }
-          else if (startHours == endHours) {
-            time_difference = Math.abs(endTotalDays - startTotalDays) * 24;
-          }
-          else{
-            time_difference = Math.abs(endHours - startHours) +
-             (Math.abs(endTotalDays - startTotalDays) * 24);
-          }
-        }
-        else{
-          time_difference = Math.abs(endHours - startHours);
-        }
-
-  //      console.log(start);
-  //      console.log(end);
-        console.log("start time " + location.start_time);
-        console.log("end time " + location.end_time);
-        console.log("time difference " + time_difference);
-  //      var start_min = start.getMinutes();
-        count1 += count;
-        tot_time += count * time_difference;
-      }
-/*      var start = new Date(location.start_time);
-      var startTime = Date.parse(start);
-      var startHours = start.getHours();
-      var startMin = start.getMinutes();
-      console.log("start time " + startHours + " : " + startMin);
-      var end = new Date(location.end_time);
-      var endHours = end.getHours();
-      var endMin = end.getMinutes();
-
-      var time_difference = Math.abs(endHours-startHours);
-
-//      console.log(start);
-//      console.log(end);
-
-//      var start_min = start.getMinutes();
-      count1 += count;
-      tot_time += count * time_difference;*/
-   });
-//   return tot_time;
-
-
-}
-//React.useEffect(() => {
-    getTimeTracker();
-//    console.log(tot_time);
-//}, []);
-
-
-
 
     var CarouselItems = [
         {
-            name: tot_time + " Hours Meditated Total",
-            description: count1 + " of people expected at next session",
+            name: "1000 Hours Meditated Total",
+            description: "# of people expected at next session",
             button: "See Events",
             link: "events",
             image: HeroImage
@@ -296,6 +298,7 @@ const getTimeTracker = () => {
             </div>
         </>
     );
+}
 }
 
 export default HomePage;

@@ -197,17 +197,17 @@ function EditEvent(props) {
                                         onClick={e => handleRemoveClick(e, i)}>Remove</button>}
                                     {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
                                     </div>
+                                  </div>
+                                  );
 
-                                );
+                                }
 
-                            }
+                                else{
+                                    return null;
+                                }
 
-                            else{
-                                return null;
-                            }
-
-                            })}
-                        </div>
+                          })}
+                        
 
                         <input className='submitStyle' type="submit" value="Confirm Edit" />
                         <button className='deleteStyle' type="button" name={String(props.event.id)} onClick={props.deleteFunc}>Delete Event</button>
