@@ -7,6 +7,7 @@ import Cookies from 'universal-cookie';
 import useCookie from './UseCookie';
 
 const menuItems = [{'text': 'Events', 'url': '/events'}, {'text': 'Members', 'url': '/members'}, {'text': 'Attendance', 'url': '/attendance'}];
+const adminItems = [{'text': 'Help', 'url': '/help'}]
 
 const Header = () => {
     const [loginSuccessAlertOpen, setLoginSuccessAlertOpen] = React.useState(false);
@@ -16,7 +17,7 @@ const Header = () => {
     // save user info in cookie
     const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
     const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
-    const isAdmin = currentUser?.user_type === 0;
+    const isAdmin = (currentUser?.user_type === 0) ?? false;
     console.log(`currentUser:`);
     console.log(currentUser);
     console.log(JSON.stringify(currentUser));
@@ -97,7 +98,14 @@ const Header = () => {
                                 {val.text}
                             </MenuItem>
                         ))}
+
+                        {isAdmin ? (adminItems.map((val, index) => (
+                            <MenuItem onClick={() => setMenuAnchor(null)} key={index} component={Link} to={val.url}>
+                                {val.text}
+                            </MenuItem>
+                        ))) : null}
                     </Menu>
+                    
                     <Button color="inherit" component={Link} to={"/"}>
                         SKY@TAMU
                     </Button>

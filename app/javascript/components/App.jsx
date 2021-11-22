@@ -12,7 +12,7 @@ import ShowEventPage from "./pages/events/ShowEventPage";
 import UsersPage from "./pages/users/UsersPage";
 import UsersShowEditPage from "./pages/users/UsersShowEditPage";
 import LoginPage from "./pages/LoginPage";
-import SocialMediaPage from "./pages/SocialMediaPage";
+import HelpPage from "./pages/HelpPage";
 import AttendancePage from "./pages/AttendancePage";
 import NewAttendancesPage from "./pages/NewAttendance";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -64,6 +64,10 @@ export default () => (
             </Route>
             <Route path="/newAttendance/:eventId" exact>
               <NewAttendancesPage />
+            </Route>
+            
+            <Route path="/help" exact>
+              <HelpPage />
             </Route>
 
             {/* Example stuff */}

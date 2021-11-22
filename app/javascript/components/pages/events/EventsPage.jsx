@@ -10,9 +10,9 @@ const EventsPage = (props) => {
 
   const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
   const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
-  const isAdmin = currentUser?.user_type === 0;
-  const email = currentUser?.username;
-  const userId = currentUser?.id;
+  const isAdmin = (currentUser?.user_type === 0) ?? false;
+  //const email = currentUser?.username;
+  //const userId = currentUser?.id;
 
   // console.log("Event Admin", isAdmin)
   // console.log("Event Email", email)
