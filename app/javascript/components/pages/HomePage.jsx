@@ -179,7 +179,12 @@ const getTimeTracker = () => {
           }
         }
         else{
-          time_difference = Math.abs(endHours - startHours);
+          if(startHours == endHours){
+            time_difference = 1;
+          }
+          else{
+            time_difference = Math.abs(endHours - startHours);
+          }
         }
 
   //      console.log(start);
