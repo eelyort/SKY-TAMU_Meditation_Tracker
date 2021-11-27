@@ -70,7 +70,7 @@ function AddEventForm(props) {
         if (answer) {
             const { virtual_link, building, room, city, stateloc, start_time, end_time, id } = inputList[inputList.length-1];
             const event_id = 0
-    
+
             const body = {
                 event_id,
                 virtual_link,
@@ -96,32 +96,32 @@ function AddEventForm(props) {
                     <h1>Add New {props.comp}</h1>
 
                     <div>
-                        <form 
-                            id= "add-event" 
-                            onSubmit={(e)=>props.submitFunc(e, inputList)}> 
+                        <form
+                            id= "add-event"
+                            onSubmit={(e)=>props.submitFunc(e, inputList)}>
 
                         <label>Event Title:</label>
-                        <input 
-                            name="title" 
+                        <input
+                            name="title"
                             className='inputStyle'
-                            type="string" 
-                            placeholder="Event Title" 
-                            onChange={props.changeFunc} 
+                            type="string"
+                            placeholder="Event Title"
+                            onChange={props.changeFunc}
                             required/>
 
                         <label>Event Description:</label>
-                        <textarea 
-                            name="description" 
+                        <textarea
+                            name="description"
                             className='textAreaStyle'
-                            type="text" 
-                            placeholder="Event Description..." 
-                            onChange={props.changeFunc} 
+                            type="text"
+                            placeholder="Event Description..."
+                            onChange={props.changeFunc}
                             required/>
-                        
+
                         <label>Locations</label>
                         {inputList.map((x, i) => {
                                 return (
-                                   
+
                                 <div className="box">
                                     <input
                                     name="virtual_link"
@@ -190,9 +190,9 @@ function AddEventForm(props) {
                             }
                         )}
 
-                        <input 
+                        <input
                             className='submitStyle'
-                            type="submit" 
+                            type="submit"
                             value="Submit" />
 
                         </form>
