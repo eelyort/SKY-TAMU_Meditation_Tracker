@@ -6,7 +6,8 @@ import { GoogleAPI, CustomGoogleLogin } from 'react-google-oauth';
 import Cookies from 'universal-cookie';
 import useCookie from './UseCookie';
 
-const menuItems = [{'text': 'Events', 'url': '/events'}, {'text': 'Members', 'url': '/members'}, {'text': 'Social Media', 'url': '/socialmedia'}, {'text': 'Attendance', 'url': '/attendance'}];
+const menuItems = [{'text': 'Events', 'url': '/events'}, {'text': 'Members', 'url': '/members'}, {'text': 'Attendance', 'url': '/attendance'}];
+const adminItems = [{'text': 'Help', 'url': '/help'}]
 
 const Header = () => {
     const [loginSuccessAlertOpen, setLoginSuccessAlertOpen] = React.useState(false);
@@ -16,7 +17,7 @@ const Header = () => {
     // save user info in cookie
     const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
     const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
-    const isAdmin = currentUser?.user_type === 0;
+    const isAdmin = (currentUser?.user_type === 0) ?? false;
     console.log(`currentUser:`);
     console.log(currentUser);
     console.log(JSON.stringify(currentUser));
@@ -29,18 +30,21 @@ const Header = () => {
             "responseGoogle()\n" +
             "----------------------------------------------");
         console.log(response);
+        console.log(response.getAuthResponse());
+        console.log(response.getBasicProfile());
+        console.log(response.getId());
 
-        var token = response.Zb;
+        var token = response.getAuthResponse().access_token;
         const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
         const requestOptions = {
             method: 'POST',
             headers: {
                 "X-CSRF-Token": csrfToken,
-                'Authorization': `Bearer ${response.Zb.accessToken}`,
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
-                'access_token': `${response.Zb.accessToken}`
+                'access_token': `${token}`
             },
-            body: JSON.stringify(token)
+            body: JSON.stringify(response.getAuthResponse())
         };
 
         return fetch(`/auth/request`, requestOptions)
@@ -94,7 +98,14 @@ const Header = () => {
                                 {val.text}
                             </MenuItem>
                         ))}
+
+                        {isAdmin ? (adminItems.map((val, index) => (
+                            <MenuItem onClick={() => setMenuAnchor(null)} key={index} component={Link} to={val.url}>
+                                {val.text}
+                            </MenuItem>
+                        ))) : null}
                     </Menu>
+                    
                     <Button color="inherit" component={Link} to={"/"}>
                         SKY@TAMU
                     </Button>

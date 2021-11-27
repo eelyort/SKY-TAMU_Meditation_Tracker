@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import React from "react";
 import { Link, useParams, useLocation, useHistory } from "react-router-dom";
 import EditableTextField from "../../EditableTextField";
+import useCookie from '../../UseCookie';
 
 import { userTypes } from "./UsersConstants";
 
@@ -14,6 +15,13 @@ const UsersShowEditPage = (props) => {
     const [user, setUser] = React.useState(undefined);
     const [isLoading, setIsLoading] = React.useState(false);
     const history = useHistory();
+
+    // user stuff
+    const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
+    const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
+    const isAdmin = (currentUser?.user_type === 0) ?? false;
+    const email = currentUser?.username;
+    const currentUserId = currentUser?.id;
 
     // componentDidMount
     React.useEffect(() => {
@@ -87,6 +95,7 @@ const UsersShowEditPage = (props) => {
                         ...old,
                         user_type: e.target.value,
                     }))}
+                    disabled={!(isAdmin)}
                 >
                     {userTypes.map((label, index) => (
                         <MenuItem value={index} key={`User Type ${label}`} aria-labelledby={label}>{label}</MenuItem>

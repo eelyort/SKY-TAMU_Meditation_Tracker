@@ -12,6 +12,8 @@ import useCookie from '../UseCookie';
 
 const AttendancePage = (props) => {
     const [attendance, setAttendance] = React.useState(undefined);
+    const [events, setEvents] = React.useState(undefined);
+    const [users, setUsers] = React.useState(undefined);
 
     // user stuff
     const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
@@ -37,10 +39,47 @@ const AttendancePage = (props) => {
                 setAttendance(response);
             })
             .catch(err => console.log("Error: " + err));
-    }
+    };
+    const fetchEvents = () => {
+        const url = "/api/v1/events";
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Network response was not ok.");
+            })
+            .then(response => setEvents( response ))
+            .catch(error => console.log(error));
+    };
+    const fetchUsers = () => {
+        const url = "/users";
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Network response was not ok.");
+            })
+            .then(response => {
+                setUsers(response);
+            })
+            .catch(err => console.log("Error: " + err));
+    };
     React.useEffect(() => {
         fetchAttendance();
+        fetchEvents();
+        fetchUsers();
     }, []);
+
+    console.log(`Attendance:`);
+    console.log(attendance);
+    console.log(`Events:`);
+    console.log(events);
+    console.log(events?.filter(event => event.id === attendance?.event_id));
+    console.log(`Users:`);
+    console.log(users);
+    console.log(users?.filter(user => user.id === attendance?.user_id));
 
     // delete handler
     const [isLoading, setIsLoading] = React.useState(false);
@@ -119,7 +158,13 @@ const AttendancePage = (props) => {
             {attendance ? (
                 <>
                     {attendance.map((attendance, attendanceIndex) => (
-                        <div className={'user-div'} key={`user ${attendance.id}`}>
+                        <div className={'user-div attendance'} key={`user ${attendance.id}`}>
+                            <Typography variant={"h5"} className={'user-text-center'}>
+                                {`${users?.filter(user => user.id === attendance.user_id)[0]?.firstname} ${users?.filter(user => user.id === attendance.user_id)[0]?.lastname}`}
+                            </Typography>
+                            <Typography variant={"h5"} className={'user-text-center'}>
+                                {`${events?.filter(event => event.id === attendance.event_id)[0]?.title}`}
+                            </Typography>
                             <Typography variant={"h5"} className={'user-text-center'} component={Link} to={showLink(attendance)}>
                                 {`${attendance.RSVP}`}
                             </Typography>
@@ -144,11 +189,6 @@ const AttendancePage = (props) => {
                     {deleteConfirmationDialog(attendance[deleteAttendanceIndex], deleteAttendanceIndex)}
                 </>
             ) : (<CircularProgress />)}
-            {isAdmin ? (
-                <IconButton color="secondary" aria-labelledby={`New Attendance`} component={Link} to={'/newAttendance'}>
-                    <AddCircleOutlineIcon />
-                </IconButton>
-            ) : null}
             {isLoading ? (
                 <div className="users-is-loading">
                     <div className="users-loading-circle">

@@ -7,7 +7,7 @@ require 'rails_helper'
 # Sunny day test
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(admin_id: 0, title: 'Meditation', description:'This is a test description')
+    described_class.new(admin_id: 0, title: 'Meditation', description: 'This is a test description')
   end
 
   it 'is valid with valid attributes' do
@@ -24,7 +24,7 @@ end
 # Rainy day test - Admin ID
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(admin_id: 0, title: 'Meditation', description:'This is a test description')
+    described_class.new(admin_id: 0, title: 'Meditation', description: 'This is a test description')
   end
 
   it 'admin ID is invalid (needs to be integer)' do
@@ -51,7 +51,7 @@ end
 # Rainy day test - title
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(admin_id: 0, title: 'Meditation', description:'This is a test description')
+    described_class.new(admin_id: 0, title: 'Meditation', description: 'This is a test description')
   end
 
   it 'title cannot be empty' do
@@ -63,7 +63,7 @@ end
 # Rainy day test - description
 RSpec.describe Event, type: :model do
   subject do
-    described_class.new(admin_id: 0, title: 'Meditation', description:'This is a test description')
+    described_class.new(admin_id: 0, title: 'Meditation', description: 'This is a test description')
   end
 
   it 'description cannot be empty' do
@@ -124,29 +124,37 @@ end
 # Sunny day test
 RSpec.describe Location, type: :model do
   subject do
-    described_class.new(event_id: 0, virtual_link: 'test link', building:'test building', room:'test room', city:'test city', stateloc:'test state', start_time:'', end_time:'')
+
+    described_class.new(event_id: 0, virtual_link: 'test link', building: 'test building', room: 'test room',
+                        city: 'test city', stateloc: 'test state', start_time:'', end_time:'')
+
   end
 
   it 'is valid with valid attributes' do
     expect(subject).to be_valid
   end
 
-
   it 'is valid and created on database' do
-    params = {event_id: 0, virtual_link: 'test link', building:'test building', room:'test room', city:'test city', stateloc:'test state', start_time:'', end_time:''}
+
+    params = { event_id: 0, virtual_link: 'test link', building: 'test building', room: 'test room', city: 'test city',
+               stateloc: 'test state', date: '11-11-2011', start_time:'', end_time:'' }
+
     one = Location.create!(params)
     expect(one).to be_valid
   end
- end
+end
 
 # Rainy day test - Event ID
 RSpec.describe Location, type: :model do
   subject do
-    described_class.new(event_id: 0, virtual_link: 'test link', building:'test building', room:'test room', city:'test city', stateloc:'test state', start_time:'', end_time:'')
+
+    described_class.new(event_id: 0, virtual_link: 'test link', building: 'test building', room: 'test room',
+                        city: 'test city', stateloc: 'test state', date: '11-11-2011', start_time:'', end_time:'')
+
   end
 
   it 'event ID is invalid (needs to be integer)' do
-    subject.event_id = "test"
+    subject.event_id = 'test'
     expect(subject).not_to be_valid
   end
 

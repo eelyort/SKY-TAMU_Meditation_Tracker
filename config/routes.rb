@@ -58,6 +58,6 @@ Rails.application.routes.draw do
   # skip Devise default roots
   # mount_devise_token_auth_for 'User', at: 'auth', skip: [:omniauth_callbacks]
   # oauth route
-  post 'auth/request', to:'authorization#get_authorization'
+  post 'auth/request', to:'authorization#do_authorization'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.htm
 end

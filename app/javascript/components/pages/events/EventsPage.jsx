@@ -10,13 +10,13 @@ const EventsPage = (props) => {
 
   const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
   const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
-  const isAdmin = currentUser?.user_type === 0;
-  const email = currentUser?.username;
-  const userId = currentUser?.id;
+  const isAdmin = (currentUser?.user_type === 0) ?? false;
+  //const email = currentUser?.username;
+  //const userId = currentUser?.id;
 
-  console.log("Event Admin", isAdmin)
-  console.log("Event Email", email)
-  console.log("Event userId", userId)
+  // console.log("Event Admin", isAdmin)
+  // console.log("Event Email", email)
+  // console.log("Event userId", userId)
 
   var state = {
     title: "",
@@ -196,7 +196,7 @@ const EventsPage = (props) => {
 
 
   loadEvents()
-  console.log(events)
+  //console.log(events)
 
 
   const goToEvent = (event_id) => {
@@ -249,14 +249,16 @@ const EventsPage = (props) => {
           <CardHeader
             style={headerStyle}
             title={event.title}
+            subheader={<Typography style={headerStyle}>{"Click For More Details"}</Typography>}
           />
-          </CardActionArea>
 
           <CardContent>
             <Typography style={{whiteSpace: 'pre-line', textAlign: 'center'}} color="text.secondary">
               {event.description}
             </Typography>
           </CardContent>
+        
+        </CardActionArea>
           
           {isAdmin ? (<button onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>) : null}
           

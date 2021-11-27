@@ -3,7 +3,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React from "react";
 import Cookies from 'universal-cookie';
-import useCookie from '../UseCookie'; 
+import useCookie from '../UseCookie';
 import { Link, useParams, useLocation, useHistory } from "react-router-dom";
 
 
@@ -110,7 +110,6 @@ const NewAttendancesPage = (props) => {
                             <MenuItem value={-1} key={`No location selection`} aria-labelledby={'No location selection'}>Locations Loading...</MenuItem>
                         )
                     }
-                    <MenuItem value={'No'} key={`Attendance Type Neg-RSVP`} aria-labelledby={'Attendance Type'}>{'No'}</MenuItem>
                 </Select>
                 <br/>
                 <Button disabled={!userId} variant={"contained"} color={"secondary"} aria-labelledby={"Save Changes"} onClick={() => {
