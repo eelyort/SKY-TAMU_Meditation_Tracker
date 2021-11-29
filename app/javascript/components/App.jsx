@@ -13,6 +13,7 @@ import UsersPage from "./pages/users/UsersPage";
 import UsersShowEditPage from "./pages/users/UsersShowEditPage";
 import LoginPage from "./pages/LoginPage";
 import HelpPage from "./pages/HelpPage";
+import AboutPage from "./pages/AboutPage";
 import AttendancePage from "./pages/AttendancePage";
 import NewAttendancesPage from "./pages/NewAttendance";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -68,6 +69,10 @@ export default () => (
             
             <Route path="/help" exact>
               <HelpPage />
+            </Route>
+
+            <Route path="/about" exact>
+              <AboutPage />
             </Route>
 
             {/* Example stuff */}
