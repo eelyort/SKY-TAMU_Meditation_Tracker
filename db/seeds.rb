@@ -33,21 +33,24 @@ User.create([
     firstname: "Troy",
     lastname: "Lee",
     bio: "bio",
-    user_type: 0
+    user_type: 0,
+    evisible: 1
   },
   {
     username: "daniel.hott@tamu.edu",
     firstname: "Dani",
     lastname: "Hott",
     bio: "bio",
-    user_type: 0
+    user_type: 0,
+    evisible: 1
   },
   {
     username: "shawn_martinez821@tamu.edu",
     firstname: "Shawn",
     lastname: "Martinez",
     bio: "bio",
-    user_type: 0
+    user_type: 0,
+    evisible: 1
   },
   {
     username: "apitts175@tamu.edu",
@@ -61,14 +64,16 @@ User.create([
     firstname: "Pranav",
     lastname: "Kumar",
     bio: "bio",
-    user_type: 0
+    user_type: 0,
+    evisible: 1
   },
   {
     username: "markuslink@tamu.edu",
     firstname: "Markus",
     lastname: "Link",
     bio: "bio",
-    user_type: 0
+    user_type: 0,
+    evisible: 1
   }
 ])
 9.times do |i|
@@ -77,7 +82,8 @@ User.create([
     firstname: "firstname #{i}",
     lastname: "lastname #{i}",
     bio: "bio #{i}",
-    user_type: 1
+    user_type: 1,
+    evisible: 1
   )
 end
 Event.create([
@@ -97,8 +103,8 @@ Event.create([
     # event_id: 3,
     admin_id: 101,
     title: "Breath Breaks",
-    description: "A guided meditation, breathwork, & connection session (30 minutes) tailored for small/large groups virtually every week led by a certified 
-                  meditation and breathwork instructor from SKY Campus Happiness. All of these instructors have offered to lead these free of charge. 
+    description: "A guided meditation, breathwork, & connection session (30 minutes) tailored for small/large groups virtually every week led by a certified
+                  meditation and breathwork instructor from SKY Campus Happiness. All of these instructors have offered to lead these free of charge.
                   Session is open to anyone and no meditation experience required."
   }
 ])

@@ -8,7 +8,7 @@ import AddEventForm from './events/AddEventForm'
 import EditEvent from './events/EditEvent'
 import AttendancePage from './AttendancePage'
 //import DateTime from DateTime;
-import DateTime from 'react-datetime';
+//import DateTime from 'react-datetime';
 
 
 var tot_time = 0

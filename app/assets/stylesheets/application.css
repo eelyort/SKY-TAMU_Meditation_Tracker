@@ -125,6 +125,7 @@ html, body, body > div:first-of-type {
 }
 
 /* users page */
+/* users page */
 .users-wrapper {
   background-color: var(--cornsilk);
   padding: 25px 140px;
@@ -135,13 +136,16 @@ html, body, body > div:first-of-type {
   border-style: solid none none none;
   border-color: rgba(14, 16, 61, 0.308);
   border-width: 1px;
+}
+.users-wrapper .user-div.attendance {
   display: flex;
 }
 .users-wrapper .user-div .user-text-center {
-  flex: grow;
+  /* flex: grow;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%); */
+  padding: 15px 20px 15px 0;
 }
 
 .users-wrapper .user-div .user-header {
@@ -185,13 +189,13 @@ html, body, body > div:first-of-type {
 }
 
 .wrapper .homepage-hero .text a {
-  background-color: #0e103dff; 
-  padding: 5px; 
+  background-color: #0e103dff;
+  padding: 5px;
   border-radius: 5px;
 }
 .carousel-swipe {
-  user-select: none; 
-  touch-action: pan-y; 
+  user-select: none;
+  touch-action: pan-y;
   transform-origin: 50% 50% 0px;
 }
 
