@@ -18,8 +18,13 @@ const UsersPage = (props) => {
     const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
     const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
     const isAdmin = (currentUser?.user_type === 0) ?? false;
+//    console.log(currentUser.evisible);
+//    console.log(currentUser.username);
+//    const isEmailVisible = (currentUser?.evisible === 0) ?? false;
     const email = currentUser?.username;
     const userId = currentUser?.id;
+    var isEmailVisible = true;
+//    console.log(isEmailVisible);
 
     const [users, setUsers] = React.useState(undefined);
 
@@ -40,6 +45,7 @@ const UsersPage = (props) => {
     }
     React.useEffect(() => {
         fetchUsers();
+        console.log(users);
     }, []);
 
     // delete handler
@@ -110,6 +116,12 @@ const UsersPage = (props) => {
     const showLink = (user) => `/members/${user.id}`;
     const editLink = (user) => `/members/${user.id}/edit`;
 
+//    console.log(user.evisible);
+  //  console.log(user.username);
+//    const isEmailVisible = (users?.evisible === 0) ?? false;
+
+  //  console.log(isEmailVisible);
+
     var bioStyle = {
       color: "#706f6f"
     }
@@ -122,12 +134,14 @@ const UsersPage = (props) => {
             {users ? (
                 <>
                     {users.map((user, userIndex) => (
+
                         <div className={'user-div'} key={`user ${user.id}`}>
                             {/* <Typography variant={"h5"} className={'user-text-center'} component={Link} to={showLink(user)}> */}
                             <div className={'user-header'}>
                               <Typography variant={"h5"} className={'user-text-center'}>
                                   {`${user.firstname} ${user.lastname}`}
                               </Typography>
+
                               <div className={'flex-spacer'} />
                               {isAdmin ? (
                                   <div className={'user-actions'}>
@@ -141,25 +155,46 @@ const UsersPage = (props) => {
                                           <DeleteIcon />
                                       </IconButton>
                                   </div>
-                              ) : (
+                                ) : (
                                 <Tooltip title="Please log in as an admin and refresh to delete/edit">
-                                    <div className={'user-actions'}>
-                                        <Button variant={"outlined"} color='secondary' aria-labelledby={`Edit User ${user.firstname} ${user.firstname}`} disabled>
-                                            {userTypes[user.user_type]}
-                                        </Button>
-                                        <IconButton color="secondary" aria-labelledby={`Edit user '${user.firstname} ${user.lastname}'`} disabled>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <IconButton color="secondary" aria-labelledby={`Delete user '${user.firstname} ${user.lastname}'`} disabled>
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    </div>
-                                </Tooltip>
-                              )}
-                            </div>
-                            <Typography variant={"h6"} className={'user-text-bottom'} style={bioStyle}>
-                                {`${user.bio}`}
-                            </Typography>
+                                      <div className={'user-actions'}>
+                                          <Button variant={"outlined"} color='secondary' aria-labelledby={`Edit User ${user.firstname} ${user.firstname}`} disabled>
+                                              {userTypes[user.user_type]}
+                                          </Button>
+                                          <IconButton color="secondary" aria-labelledby={`Edit user '${user.firstname} ${user.lastname}'`} disabled>
+                                              <EditIcon />
+                                          </IconButton>
+                                          <IconButton color="secondary" aria-labelledby={`Delete user '${user.firstname} ${user.lastname}'`} disabled>
+                                              <DeleteIcon />
+                                          </IconButton>
+                                      </div>
+                                  </Tooltip>
+                                )}
+                              </div>
+                              <React.Fragment>
+
+                                      { (()=> {
+                                          if (user.evisible == 0) {
+                                            isEmailVisible = true;
+                                          }
+                                          else{
+                                            isEmailVisible = false;
+                                          }
+                                        })()}
+                                        { (()=> {
+                                          console.log(isEmailVisible);
+                                        })()}
+                                        {isEmailVisible ? (
+                                            <Typography variant={"h5"} className={'user-text-center'}>
+                                              Contact info: {`${user.username}`}
+                                            </Typography>
+                                        ) : (null)}
+
+
+                                          <Typography variant={"h6"} className={'user-text-bottom'} style={bioStyle}>
+                                              {`${user.bio}`}
+                                          </Typography>
+                                </React.Fragment>
                         </div>
                     ))}
                     {users.length > 0 ? deleteConfirmationDialog(users[deleteUserIndex], deleteUserIndex) : null}
@@ -174,6 +209,8 @@ const UsersPage = (props) => {
             ) : null}
         </div>
     );
+
+    //  console.log(isEmailVisible);
 }
 
 export default UsersPage;
