@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_21_164150) do
+ActiveRecord::Schema.define(version: 2021_11_30_202732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2021_10_21_164150) do
     t.integer "location_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_attendances_on_deleted_at"
   end
 
   create_table "events", force: :cascade do |t|
@@ -30,6 +32,8 @@ ActiveRecord::Schema.define(version: 2021_10_21_164150) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_events_on_deleted_at"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -43,6 +47,8 @@ ActiveRecord::Schema.define(version: 2021_10_21_164150) do
     t.string "end_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_locations_on_deleted_at"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -62,6 +68,8 @@ ActiveRecord::Schema.define(version: 2021_10_21_164150) do
     t.integer "user_type", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_users_on_deleted_at"
   end
 
 end
