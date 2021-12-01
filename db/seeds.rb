@@ -91,16 +91,6 @@ User.create([
     evisible: 1
   }
 ])
-9.times do |i|
-  User.create(
-    username: "username #{i}",
-    firstname: "firstname #{i}",
-    lastname: "lastname #{i}",
-    bio: "bio #{i}",
-    user_type: 1,
-    evisible: 1
-  )
-end
 Event.create([
   {
     # event_id: 1,
