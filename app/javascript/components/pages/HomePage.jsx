@@ -127,8 +127,6 @@ const getTimeTracker = () => {
   // console.log(inputList)
   console.log("Length of Locations " + inputList.length);
     inputList.forEach(location => {
-      count = 0;
-      loop++;
 //      console.log("Inside inputList");
 //    console.log(location.city);
       let count = attendences?.filter(attendance => {
