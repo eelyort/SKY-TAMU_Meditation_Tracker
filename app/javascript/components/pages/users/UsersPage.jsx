@@ -185,8 +185,8 @@ const UsersPage = (props) => {
                                           console.log(isEmailVisible);
                                         })()}
                                         {isEmailVisible ? (
-                                            <Typography variant={"h5"} className={'user-text-center'}>
-                                              Contact info: {`${user.username}`}
+                                            <Typography variant={"h6"} className={'user-text-center'}>
+                                              {`${user.username}`}
                                             </Typography>
                                         ) : (null)}
 
