@@ -140,7 +140,6 @@ const getTimeTracker = () => {
            count++;
 //           console.log(count);
       });
-      console.log("Loop " + loop);
 
       if(location.start_time != ''){
         var start = new Date(location.start_time);
