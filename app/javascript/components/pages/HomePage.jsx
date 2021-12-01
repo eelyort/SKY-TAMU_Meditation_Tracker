@@ -119,67 +119,33 @@ React.useEffect(() => {
 
 
 const getTimeTracker = () => {
-count1 = 0;
-tot_time = 0;
-   var time_difference;
-   //getInputList();
-//   console.log("before inputlist log")
-
-  // console.log(inputList)
-  console.log("Length of Locations " + inputList.length);
+    count1 = 0;
+    tot_time = 0;
+    var time_difference;
+    console.log("Length of Locations " + inputList.length);
     inputList.forEach(location => {
-//      console.log("Inside inputList");
-//    console.log(location.city);
-      let count = attendences?.filter(attendance => {
+        let count = attendences?.filter(attendance => {
             return (attendances.RSVP = 'Yes') && (attendance.location_id == location.id && attendance.event_id == location.event_id);
-      }).length ?? 0;
+        }).length ?? 0;
 
-      if(location?.start_time && location?.end_time){
-        var start = new Date(location.start_time);
-        var end = new Date(location.end_time);
-        // date - date returns milliseconds
-        time_difference = (end - start) / (1000 * 60 * 60);
-      }
-
-  //      console.log(start);
-  //      console.log(end);
+        if(location?.start_time && location?.end_time){
+            var start = new Date(location.start_time);
+            var end = new Date(location.end_time);
+            // date - date returns milliseconds
+            time_difference = (end - start) / (1000 * 60 * 60);
+        }
         console.log("start time " + location.start_time);
         console.log("end time " + location.end_time);
         console.log("time difference " + time_difference);
-  //      var start_min = start.getMinutes();
         count1 += count;
         tot_time += count * time_difference;
-      }
-/*      var start = new Date(location.start_time);
-      var startTime = Date.parse(start);
-      var startHours = start.getHours();
-      var startMin = start.getMinutes();
-      console.log("start time " + startHours + " : " + startMin);
-      var end = new Date(location.end_time);
-      var endHours = end.getHours();
-      var endMin = end.getMinutes();
-
-      var time_difference = Math.abs(endHours-startHours);
-
-//      console.log(start);
-//      console.log(end);
-
-//      var start_min = start.getMinutes();
-      count1 += count;
-      tot_time += count * time_difference;*/
    });
 //   return tot_time;
-
-
 }
 //React.useEffect(() => {
     getTimeTracker();
 //    console.log(tot_time);
 //}, []);
-
-
-
-
     var CarouselItems = [
         {
             name: (Math.round(number * 10) / 10).toFixed(1) + " Hours Meditated Total",
@@ -203,7 +169,7 @@ tot_time = 0;
             link: "home",
             image: HeroImage
         }
-    ]
+    ];
 
     return (
         <>
