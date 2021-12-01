@@ -13,6 +13,12 @@ module Api
         render json: @locations
       end
 
+      # GET /locations_with_deleted
+      def index_with_deleted
+        @locations = Location.with_deleted.order('id ASC')
+        render json: @locations
+      end
+
       # GET /locations/1 or /locations/1.json
       def show
         if @location

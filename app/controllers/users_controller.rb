@@ -10,6 +10,12 @@ class UsersController < ApplicationController
     render_user
   end
 
+  # GET /users_with_deleted
+  def index_with_deleted
+    @user = User.with_deleted.order('id ASC')
+    render_user
+  end
+
   # GET /users/1 or /users/1.json
   def show
     render_user
