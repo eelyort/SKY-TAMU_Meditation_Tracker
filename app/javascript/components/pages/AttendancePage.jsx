@@ -41,7 +41,7 @@ const AttendancePage = (props) => {
             .catch(err => console.log("Error: " + err));
     };
     const fetchEvents = () => {
-        const url = "/api/v1/events";
+        const url = "/api/v1/events_with_deleted";
         fetch(url)
             .then(response => {
                 if (response.ok) {
@@ -53,7 +53,7 @@ const AttendancePage = (props) => {
             .catch(error => console.log(error));
     };
     const fetchUsers = () => {
-        const url = "/users";
+        const url = "/users_with_deleted";
         fetch(url)
             .then(response => {
                 if (response.ok) {
