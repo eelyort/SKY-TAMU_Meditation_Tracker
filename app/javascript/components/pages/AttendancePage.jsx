@@ -163,6 +163,9 @@ const AttendancePage = (props) => {
                                 {`${users?.filter(user => user.id === attendance.user_id)[0]?.firstname} ${users?.filter(user => user.id === attendance.user_id)[0]?.lastname}`}
                             </Typography>
                             <Typography variant={"h5"} className={'user-text-center'}>
+                                {`${users?.filter(user => user.id === attendance.user_id)[0]?.username}`}
+                            </Typography>
+                            <Typography variant={"h5"} className={'user-text-center'}>
                                 {`${events?.filter(event => event.id === attendance.event_id)[0]?.title}`}
                             </Typography>
                             <Typography variant={"h5"} className={'user-text-center'} component={Link} to={showLink(attendance)}>
