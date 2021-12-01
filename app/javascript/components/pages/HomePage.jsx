@@ -120,8 +120,6 @@ React.useEffect(() => {
 
 const getTimeTracker = () => {
 
-   var count;
-   var loop = 0;
    var time_difference;
    //getInputList();
 //   console.log("before inputlist log")
