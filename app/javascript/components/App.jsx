@@ -41,6 +41,11 @@ export default () => (
             <Route path="/" exact>
               <HomePage />
             </Route>
+
+            <Route path="/about" exact>
+              <AboutPage />
+            </Route>
+
             <Route path="/events" exact>
               <EventsPage />
             </Route>
@@ -69,10 +74,6 @@ export default () => (
             
             <Route path="/help" exact>
               <HelpPage />
-            </Route>
-
-            <Route path="/about" exact>
-              <AboutPage />
             </Route>
 
             {/* Example stuff */}
