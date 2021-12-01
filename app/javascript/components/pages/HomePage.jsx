@@ -133,13 +133,9 @@ const getTimeTracker = () => {
       loop++;
 //      console.log("Inside inputList");
 //    console.log(location.city);
-     attendances.forEach(attendance => {
-//       console.log("Inside attendance");
-//       console.log(attendances.RSVP);
-       if((attendances.RSVP = 'Yes') && (attendance.location_id == location.id && attendance.event_id == location.event_id))
-           count++;
-//           console.log(count);
-      });
+      let count = attendences?.filter(attendance => {
+            return (attendances.RSVP = 'Yes') && (attendance.location_id == location.id && attendance.event_id == location.event_id);
+      }).length ?? 0;
 
       if(location.start_time != ''){
         var start = new Date(location.start_time);
