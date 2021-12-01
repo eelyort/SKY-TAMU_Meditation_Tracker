@@ -134,50 +134,12 @@ tot_time = 0;
             return (attendances.RSVP = 'Yes') && (attendance.location_id == location.id && attendance.event_id == location.event_id);
       }).length ?? 0;
 
-      if(location.start_time != ''){
+      if(location?.start_time && location?.end_time){
         var start = new Date(location.start_time);
-  //      var startTime = Date.parse(start);
-        var startHours = start.getHours();
-        var startMin = start.getMinutes();
-        var startDay = start.getDate();
-        var startMonth = start.getMonth();
-        var startYear = start.getYear();
-  //      console.log("start time " + startHours + " : " + startMin);
         var end = new Date(location.end_time);
-        var endHours = end.getHours();
-        var endMin = end.getMinutes();
-        var endDay = end.getDate();
-        var endMonth = end.getMonth();
-        var endYear = end.getYear();
-
-        var startTotalDays = startYear * startMonth + startDay;
-        var endTotalDays = endYear * endMonth + endDay;
-        console.log("start days " + startTotalDays + "end days " + endTotalDays);
-//        var startTotalHours = startTotalDays * startHours;
-//        var endTotalHours = endTotalDays * endHours;
-//        console.log("start hours " + startTotalHours);
-  //      console.log("end hours " + endTotalHours);
-       if(endTotalDays!=startTotalDays){
-          if(startHours > endHours){
-            time_difference = (Math.abs(endTotalDays - startTotalDays) * 24)
-             - Math.abs(endHours - startHours);
-          }
-          else if (startHours == endHours) {
-            time_difference = Math.abs(endTotalDays - startTotalDays) * 24;
-          }
-          else{
-            time_difference = Math.abs(endHours - startHours) +
-             (Math.abs(endTotalDays - startTotalDays) * 24);
-          }
-        }
-        else{
-          if(startHours == endHours){
-            time_difference = 1;
-          }
-          else{
-            time_difference = Math.abs(endHours - startHours);
-          }
-        }
+        // date - date returns milliseconds
+        time_difference = (end - start) / (1000 * 60 * 60);
+      }
 
   //      console.log(start);
   //      console.log(end);
