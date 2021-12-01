@@ -182,7 +182,8 @@ tot_time = 0;
 
     var CarouselItems = [
         {
-            name: tot_time + " Hours Meditated Total",
+            name: (Math.round(number * 10) / 10).toFixed(1) + " Hours Meditated Total",
+
             description: count1 + " of people expected at next session",
             button: "See Events",
             link: "events",
