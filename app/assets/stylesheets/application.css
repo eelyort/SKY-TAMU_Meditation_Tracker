@@ -262,3 +262,7 @@ html, body, body > div:first-of-type {
   display: inline-block;
   color: white;
 }
+.photoStyle {
+  height: 200px;
+  width: 200px;
+}

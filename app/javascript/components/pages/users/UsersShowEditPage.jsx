@@ -8,6 +8,7 @@ import EditableTextField from "../../EditableTextField";
 import useCookie from '../../UseCookie';
 
 import { userTypes } from "./UsersConstants";
+import { emailTypes } from "./UsersConstants";
 
 const UsersShowEditPage = (props) => {
     const { userId } = useParams();
@@ -99,6 +100,19 @@ const UsersShowEditPage = (props) => {
                 >
                     {userTypes.map((label, index) => (
                         <MenuItem value={index} key={`User Type ${label}`} aria-labelledby={label}>{label}</MenuItem>
+                    ))}
+                </Select>
+                <Select
+                    value={user.evisible}
+                    label="Email Display"
+                    aria-labelledby={`Select Email Display`}
+                    onChange={e => setUser(old => ({
+                        ...old,
+                        evisible: e.target.value,
+                    }))}
+                >
+                    {emailTypes.map((label, index) => (
+                        <MenuItem value={index} key={`Email Display ${label}`} aria-labelledby={label}>{label}</MenuItem>
                     ))}
                 </Select>
                 <TextField
