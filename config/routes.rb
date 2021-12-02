@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :locations, param: :id
+      get 'locations_with_deleted', to: 'locations#index_with_deleted'
     end
   end
 
@@ -33,6 +34,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :events, param: :id
+      get 'events_with_deleted', to: 'events#index_with_deleted'
     end
   end
 
@@ -41,12 +43,14 @@ Rails.application.routes.draw do
       get :delete
     end
   end
+  get 'attendances_with_deleted', to: 'attendances#index_with_deleted'
 
   resources :users do
     member do
       get :delete
     end
   end
+  get 'users_with_deleted', to: 'users#index_with_deleted'
 
   root 'homepage#index'
   get '/*path' => 'homepage#index'

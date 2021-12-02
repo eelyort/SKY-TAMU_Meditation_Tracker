@@ -3,6 +3,7 @@
 # admins, members, guests
 class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true
+  acts_as_paranoid
 
   def self.create_user_for_google(data)
     where(username: data['email']).first_or_initialize.tap do |user|
