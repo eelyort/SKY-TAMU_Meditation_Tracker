@@ -11,8 +11,6 @@ import AttendancePage from './AttendancePage'
 //import DateTime from 'react-datetime';
 
 
-var tot_time = 0
-var count1 = 0
 function Item(props)
 {
     return (
@@ -51,106 +49,97 @@ function Item(props)
 }
 
 const HomePage = (props) => {
-   var retData;
-  const [inputList, setInputList] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "", start_time: "", end_time: "" }]);
-  const getInputList = () => {
-      const url = "/api/v1/locations";
-      fetch(url)
-          .then(response => {
-              if (response.ok) {
-                 //retData = response.json();
-                  return response.json();
-              }
-              throw new Error("Network response was not ok.");
-          })
-          .then(response => {
-            console.log(response);
-            //setInputList(retData);
-            setInputList([...response, { virtual_link: "", building: "", room: "", city: "", stateloc: "", start_time: "", end_time: "" }])
-          })
-         // .then(response => setInputList( response ))
-         .catch(error => console.log(error));
-  }
+    const [locations, setLocations] = useState([{ virtual_link: "", building: "", room: "", city: "", stateloc: "", start_time: "", end_time: "" }]);
+    const getLoctions = () => {
+        const url = "/api/v1/locations";
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    //retData = response.json();
+                    return response.json();
+                }
+                throw new Error("Network response was not ok.");
+            })
+            .then(response => {
+                console.log(response);
+                //setInputList(retData);
+                setLocations([...response])
+            })
+            // .then(response => setInputList( response ))
+            .catch(error => console.log(error));
+    }
 
-/*  function loadInputList() {
-    useEffect(() => {
-      getInputList()
+    // const [attendances, setAttendances] = React.useState(undefined);
+    const [attendances, setAttendances] = useState([]);
+
+    // componentDidMount
+    const fetchAttendance = () => {
+        console.log("Fetching attendances...");
+        const url = "/attendances";
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Network response was not ok.");
+            })
+            .then(response => {
+                console.log("fetched attendances:");
+                console.log(response);
+                setAttendances(response);
+            })
+            .catch(err => console.log("Error: " + err));
+    }
+
+    React.useEffect(() => {
+        fetchAttendance();
+        getLoctions();
     }, []);
-  }*/
 
+    const [timeTrackerState, setTimeTrackerState] = useState([0, 0]);
 
-// const [attendances, setAttendances] = React.useState(undefined);
-const [attendances, setAttendances] = useState([]);
-console.log("Here")
+    const getTimeTracker = () => {
+        let count1 = 0;
+        let tot_time = 0;
+        let time_difference = 0;
+        console.log("Length of Locations " + locations.length);
+        console.log(attendances);
+        locations.forEach((location, index) => {
+            let count = attendances?.filter(attendance => {
+                return (attendance.RSVP == 'Yes') && (attendance.location_id == location.id && attendance.event_id == location.event_id);
+            }).length ?? 0;
+            console.log(`Location ${index} count: ${count}`);
 
-// componentDidMount
- const fetchAttendance = () => {
-    const url = "/attendances";
-    fetch(url)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
+            if(location?.start_time && location?.end_time){
+                let start = new Date(location.start_time);
+                let end = new Date(location.end_time);
+                // date - date returns milliseconds
+                time_difference = (end - start) / (1000 * 60 * 60);
             }
-            throw new Error("Network response was not ok.");
-        })
-        .then(response => {
-            console.log(response);
-            setAttendances(response);
+            // console.log("start time " + location.start_time);
+            // console.log("end time " + location.end_time);
+            // console.log("time difference " + time_difference);
+            count1 += count;
+            tot_time += count * time_difference;
+        });
+        return [count1, tot_time];
+    }
 
-        })
-        .catch(err => console.log("Error: " + err));
-}
+    React.useEffect(() => {
+        console.log("Attendances/Locations updated:");
+        console.log(attendances);
+        console.log(locations);
+        setTimeTrackerState(getTimeTracker);
+    }, [attendances, locations]);
 
-/* const fetchAttendance = () => {
-    const url = "/attendances";
-    const response = fetch(url);
-    const json = response.json;
-    setAttendances(json.data);
-    console.log(attendances);
-  }
-  */
-
-React.useEffect(() => {
-    fetchAttendance();
-    getInputList();
-    console.log(attendances);
-}, []);
-
-
-
-const getTimeTracker = () => {
-    count1 = 0;
-    tot_time = 0;
-    var time_difference;
-    console.log("Length of Locations " + inputList.length);
-    inputList.forEach(location => {
-        let count = attendences?.filter(attendance => {
-            return (attendances.RSVP = 'Yes') && (attendance.location_id == location.id && attendance.event_id == location.event_id);
-        }).length ?? 0;
-
-        if(location?.start_time && location?.end_time){
-            var start = new Date(location.start_time);
-            var end = new Date(location.end_time);
-            // date - date returns milliseconds
-            time_difference = (end - start) / (1000 * 60 * 60);
-        }
-        console.log("start time " + location.start_time);
-        console.log("end time " + location.end_time);
-        console.log("time difference " + time_difference);
-        count1 += count;
-        tot_time += count * time_difference;
-   });
-//   return tot_time;
-}
-//React.useEffect(() => {
-    getTimeTracker();
-//    console.log(tot_time);
-//}, []);
-    var CarouselItems = [
+    //React.useEffect(() => {
+    //    console.log(tot_time);
+    //}, []);
+    const [nextSessionAttendance, totalTime] = timeTrackerState;
+    const CarouselItems = [
         {
-            name: (Math.round(number * 10) / 10).toFixed(1) + " Hours Meditated Total",
-
-            description: count1 + " of people expected at next session",
+            name: (Math.round(totalTime)) + " Hours Meditated Total",
+            description: nextSessionAttendance + " of people expected at next session",
             button: "See Events",
             link: "events",
             image: HeroImage
@@ -182,27 +171,10 @@ const getTimeTracker = () => {
                     navButtonsAlwaysVisible = {true}
                     next={ (next, active) => { console.log(`we left ${active}, and are now at ${next}`); } }
                     prev={ (prev, active) => { console.log(`we left ${active}, and are now at ${prev}`); } }
-
                 >
                     { CarouselItems.map( (item, i) => <Item key={i} item={item} /> ) }
                 </Carousel>
             </div>
-
-            {/* <div className="wrapper homepage">
-                <div className="homepage-hero">
-                    <div className={'overlay'}>
-                        <img src={HeroImage} />
-                    </div>
-                    <div className={'shading overlay'}>
-                    </div>
-                    <div className={'text'}>
-                        <Typography variant="h1">
-                            1000 Hours Meditated Total
-                        </Typography>
-                        <Button variant="contained" color="secondary" component={Link} to={'/events'}>See Events</Button>
-                    </div>
-                </div>
-            </div> */}
 
             <div className="homepage-content-wrapper">
                 <Typography variant="h5">
