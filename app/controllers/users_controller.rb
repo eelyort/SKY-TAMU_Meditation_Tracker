@@ -10,6 +10,12 @@ class UsersController < ApplicationController
     render_user
   end
 
+  # GET /users_with_deleted
+  def index_with_deleted
+    @user = User.with_deleted.order('id ASC')
+    render_user
+  end
+
   # GET /users/1 or /users/1.json
   def show
     render_user
@@ -77,6 +83,6 @@ class UsersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def user_params
     # params.fetch(:user)
-    params.require(:user).permit(:id, :username, :firstname, :lastname, :bio, :user_type, :created_at, :updated_at)
+    params.require(:user).permit(:id, :username, :firstname, :lastname, :bio, :evisible, :user_type, :created_at, :updated_at)
   end
 end

@@ -116,7 +116,6 @@ const ShowEventPage = (props) => {
                                                 />
                                             </div>
                                         </li>
-
                                     </ul>
                                 </div>
                                 );
