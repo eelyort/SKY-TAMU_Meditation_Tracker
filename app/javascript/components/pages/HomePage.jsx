@@ -149,14 +149,14 @@ const HomePage = (props) => {
             name: "About SKY@TAMU",
             description: "Learn all about SKY@TAMU",
             button: "Learn More",
-            link: "members",
+            link: "about",
             image: HeroImage
         },
         {
             name: "User Testimonials",
             description: "View community testimonials",
             button: "See Testimonials",
-            link: "home",
+            link: "members",
             image: HeroImage
         }
     ];
