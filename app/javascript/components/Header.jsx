@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { GoogleAPI, CustomGoogleLogin } from 'react-google-oauth';
 import Cookies from 'universal-cookie';
 import useCookie from './UseCookie';
+import Logo from 'images/SkyLogo.png';
 
 const menuItems = [{'text': 'Home', 'url': '/'}, {'text': 'About', 'url': '/about'}, {'text': 'Events', 'url': '/events'}, {'text': 'Members', 'url': '/members'}, {'text': 'Attendance', 'url': '/attendance'}];
 const adminItems = [{'text': 'Help', 'url': '/help'}]
@@ -91,11 +92,7 @@ const Header = () => {
 
     const displayDesktop = () => {        
         return (
-            [
-                <Button key='homeBtn' color="inherit" component={Link} to={'/'}>
-                    Home
-                </Button>,
-                
+            [   
                 <Button key='aboutBtn' color="inherit" component={Link} to={'/about'}>
                     About
                 </Button>,
@@ -165,15 +162,19 @@ const Header = () => {
 
     return (
         <>
-            <AppBar position="static" color="secondary">
+            <AppBar position="static" color="secondary" style={{maxHeight: "125px", paddingTop: "1%"}}>
                 <Toolbar>
                     
-                    
-                    {mobileView ? displayMobile() : displayDesktop()}
+                    <Button key='homeBtn' color="inherit" component={Link} to={'/'}>
+                        <img src={Logo} alt="logo" width="360" height="300"/>
+                    </Button>
 
                     <div className="flex-spacer" />
+
                     {(currentUser && currentUser.username) ? (
                         <>
+                            {mobileView ? displayMobile() : displayDesktop()}
+                            
                             <Menu
                                 id="basic-profile-menu"
                                 anchorEl={profileAnchor}

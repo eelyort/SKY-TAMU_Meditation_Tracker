@@ -167,10 +167,10 @@ const HomePage = (props) => {
             <div draggable="false" className="carousel-swipe" style={{backgroundColor: "#c8a2c8ff"}}>
                 <Carousel
                     swipe = {true}
-                    autoPlay = {false}
-                    interval = {false}
+                    autoPlay = {true}
+                    interval = {4000}
                     animation = {"slide"}
-                    navButtonsAlwaysVisible = {true}
+                    //navButtonsAlwaysVisible = {true}
                     // next={ (next, active) => { console.log(`we left ${active}, and are now at ${next}`); } }
                     // prev={ (prev, active) => { console.log(`we left ${active}, and are now at ${prev}`); } }
                 >
