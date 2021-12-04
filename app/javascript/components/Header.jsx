@@ -6,7 +6,7 @@ import { GoogleAPI, CustomGoogleLogin } from 'react-google-oauth';
 import Cookies from 'universal-cookie';
 import useCookie from './UseCookie';
 
-const menuItems = [{'text': 'Events', 'url': '/events'}, {'text': 'Members', 'url': '/members'}, {'text': 'Attendance', 'url': '/attendance'}];
+const menuItems = [{'text': 'About', 'url': '/about'}, {'text': 'Events', 'url': '/events'}, {'text': 'Members', 'url': '/members'}, {'text': 'Attendance', 'url': '/attendance'}];
 const adminItems = [{'text': 'Help', 'url': '/help'}]
 
 const Header = () => {
@@ -161,7 +161,7 @@ const Header = () => {
                 </Toolbar>
             </AppBar>
             {loginSuccessAlertOpen ? (
-                <Alert onClose={() => setLoginSuccessAlertOpen(false)}>Login Successful!</Alert>
+                <Alert onClose={() => setLoginSuccessAlertOpen(false)}>Login Successful!{isAdmin ? `Please refresh the page to get Admin Priviledges` : null}</Alert>
             ) : null}
         </>
     );

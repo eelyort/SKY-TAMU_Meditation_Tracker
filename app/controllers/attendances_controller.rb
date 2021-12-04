@@ -6,7 +6,13 @@ class AttendancesController < ApplicationController
 
   # GET /attendances or /attendances.json
   def index
-    @attendance = Attendance.all
+    @attendance = Attendance.all.order('id ASC')
+    render_attendance
+  end
+
+  # GET /attendances_with_deleted
+  def index_with_deleted
+    @attendance = Attendance.with_deleted.order('id ASC')
     render_attendance
   end
 

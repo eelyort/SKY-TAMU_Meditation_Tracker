@@ -42,7 +42,7 @@ const AttendancePage = (props) => {
             .catch(err => console.log("Error: " + err));
     };
     const fetchEvents = () => {
-        const url = "/api/v1/events";
+        const url = "/api/v1/events_with_deleted";
         fetch(url)
             .then(response => {
                 if (response.ok) {
@@ -54,7 +54,7 @@ const AttendancePage = (props) => {
             .catch(error => console.log(error));
     };
     const fetchUsers = () => {
-        const url = "/users";
+        const url = "/users_with_deleted";
         fetch(url)
             .then(response => {
                 if (response.ok) {
@@ -164,6 +164,9 @@ const AttendancePage = (props) => {
                         <div className={'user-div attendance'} key={`user ${attendance.id}`}>
                             <Typography variant={"h5"} className={'user-text-center'}>
                                 {`${users?.filter(user => user.id === attendance.user_id)[0]?.firstname} ${users?.filter(user => user.id === attendance.user_id)[0]?.lastname}`}
+                            </Typography>
+                            <Typography variant={"h5"} className={'user-text-center'}>
+                                {`${users?.filter(user => user.id === attendance.user_id)[0]?.username}`}
                             </Typography>
                             <Typography variant={"h5"} className={'user-text-center'}>
                                 {`${events?.filter(event => event.id === attendance.event_id)[0]?.title}`}

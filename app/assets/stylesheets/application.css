@@ -151,6 +151,10 @@ html, body, body > div:first-of-type {
 .users-wrapper .user-div.attendance {
   display: flex;
 }
+.users-wrapper .user-div.attendance > * {
+  margin-left: 15px;
+  margin-right: 15px;
+}
 .users-wrapper .user-div .user-text-center {
   /* flex: grow;
   position: absolute;
@@ -268,4 +272,8 @@ html, body, body > div:first-of-type {
   margin: 8px 0;
   display: inline-block;
   color: white;
+}
+.photoStyle {
+  height: 200px;
+  width: 200px;
 }
