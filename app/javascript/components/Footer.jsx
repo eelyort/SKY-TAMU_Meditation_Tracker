@@ -52,12 +52,12 @@ const Footer = () => {
         </Row>
       </Container>
     </Box>*/
-    <div class="footer">
+    <footer className='footer'>
       <p href="#" target="_blank">Donate</p>
       <p href="mailto:email@gmail.com" target="_blank">Contact Us</p>
       <p href="https://www.instagram.com/skyattamu/" target="_blank">Instagram</p>
       <p href="https://discord.gg/fmxHPE9nck" target="_blank">Discord</p>
-    </div>
+    </footer>
   );
 };
 export default Footer;
