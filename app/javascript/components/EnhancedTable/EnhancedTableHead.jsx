@@ -5,13 +5,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Checkbox from '@mui/material/Checkbox';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 import { visuallyHidden } from '@mui/utils';
 
 export default function EnhancedTableHead(props) {
     const {
         onSelectAllClick, order, orderBy,
         numSelected, rowCount, onRequestSort,
-        headCells,
+        headCells, filters, setFilters, rows,
     } = props;
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
@@ -53,6 +55,35 @@ export default function EnhancedTableHead(props) {
             </TableCell>
           ))}
         </TableRow>
+        {/* search/filters */}
+        {(filters && setFilters) ? (
+          <TableRow>
+            <TableCell padding="checkbox">
+            </TableCell>
+            {headCells.map((headCell) => (
+              <TableCell
+                key={headCell.id + " filter"}
+                align={headCell.numeric ? 'right' : 'left'}
+                padding={headCell.disablePadding ? 'none' : 'normal'}
+              >
+                <Autocomplete
+                  disablePortal
+                  options={rows.map(row => row[headCell.id]).filter((val, index, self) => self.indexOf(val) === index).map(val => ({ label: val }))}
+                  value={filters[headCell.id] ?? null}
+                  sx={{ width: 300 }}
+                  renderInput={(params) => <TextField {...params} label={`Filter ${headCell.label}`} margin={'none'} size={'small'} />}
+                  onChange={(e, newValue) => setFilters(oldFilters => {
+                    let ans = {...oldFilters};
+                    ans[headCell.id] = newValue?.label ?? null;
+                    // console.log(`setFilters, e.target.value: ${e.target.value}, newValue.label: ${newValue?.label}`);
+                    // console.log(ans);
+                    return ans;
+                  })}
+                />
+              </TableCell>
+            ))}
+          </TableRow>
+        ) : (null)}
       </TableHead>
     );
 }

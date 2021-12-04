@@ -26,9 +26,9 @@ export default function EnhancedTable(props) {
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(false);
+    const [dense, setDense] = React.useState(true);
     const [rowsPerPage, setRowsPerPage] = React.useState(defaultRowsPerPage);
-    const [filters, setFilters] = React.useState();
+    const [filters, setFilters] = React.useState({});
 
     // stick the rows with a permanent index
     const unfilteredRows = [...rowsRaw].map((rawRow, index) => ({ ...rawRow }));
@@ -36,7 +36,10 @@ export default function EnhancedTable(props) {
     const rows = unfilteredRows.filter(row => {
         for (const [key, value] of Object.entries(filters)) {
             // console.log(`${key}: ${value}`);
-          }
+            if (value && row[key] !== value) {
+                return false;
+            }
+        }
         return true;
     });
     console.log("EnhancedTable rows/filtered rows:");
@@ -148,6 +151,9 @@ export default function EnhancedTable(props) {
                         onRequestSort={handleRequestSort}
                         rowCount={rows.length}
                         headCells={headCells}
+                        filters={filters}
+                        setFilters={setFilters}
+                        rows={unfilteredRows}
                     />
                     <TableBody>
                     {/* if you don't need to support IE11, you can replace the `stableSort` call with:
@@ -165,7 +171,7 @@ export default function EnhancedTable(props) {
                                 role="checkbox"
                                 aria-checked={isItemSelected}
                                 tabIndex={-1}
-                                key={row.name}
+                                key={`${row.name} ${row.id}`}
                                 selected={isItemSelected}
                             >
                             <TableCell padding="checkbox">
