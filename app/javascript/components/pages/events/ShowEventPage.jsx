@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from "react-router";
-import { Button, Typography, Card, CardContent,  CardHeader } from '@mui/material';
+import { Button, Typography, Card, CardContent } from '@mui/material';
 import { Link } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 
 const ShowEventPage = (props) => {
     const [event, setEvent] = useState([])
+    const [eventMissing, setEventMissing] = useState(false);
+
     var counter = 0
 
     const cardStyle = {
@@ -28,6 +30,7 @@ const ShowEventPage = (props) => {
                 if (response.ok) {
                     return response.json();
                 }
+                setEventMissing(true)
                 throw new Error("Network response was not ok.");
             })
             .then(response => setEvent( response ))
@@ -49,7 +52,7 @@ const ShowEventPage = (props) => {
 
     function loadEvent() {
         useEffect(() => {
-          getEvent()
+            getEvent()
         }, []);
     }
     
@@ -95,6 +98,12 @@ const ShowEventPage = (props) => {
     if (event.length != 0) {
         return(
             <>
+            <div>
+                <Button style={{margin: '1%'}} key='backBtn' variant='contained' color='secondary' component={Link} to={'/events'}>
+                    Back
+                </Button>
+            </div>
+
             <div style={cardStyle}>
                 <Typography variant="h4" component="div" gutterBottom>
                     <strong>
@@ -157,7 +166,9 @@ const ShowEventPage = (props) => {
                                         </CardContent>
 
                                     </Card>
+                                    
                                 </div>
+                                
                                 );
                             }
                             else{
@@ -169,13 +180,23 @@ const ShowEventPage = (props) => {
             </div>
             </>
         );
-    }
+    } else {
+        return (
+            <>
+            <div>
+                <Button style={{margin: '1%'}} key='backBtn' variant='contained' color='secondary' component={Link} to={'/events'}>
+                    Back
+                </Button>
+            </div>
 
-    return (
-        <div style={cardStyle}>
-            <h1>Event Not Found</h1>
-        </div>
-    );
+            <div style={cardStyle}>
+                {(eventMissing) ? 
+                    <h1>Cannot Find Event</h1> : 
+                    <h1>Searching For Event...</h1>}
+            </div>
+            </>
+        );  
+    }
 }
 
 export default withRouter(ShowEventPage);

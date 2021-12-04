@@ -296,7 +296,7 @@ const EventsPage = (props) => {
     return (
         <>  
 
-            <div style={{position: "relative"}}>
+            <div style={{position: "relative", margin: '5%', textAlign: 'center'}}>
               <h1>Loading Events...</h1>
 
               {isAdmin ? (<Button style={addBtnStyle} variant='contained' color='secondary' onClick={() => setAddForm(true)}>New Event</Button>) : null}
