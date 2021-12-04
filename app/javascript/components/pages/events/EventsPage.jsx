@@ -242,7 +242,6 @@ const EventsPage = (props) => {
           <CardHeader
             style={headerStyle}
             title={event.title}
-            subheader={<Typography style={headerStyle}>{"Click For More Details"}</Typography>}
           />
 
           <CardContent>
