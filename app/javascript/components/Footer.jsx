@@ -52,17 +52,12 @@ const Footer = () => {
         </Row>
       </Container>
     </Box>*/
-    <div class="footer">
-
-        <a href="#" target="_blank" id="footerId" >Donate</a>
-        <p style={{display:"inline-block"}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        <a href="mailto:email@gmail.com" target="_blank" id="footerId">Contact Us</a>
-        <p style={{display:"inline-block"}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        <a href="https://www.instagram.com/skyattamu/" target="_blank" id="footerId">Instagram</a>
-        <p style={{display:"inline-block"}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-        <a href="https://discord.gg/fmxHPE9nck" target="_blank" id="footerId">Discord</a>
-
-    </div>
+    <footer className='footer'>
+      <p href="#" target="_blank">Donate</p>
+      <p href="mailto:email@gmail.com" target="_blank">Contact Us</p>
+      <p href="https://www.instagram.com/skyattamu/" target="_blank">Instagram</p>
+      <p href="https://discord.gg/fmxHPE9nck" target="_blank">Discord</p>
+    </footer>
   );
 };
 export default Footer;

@@ -18,17 +18,18 @@ function Item(props)
             <div className="wrapper homepage">
                 <div className="homepage-hero">
                     <div className='overlay'>
-                        <img src={props.item.image} />
+                        <img src={props.item.image} width={"100%"} height={"100%"}/>
+                        {/* <div style={{backgroundImage: 'url(images/iStock-1161561165.jpg)'}}></div> */}
                     </div>
 
                     <div className='shading overlay'></div>
 
                     <div className='text'>
-                        <Typography variant="h1">
+                        <Typography variant="h2">
                             {props.item.name}
                         </Typography>
 
-                        <Typography variant="h4">
+                        <Typography variant="h5">
                             {props.item.description}
                         </Typography>
 
@@ -37,7 +38,7 @@ function Item(props)
                             color="secondary"
                             component={Link}
                             to={String('/'+ props.item.link)}
-                            onClick={ () => {console.log(String('/'+ props.item.link), "button clicked.")} }
+                            //onClick={ () => {console.log(String('/'+ props.item.link), "button clicked.")} }
                         >
                             {props.item.button}
                         </Button>
@@ -102,13 +103,13 @@ const HomePage = (props) => {
         let count1 = 0;
         let tot_time = 0;
         let time_difference = 0;
-        console.log("Length of Locations " + locations.length);
-        console.log(attendances);
+        //console.log("Length of Locations " + locations.length);
+        //console.log(attendances);
         locations.forEach((location, index) => {
             let count = attendances?.filter(attendance => {
                 return (attendance.RSVP == 'Yes') && (attendance.location_id == location.id && attendance.event_id == location.event_id);
             }).length ?? 0;
-            console.log(`Location ${index} count: ${count}`);
+            //console.log(`Location ${index} count: ${count}`);
 
             if(location?.start_time && location?.end_time){
                 let start = new Date(location.start_time);
@@ -126,9 +127,9 @@ const HomePage = (props) => {
     }
 
     React.useEffect(() => {
-        console.log("Attendances/Locations updated:");
-        console.log(attendances);
-        console.log(locations);
+        //console.log("Attendances/Locations updated:");
+        //console.log(attendances);
+        //console.log(locations);
         setTimeTrackerState(getTimeTracker);
     }, [attendances, locations]);
 
@@ -169,8 +170,8 @@ const HomePage = (props) => {
                     interval = {false}
                     animation = {"slide"}
                     navButtonsAlwaysVisible = {true}
-                    next={ (next, active) => { console.log(`we left ${active}, and are now at ${next}`); } }
-                    prev={ (prev, active) => { console.log(`we left ${active}, and are now at ${prev}`); } }
+                    // next={ (next, active) => { console.log(`we left ${active}, and are now at ${next}`); } }
+                    // prev={ (prev, active) => { console.log(`we left ${active}, and are now at ${prev}`); } }
                 >
                     { CarouselItems.map( (item, i) => <Item key={i} item={item} /> ) }
                 </Carousel>
