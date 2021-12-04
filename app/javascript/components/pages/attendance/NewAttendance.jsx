@@ -3,7 +3,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React from "react";
 import Cookies from 'universal-cookie';
-import useCookie from '../UseCookie';
+import useCookie from '../../UseCookie';
 import { Link, useParams, useLocation, useHistory } from "react-router-dom";
 
 

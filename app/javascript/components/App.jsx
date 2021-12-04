@@ -14,8 +14,8 @@ import UsersShowEditPage from "./pages/users/UsersShowEditPage";
 import LoginPage from "./pages/LoginPage";
 import HelpPage from "./pages/HelpPage";
 import AboutPage from "./pages/AboutPage";
-import AttendancePage from "./pages/AttendancePage";
-import NewAttendancesPage from "./pages/NewAttendance";
+import AttendancePage from "./pages/attendance/AttendancePage";
+import NewAttendancesPage from "./pages/attendance/NewAttendance";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
