@@ -87,7 +87,7 @@ const ShowEventPage = (props) => {
                                         <li>
                                             <div>
                                                 <TextField
-                                                    disabled="true"
+                                                    disabled={true}
                                                     id="datetime-local"
                                                     name="start_time"
                                                     value={x.start_time}
@@ -103,7 +103,7 @@ const ShowEventPage = (props) => {
                                         <li>
                                             <div>
                                                 <TextField
-                                                    disabled="true"
+                                                    disabled={true}
                                                     id="datetime-local"
                                                     name="end_time"
                                                     value={x.end_time}
