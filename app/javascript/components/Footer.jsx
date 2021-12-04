@@ -7,10 +7,10 @@ import {
   FooterLink,
   Heading
 } from "./FooterStyles";
-  
+
 const Footer = () => {
   return (
-    <Box>
+    /*<Box>
       <Container>
         <Row>
           <Column>
@@ -51,7 +51,13 @@ const Footer = () => {
           </Column>
         </Row>
       </Container>
-    </Box>
+    </Box>*/
+    <div class="footer">
+      <p class="footer2" href="#" target="_blank">Donate</p>
+      <p class="footer2" href="mailto:email@gmail.com" target="_blank">Contact Us</p>
+      <p class="footer2" href="https://www.instagram.com/skyattamu/" target="_blank">Instagram</p>
+      <p class="footer2" href="https://discord.gg/fmxHPE9nck" target="_blank">Discord</p>
+    </div>
   );
 };
 export default Footer;
