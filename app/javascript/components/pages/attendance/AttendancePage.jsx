@@ -21,6 +21,7 @@ const AttendancePage = (props) => {
     const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
     const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
     const isAdmin = (currentUser?.user_type === 0) ?? false;
+    const isMember = (currentUser?.user_type === 1) ?? false;
     const email = currentUser?.username;
     const userId = currentUser?.id;
 
@@ -178,38 +179,45 @@ const AttendancePage = (props) => {
     const showLink = (attendance) => `/attendances/${attendance.id}`;
     const editLink = (attendance) => `/attendances/${attendance.id}/edit`;
 
-    return (
-        <div className={'users-wrapper flex-spacer'}>
-            <Typography variant={"h2"}>
-                Attendance
-            </Typography>
-            {attendances ? (
-                <>
-                    <AttendancePageTable
-                        attendances={attendances}
-                        events={events}
-                        users={users}
-                        locations={locations}
-                        currentUser={currentUser}
-                        isAdmin={isAdmin}
-                        email={email}
-                        userId={userId}
-                        deleteAttendance={(attendances) => setAttendancesToDelete(attendances)}
-                        showLink={showLink}
-                        editLink={editLink}
-                    />
-                    {deleteConfirmationDialog}
-                </>
-            ) : (<CircularProgress />)}
-            {isLoading ? (
-                <div className="users-is-loading">
-                    <div className="users-loading-circle">
-                        <CircularProgress />
+    if(isAdmin || isMember) {
+        return (
+            <div className={'users-wrapper flex-spacer'}>
+                <Typography variant={"h2"}>
+                    Attendance
+                </Typography>
+                {attendances ? (
+                    <>
+                        <AttendancePageTable
+                            attendances={attendances}
+                            events={events}
+                            users={users}
+                            locations={locations}
+                            currentUser={currentUser}
+                            isAdmin={isAdmin}
+                            email={email}
+                            userId={userId}
+                            deleteAttendance={(attendances) => setAttendancesToDelete(attendances)}
+                            showLink={showLink}
+                            editLink={editLink}
+                        />
+                        {deleteConfirmationDialog}
+                    </>
+                ) : (<CircularProgress />)}
+                {isLoading ? (
+                    <div className="users-is-loading">
+                        <div className="users-loading-circle">
+                            <CircularProgress />
+                        </div>
                     </div>
-                </div>
-            ) : null}
-        </div>
-    );
+                ) : null}
+            </div>
+        );
+    }
+    else {
+        return (
+            <h1>Log in as a member or admin to view the attendance for this event!</h1>
+        );
+    }
 }
 
 export default AttendancePage;

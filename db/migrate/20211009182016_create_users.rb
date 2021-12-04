@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 class CreateUsers < ActiveRecord::Migration[6.1]
@@ -7,8 +8,9 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :firstname
       t.string :lastname
       t.string :bio, default: 'Please enter a bio'
-      t.integer :user_type, default: 1
+      t.integer :user_type, default: 2
+
       t.timestamps
     end
-  end
 end
+
