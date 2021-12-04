@@ -166,7 +166,6 @@ const ShowEventPage = (props) => {
                                         </CardContent>
 
                                     </Card>
-                                    
                                 </div>
                                 
                                 );
