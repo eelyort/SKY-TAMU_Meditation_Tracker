@@ -136,10 +136,12 @@ const HomePage = (props) => {
     //    console.log(tot_time);
     //}, []);
     const [nextSessionAttendance, totalTime] = timeTrackerState;
+    const pluralHour = (Math.round(totalTime) == 1) ? "Hour" : "Hours" 
+    const pluralPerson = (nextSessionAttendance == 1) ? "person" : "people" 
     const CarouselItems = [
         {
-            name: (Math.round(totalTime)) + " Hours Meditated Total",
-            description: nextSessionAttendance + " of people expected at next session",
+            name: `${Math.round(totalTime)} ${pluralHour} Meditated`,
+            description: `${nextSessionAttendance} ${pluralPerson} expected at next session`,
             button: "See Events",
             link: "events",
             image: HeroImage
