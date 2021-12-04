@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from "react-router";
+import { Button, Typography, Card, CardContent,  CardHeader } from '@mui/material';
 import { Link } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 
 const ShowEventPage = (props) => {
     const [event, setEvent] = useState([])
+    var counter = 0
 
     const cardStyle = {
         backgroundColor: "#C8A2C8",
         color: "black",
         border: "2px solid black",
-        margin: "5% 10% 0% 10%",
+        margin: "5%",
         borderRadius: "25px",
         padding: "5%",
         textAlign: "center"
@@ -68,55 +70,64 @@ const ShowEventPage = (props) => {
         return(
             <>
             <div style={cardStyle}>
-                <h1>{event.title}</h1>
+                <Typography variant="h4" component="div" gutterBottom>
+                    <strong>
+                        {event.title}
+                    </strong>
+                </Typography>
+
                 <div>
-                    <p>{event.description}</p>
-                    <p>RSVP Link: <Link to={`/newattendance/${event.id}`}>CLICK</Link></p>
-                    {/* <p>Attendance: </p> */}
-                    <p>Locations:</p>
+                    <div style={{margin: '10% 0%'}}>
+                        <Typography variant="h5" component="div" gutterBottom>
+                            <strong>
+                                Description
+                            </strong>
+                        </Typography>
+
+                        <Typography style={{whiteSpace: 'pre-line', textAlign: 'left'}} component="div" color="text.secondary" gutterBottom>
+                            {event.description}
+                        </Typography>
+
+                        <Button component={Link} to={`/newattendance/${event.id}`} variant='contained' color='secondary'>RSVP to Event</Button>
+                    </div>
+                    
+                    <div style={{marginTop: '5%'}}>
+                        <Typography variant="h5" component="div" gutterBottom>
+                            <strong>
+                                Locations and Scheduling
+                            </strong>
+                        </Typography>
+                        
                         {inputList.map((x, i) => {
                             if(x.event_id == props.match.params.id || !x.event_id){
+                                counter++
                                 return (
                                 <div key={x.id}>
-                                    <ul>
-                                        <li>Virtual Link: {x.virtual_link}</li>
-                                        <li>Building: {x.building}</li>
-                                        <li>Room: {x.room}</li>
-                                        <li>City: {x.city}</li>
-                                        <li>State: {x.stateloc}</li>
-                                        <li>
-                                            <div>
-                                                <TextField
-                                                    disabled="true"
-                                                    id="datetime-local"
-                                                    name="start_time"
-                                                    value={x.start_time}
-                                                    label="Start Time: "
-                                                    type="datetime-local"
-                                                    sx={{ width: 250 }}
-                                                    InputLabelProps={{
-                                                    shrink: true,
-                                                    }}
-                                                />
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div>
-                                                <TextField
-                                                    disabled="true"
-                                                    id="datetime-local"
-                                                    name="end_time"
-                                                    value={x.end_time}
-                                                    label="End Time: "
-                                                    type="datetime-local"
-                                                    sx={{ width: 250 }}
-                                                    InputLabelProps={{
-                                                    shrink: true,
-                                                    }}
-                                                />
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <Card key={event.id} style={{border: "2px solid black", borderRadius: "25px", backgroundColor: "#C8A2C8", margin: "2% 10%"}}>
+
+                                        <CardContent>
+                                            <Typography variant="h6" component="div" gutterBottom>
+                                                <strong>
+                                                    {`Location ${counter}`}
+                                                </strong>
+                                            </Typography>
+
+                                            <Typography 
+                                                style={{whiteSpace: 'pre-line', textAlign: 'center', }} 
+                                                color="text.secondary">
+
+                                                {`Virtual Link: ${x.virtual_link}\n`}
+                                                {`Building: ${x.building}\n`}
+                                                {`Room: ${x.room}\n`}
+                                                {`City: ${x.city}\n`}
+                                                {`State: ${x.stateloc}\n`}
+                                                {`Start Time: ${x.start_time}\n`}
+                                                {`End Time: ${x.end_time}\n`}
+
+                                            </Typography>
+                                        </CardContent>
+
+                                    </Card>
                                 </div>
                                 );
                             }
@@ -124,6 +135,7 @@ const ShowEventPage = (props) => {
                                 return null;
                             }
                         })}
+                    </div>
                 </div>
             </div>
             </>
