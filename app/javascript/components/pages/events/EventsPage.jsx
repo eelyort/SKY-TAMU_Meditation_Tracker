@@ -213,19 +213,13 @@ const EventsPage = (props) => {
     margin: "5% 15% 5% 15%"
   }
 
-  var cardStyle0 = {
+  var cardStyle = {
     display: 'inline-block',
     backgroundColor: "white",
     margin: "10px 10px 10px 10px",
     borderRadius: '5px',
-    gridColumn: "span 3"
-  }
-
-  var cardStyle1 = {
-    display: 'inline-block',
-    backgroundColor: "white",
-    margin: "10px 10px 10px 10px",
-    borderRadius: '5px'
+    gridColumn: "span 3",
+    textAlign: "center"
   }
 
   var headerStyle = {
@@ -237,14 +231,13 @@ const EventsPage = (props) => {
 
   var addBtnStyle = {
     position: "absolute",
-    top: "2%",
-    right: "2%",
-    borderRadius: "5px"
+    right: "1%",
+    top: "3px"
   }
 
   if (events.length != 0) {
     const eventCards = events.map( (event, index) => 
-      <Card key={event.id} style={index == 0 ? cardStyle0 : cardStyle0}>
+      <Card key={event.id} style={cardStyle}>
         <CardActionArea onClick={() => {goToEvent(event.id)}}>
           <CardHeader
             style={headerStyle}
@@ -260,20 +253,22 @@ const EventsPage = (props) => {
         
         </CardActionArea>
           
-          {isAdmin ? (<button onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</button>) : null}
-          
+          {isAdmin ? (<Button variant='contained' color='secondary' onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</Button>) : null} 
+          <Button style={{margin: '1%'}} variant='contained' color='secondary' size='medium' onClick={() => {goToEvent(event.id)}} >View More Details and Locations</Button>
       </Card>
-      
     );
 
     return (
       <>
-      <div style={{position: "relative"}}>
-      {isAdmin ? (<button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>) : null}
+      
+      <div style={{position: "relative", marginBottom: '50px'}}>
+        {isAdmin ? (<Button style={addBtnStyle} variant='contained' color='secondary' onClick={() => setAddForm(true)}>New Event</Button>) : null}
+      </div>
 
+      <div style={{position: "relative"}}>
         <div style={cardContainer}>
-				{eventCards}
-        </div>
+          {eventCards}
+        </div>   
       </div>
 
       <AddEventForm 
@@ -304,7 +299,7 @@ const EventsPage = (props) => {
             <div style={{position: "relative"}}>
               <h1>Loading Events...</h1>
 
-              {isAdmin ? (<button style={addBtnStyle} onClick={() => setAddForm(true)}>New Event</button>) : null}
+              {isAdmin ? (<Button style={addBtnStyle} variant='contained' color='secondary' onClick={() => setAddForm(true)}>New Event</Button>) : null}
             </div>
 
             <AddEventForm
