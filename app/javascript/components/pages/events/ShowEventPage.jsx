@@ -64,7 +64,33 @@ const ShowEventPage = (props) => {
     loadEvent()
     console.log(event)
 
+    function convertFullDate(time) {
+        const unixTime = Date.parse(time)
+        const date = new Date(unixTime)
         
+        const dateString = date.toDateString()
+
+        return dateString
+    }
+
+    function convertTimeDate(time) {
+        const unixTime = Date.parse(time)
+        const date = new Date(unixTime)
+
+        return date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})
+    }
+
+    function cleanVirtualLink(link) {
+        if ( link.includes('www.') ) {
+            if ( link.includes('://www.') ){
+                return link;
+            } else {
+            return 'https://' + String(link)
+            }
+        } else {
+            return 'https://www.' + String(link)
+        }
+    }
 
     if (event.length != 0) {
         return(
@@ -108,21 +134,24 @@ const ShowEventPage = (props) => {
                                         <CardContent>
                                             <Typography variant="h6" component="div" gutterBottom>
                                                 <strong>
-                                                    {`Location ${counter}`}
+                                                    {`Location ${(counter > 1) ? counter : ''}`}
                                                 </strong>
                                             </Typography>
 
                                             <Typography 
                                                 style={{whiteSpace: 'pre-line', textAlign: 'center', }} 
                                                 color="text.secondary">
+                                                
+                                                <strong>
+                                                    {`Date: ${(x.start_time) ? convertFullDate(x.start_time) + '\n' + convertTimeDate(x.start_time) : 'Not Found'}`}
+                                                    {`${(x.end_time) ? ' - ' + convertTimeDate(x.end_time) : ''}\n\n`}
+                                                </strong>
 
-                                                {`Virtual Link: ${x.virtual_link}\n`}
-                                                {`Building: ${x.building}\n`}
-                                                {`Room: ${x.room}\n`}
-                                                {`City: ${x.city}\n`}
-                                                {`State: ${x.stateloc}\n`}
-                                                {`Start Time: ${x.start_time}\n`}
-                                                {`End Time: ${x.end_time}\n`}
+                                                {"Virtual Link: "} {(x.virtual_link) ? <a target="_blank" href={cleanVirtualLink(x.virtual_link)}>{x.virtual_link}</a> : "None"}
+
+                                                {`\nBuilding: ${(x.building) ? x.building : 'None'} ${(x.room) ? x.room : ''}\n`} 
+
+                                                {`${(x.city) ? x.city + ',' : ''} ${(x.stateloc) ? x.stateloc : ''}`}
 
                                             </Typography>
                                         </CardContent>
