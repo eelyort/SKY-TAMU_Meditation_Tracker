@@ -232,7 +232,7 @@ const EventsPage = (props) => {
   var addBtnStyle = {
     position: "absolute",
     right: "1%",
-    top: "3px"
+    top: "10px"
   }
 
   if (events.length != 0) {
