@@ -141,6 +141,24 @@ const UsersPage = (props) => {
                               <Typography variant={"h5"} className={'user-text-center'}>
                                   {`${user.firstname} ${user.lastname}`}
                               </Typography>
+                              <React.Fragment>
+                                  { (()=> {
+                                      if (user.evisible == 0) {
+                                        isEmailVisible = true;
+                                      }
+                                      else{
+                                        isEmailVisible = false;
+                                      }
+                                    })()}
+                                    { (()=> {
+                                      console.log(isEmailVisible);
+                                    })()}
+                                    {isEmailVisible ? (
+                                        <Typography variant={"h6"} className={'user-text-center'} style={bioStyle}>
+                                          {`${user.username}`}
+                                        </Typography>
+                                    ) : (null)}
+                                </React.Fragment>
 
                               <div className={'flex-spacer'} />
                               {isAdmin ? (
@@ -172,29 +190,10 @@ const UsersPage = (props) => {
                                 )}
                               </div>
                               <React.Fragment>
-
-                                      { (()=> {
-                                          if (user.evisible == 0) {
-                                            isEmailVisible = true;
-                                          }
-                                          else{
-                                            isEmailVisible = false;
-                                          }
-                                        })()}
-                                        { (()=> {
-                                          console.log(isEmailVisible);
-                                        })()}
-                                        {isEmailVisible ? (
-                                            <Typography variant={"h6"} className={'user-text-center'}>
-                                              {`${user.username}`}
-                                            </Typography>
-                                        ) : (null)}
-
-
-                                          <Typography variant={"h6"} className={'user-text-bottom'} style={bioStyle}>
-                                              {`${user.bio}`}
-                                          </Typography>
-                                </React.Fragment>
+                                      <Typography variant={"h6"} className={'user-text-bottom'} style={bioStyle}>
+                                          {`${user.bio}`}
+                                      </Typography>
+                              </React.Fragment>
                         </div>
                     ))}
                     {users.length > 0 ? deleteConfirmationDialog(users[deleteUserIndex], deleteUserIndex) : null}
