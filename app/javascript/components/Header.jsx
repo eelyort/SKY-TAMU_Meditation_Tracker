@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect }from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Menu, IconButton, Button, Typography, Toolbar, AppBar, MenuItem, Alert } from '@mui/material';
 import { Link } from "react-router-dom";
@@ -18,11 +18,11 @@ const Header = () => {
     const [currentUserRaw, setCurrentUser, removeCurrentUser] = useCookie('currentUser', { path: '/' });
     const currentUser = (typeof currentUserRaw === 'string' || currentUserRaw instanceof String) ? JSON.parse(currentUserRaw) : currentUserRaw;
     const isAdmin = (currentUser?.user_type === 0) ?? false;
-    console.log(`currentUser:`);
-    console.log(currentUser);
-    console.log(JSON.stringify(currentUser));
-    console.log(currentUser?.username);
-    console.log(`(currentUser (${!!currentUser}) && currentUser.username (${!!currentUser?.username})) = ${(!!currentUser && !!currentUser?.username)}`);
+    //console.log(`currentUser:`);
+    //console.log(currentUser);
+    //console.log(JSON.stringify(currentUser));
+    //console.log(currentUser?.username);
+    //console.log(`(currentUser (${!!currentUser}) && currentUser.username (${!!currentUser?.username})) = ${(!!currentUser && !!currentUser?.username)}`);
 
     // OAuth
     const responseGoogle = (response) => {
@@ -66,49 +66,111 @@ const Header = () => {
 
     const profileEditLink = (user) => `/members/${user.id}/edit`;
 
+
+    //Mobile Friendly Header
+    const [state, setState] = useState({
+        mobileView: false,
+    });
+    
+    const { mobileView } = state;
+
+    useEffect(() => {
+    const setResponsiveness = () => {
+        return window.innerWidth < 900
+        ? setState((prevState) => ({ ...prevState, mobileView: true }))
+        : setState((prevState) => ({ ...prevState, mobileView: false }));
+    };
+
+    setResponsiveness();
+    window.addEventListener("resize", () => setResponsiveness());
+
+    return () => {
+        window.removeEventListener("resize", () => setResponsiveness());
+    }
+    }, []);
+
+    const displayDesktop = () => {        
+        return (
+            [
+                <Button key='homeBtn' color="inherit" component={Link} to={'/'}>
+                    Home
+                </Button>,
+                
+                <Button key='aboutBtn' color="inherit" component={Link} to={'/about'}>
+                    About
+                </Button>,
+                
+                <Button key='eventsBtn' color="inherit" component={Link} to={'/events'}>
+                    Events
+                </Button>,
+                
+                <Button key='membersBtn' color="inherit" component={Link} to={'/members'}>
+                    Members
+                </Button>,
+                
+                <Button key='attendanceBtn' color="inherit" component={Link} to={'/attendance'}>
+                    Attendance
+                </Button>,
+                
+                (isAdmin) ?
+                <Button key='helpBtn' color="inherit" component={Link} to={'/help'}>
+                    Help
+                </Button> : null
+            ]
+        ); 
+    };
+
+    const displayMobile = () => {
+        return (
+            [
+            <IconButton
+                id="basic-button"
+                aria-controls="basic-menu"
+                aria-haspopup="true"
+                aria-expanded={menuAnchor ? 'true' : undefined}
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+                onClick={(event) => setMenuAnchor(event.currentTarget)}
+            >
+                <MenuIcon />
+            </IconButton>,
+
+            <Menu
+                id="basic-menu"
+                anchorEl={menuAnchor}
+                open={Boolean(menuAnchor)}
+                onClose={() => setMenuAnchor(null)}
+                MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                }}
+            >
+                {menuItems.map((val, index) => (
+                    <MenuItem onClick={() => setMenuAnchor(null)} key={index} component={Link} to={val.url}>
+                        {val.text}
+                    </MenuItem>
+                ))}
+
+                {isAdmin ? (adminItems.map((val, index) => (
+                    <MenuItem onClick={() => setMenuAnchor(null)} key={index} component={Link} to={val.url}>
+                        {val.text}
+                    </MenuItem>
+                ))) : null}
+            </Menu>
+            ]
+        );
+    };
+
     return (
         <>
             <AppBar position="static" color="secondary">
                 <Toolbar>
-                    <IconButton
-                        id="basic-button"
-                        aria-controls="basic-menu"
-                        aria-haspopup="true"
-                        aria-expanded={menuAnchor ? 'true' : undefined}
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                        onClick={(event) => setMenuAnchor(event.currentTarget)}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Menu
-                        id="basic-menu"
-                        anchorEl={menuAnchor}
-                        open={Boolean(menuAnchor)}
-                        onClose={() => setMenuAnchor(null)}
-                        MenuListProps={{
-                            'aria-labelledby': 'basic-button',
-                        }}
-                    >
-                        {menuItems.map((val, index) => (
-                            <MenuItem onClick={() => setMenuAnchor(null)} key={index} component={Link} to={val.url}>
-                                {val.text}
-                            </MenuItem>
-                        ))}
-
-                        {isAdmin ? (adminItems.map((val, index) => (
-                            <MenuItem onClick={() => setMenuAnchor(null)} key={index} component={Link} to={val.url}>
-                                {val.text}
-                            </MenuItem>
-                        ))) : null}
-                    </Menu>
                     
-                    <Button color="inherit" component={Link} to={"/"}>
-                        SKY@TAMU
-                    </Button>
+                    
+                    {mobileView ? displayMobile() : displayDesktop()}
+
                     <div className="flex-spacer" />
                     {(currentUser && currentUser.username) ? (
                         <>
