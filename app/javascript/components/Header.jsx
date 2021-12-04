@@ -154,7 +154,7 @@ const Header = () => {
                 ))}
 
                 {isAdmin ? (adminItems.map((val, index) => (
-                    <MenuItem onClick={() => setMenuAnchor(null)} key={index} component={Link} to={val.url}>
+                    <MenuItem onClick={() => setMenuAnchor(null)} key={index+10} component={Link} to={val.url}>
                         {val.text}
                     </MenuItem>
                 ))) : null}
