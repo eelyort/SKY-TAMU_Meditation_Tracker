@@ -117,13 +117,13 @@ export default function EnhancedTable(props) {
                         component="th"
                         id={`enhanced-table-checkbox-${index}`}
                         scope="row"
-                        padding="none"
+                        style={{padding: '6px 8px'}}
                     >
                         {row[headCell.id]}
                     </TableCell>
                 ) :
                 (
-                    <TableCell>{row[headCell.id]}</TableCell>
+                    <TableCell style={{padding: '6px 8px'}}>{row[headCell.id]}</TableCell>
                 )
             ))}
         </>
