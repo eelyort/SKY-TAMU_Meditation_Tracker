@@ -4,7 +4,6 @@ export const GenerateObject = (attendance, events, users, locations, isAdmin) =>
     const user = users?.filter(user => user.id === attendance.user_id)[0];
     const location = locations?.filter(location => location.id === attendance.location_id)[0];
     return ({
-        name: `${user?.firstname} ${user?.lastname}`,
         email: `${user?.username}`,
         eventName: `${event?.title}`,
         eventLocation: `${location?.building} - ${location?.room}`,
@@ -15,22 +14,16 @@ export const GenerateObject = (attendance, events, users, locations, isAdmin) =>
 // headers
 export const headCells = [
     {
-      id: 'name',
+      id: 'email',
       numeric: false,
-      disablePadding: true,
-      label: 'User',
+      disablePadding: false,
+      label: 'Email',
     },
     {
       id: 'rsvp',
       numeric: false,
       disablePadding: false,
       label: 'Answer',
-    },
-    {
-      id: 'email',
-      numeric: false,
-      disablePadding: false,
-      label: 'Email',
     },
     {
       id: 'eventName',
