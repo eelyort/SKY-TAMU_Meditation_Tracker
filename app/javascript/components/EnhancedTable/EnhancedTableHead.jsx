@@ -71,7 +71,15 @@ export default function EnhancedTableHead(props) {
                   options={rows.map(row => row[headCell.id]).filter((val, index, self) => self.indexOf(val) === index).map(val => ({ label: val }))}
                   value={filters[headCell.id] ?? null}
                   sx={{ width: 300 }}
-                  renderInput={(params) => <TextField {...params} label={`Filter ${headCell.label}`} margin={'none'} size={'small'} />}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={`Filter ${headCell.label}`}
+                      margin={'none'}
+                      size={'small'}
+                      style={{max: '200px'}}
+                    />
+                  )}
                   onChange={(e, newValue) => setFilters(oldFilters => {
                     let ans = {...oldFilters};
                     ans[headCell.id] = newValue?.label ?? null;
