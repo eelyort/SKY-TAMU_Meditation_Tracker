@@ -252,8 +252,8 @@ const EventsPage = (props) => {
         
         </CardActionArea>
           
-          {isAdmin ? (<Button variant='contained' color='secondary' onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</Button>) : null} 
-          <Button style={{margin: '1%'}} variant='contained' color='secondary' size='medium' onClick={() => {goToEvent(event.id)}} >View More Details and Locations</Button>
+          {isAdmin ? (<Button variant='outlined' color='secondary' onClick={() => {setEventIndex(index); setEditEvent(true)} }>Edit Event</Button>) : null} 
+          <Button style={{margin: '1%'}} variant='outlined' color='secondary' size='medium' onClick={() => {goToEvent(event.id)}} >RSVP, Details, and Locations</Button>
       </Card>
     );
 
