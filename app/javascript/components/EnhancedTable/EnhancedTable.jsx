@@ -171,7 +171,7 @@ export default function EnhancedTable(props) {
                                 role="checkbox"
                                 aria-checked={isItemSelected}
                                 tabIndex={-1}
-                                key={`${row.name} ${row.id}`}
+                                key={`${row.id}`}
                                 selected={isItemSelected}
                             >
                             <TableCell padding="checkbox">
@@ -209,10 +209,10 @@ export default function EnhancedTable(props) {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>
-            <FormControlLabel
+            {/* <FormControlLabel
                 control={<Switch checked={dense} onChange={handleChangeDense} />}
                 label="Dense padding"
-            />
+            /> */}
         </Box>
     );
 }
