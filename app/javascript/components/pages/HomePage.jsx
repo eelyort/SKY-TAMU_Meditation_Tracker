@@ -164,7 +164,7 @@ const HomePage = (props) => {
 
     return (
         <>
-            <div draggable="false" className="carousel-swipe" style={{backgroundColor: "#c8a2c8ff"}}>
+            <div draggable="false" className="carousel-swipe" style={{backgroundColor: "#ecf2e6ff"}}>
                 <Carousel
                     swipe = {true}
                     autoPlay = {true}
