@@ -147,6 +147,25 @@ html, body, body > div:first-of-type {
   padding: 25px 140px;
   position: relative;
 }
+
+@media only screen and (max-width: 1024px) {
+  .users-wrapper{
+    padding: 25px 80px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .users-wrapper{
+    padding: 25px 40px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .users-wrapper{
+    padding: 25px 10px;
+  }
+}
+
 .users-wrapper .user-div {
   position: relative;
   border-style: solid none none none;
@@ -273,4 +292,39 @@ html, body, body > div:first-of-type {
   margin: 8px 0;
   display: inline-block;
   color: white;
+}
+
+.event-wrapper {
+  padding: 25px 160px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1024px) {
+  .event-wrapper{
+    padding: 25px 120px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .event-wrapper{
+    padding: 25px 80px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .event-wrapper{
+    padding: 25px 15px;
+  }
+}
+
+.about-wrapper {
+  margin: auto;
+  width: 80%;
+  padding: 10px;
+  font-size: 1.25em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.about-wrapper > img {
+  width: 100%
 }
