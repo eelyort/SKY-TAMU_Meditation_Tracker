@@ -10,21 +10,13 @@ const AboutPage = (props) => {
         fontFamily: "Arial, Helvetica, sans-serif"
     }
 
-    const AboutBody = {
-        margin: "auto",
-        width: "80%",
-        padding: "10px",
-        fontSize: "1.25em",
-        fontFamily: "Arial, Helvetica, sans-serif"
-    }
-
     return (
         <>
             <div style={AboutHeader}>
                 <h1>About Page</h1>
             </div>
 
-            <div style={AboutBody}>
+            <div className="about-wrapper">
 
                 <h4>About Us</h4>
                 <p>
