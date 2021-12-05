@@ -11,7 +11,7 @@
   /* second colorscheme */
   /* https://coolors.co/3d8be8-d88c9a-fafafa-ecf2e6-ffffff */
   --bleu-de-france: #3d8be8ff;
-  --shimmering-blush: #d88c9aff;
+  --dark-purple: #30011e;
   --cultured: #fafafaff;
   --ivory: #ecf2e6ff;
   --white: #ffffffff;
@@ -19,7 +19,7 @@
   /* rename initial as second one */
   --palatinate-purple: #3d8be8ff;
   --lilac: #fafafaff;
-  --russian-violet: #d88c9aff;
+  --russian-violet: #30011e;
   --cornsilk: #ecf2e6ff;
   --baby-blue: #ffffffff;
 }

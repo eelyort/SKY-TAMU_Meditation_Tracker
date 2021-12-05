@@ -22,9 +22,10 @@ const theme = createTheme({
   palette: {
     primary: {
       main: '#3d8be8ff',
+      color: 'white',
     },
     secondary: {
-      main: '#d88c9aff',
+      main: '#30011e',
       color: 'white',
     },
   },
