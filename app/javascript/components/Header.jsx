@@ -102,26 +102,18 @@ const Header = () => {
     const displayDesktop = () => {        
         return (
             <>
-                <Button key='aboutBtn' color="inherit" component={Link} to={'/about'}>
-                    About
-                </Button>
+                {menuItems.map((val, index) => (
+                    <Button key={index} color="inherit" component={Link} to={val.url}>
+                        {val.text}
+                    </Button>
+                ))}
                 
-                <Button key='eventsBtn' color="inherit" component={Link} to={'/events'}>
-                    Events
-                </Button>
-                
-                <Button key='membersBtn' color="inherit" component={Link} to={'/members'}>
-                    Members
-                </Button>
-                
-                <Button key='attendanceBtn' color="inherit" component={Link} to={'/attendance'}>
-                    Attendance
-                </Button>
-                
-                {(isAdmin) ?
-                <Button key='helpBtn' color="inherit" component={Link} to={'/help'}>
-                    Help
-                </Button> : null}
+                {(isAdmin) ? 
+                    (adminItems.map( (val, index) =>
+                        (<Button key={index} color="inherit" component={Link} to={val.url}>
+                            {val.text}
+                        </Button>) )
+                    ) : null}
                     
                 <Button
                     color="inherit"
@@ -132,67 +124,21 @@ const Header = () => {
                     aria-label="profile-menu"
                     onClick={(event) => setProfileAnchor(event.currentTarget)}
                 >Profile</Button>
+
+                <Menu
+                    id="basic-profile-menu"
+                    anchorEl={profileAnchor}
+                    open={Boolean(profileAnchor)}
+                    onClose={() => setProfileAnchor(null)}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                    >
+                    {(currentUser && currentUser.username) ? profileMenuItems() : loginBtn()}    
+                </Menu> 
             </>
         ); 
     };
-
-    const profileBtnIn = () => {
-        return(
-            <>
-                <Menu
-                    id="basic-profile-menu"
-                    anchorEl={profileAnchor}
-                    open={Boolean(profileAnchor)}
-                    onClose={() => setProfileAnchor(null)}
-                    MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                    }}
-                    >
-                    <MenuItem onClick={() => setProfileAnchor(null)} component={Link} to={profileEditLink(currentUser)}>{currentUser.username}</MenuItem>
-                    <MenuItem
-                        onClick={() => {
-                            googleLogOut();
-                            setProfileAnchor(null);
-                        }}
-                    >
-                        Log Out
-                    </MenuItem>
-                </Menu>
-            </>
-        );
-    }
-
-    const profileBtnOut = () => {
-        return(
-            <>
-                <Menu
-                    id="basic-profile-menu"
-                    anchorEl={profileAnchor}
-                    open={Boolean(profileAnchor)}
-                    onClose={() => setProfileAnchor(null)}
-                    MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                    }}
-                    >                    
-                    <MenuItem onClick={() => setProfileAnchor(null)}>
-                        <GoogleAPI className="GoogleLogin" clientId="117887850590-2cuglpp4ufantojicnktl8aeclhmkpgs.apps.googleusercontent.com">
-                            <div>
-                                <CustomGoogleLogin
-                                    access="offline"
-                                    scope="email profile"
-                                    onLoginSuccess={responseGoogle}
-                                    onFailure={responseGoogle}
-                                    className={'custom-google-login'}
-                                >
-                                    Login
-                                </CustomGoogleLogin>
-                            </div>
-                        </GoogleAPI>
-                    </MenuItem>
-                </Menu>
-            </>
-        );
-    }
 
     const displayMobile = () => {
         return (
@@ -235,42 +181,17 @@ const Header = () => {
                         {val.text}
                     </MenuItem>
                 ))) : null}
-                    
-
             </Menu>
             ]
         );
     };
-
-    const profileMenu = () => {
-
-        return(
-            <>
-            <Menu
-            id="basic-profile-menu"
-            anchorEl={profileAnchor}
-            open={Boolean(profileAnchor)}
-            onClose={() => setProfileAnchor(null)}
-            MenuListProps={{
-                'aria-labelledby': 'basic-button',
-            }}>
-                
-                {profileMenuItems()}
-
-            </Menu>
-
-
-
-            </>
-        );
-    }
 
     const profileMenuItems = () => {
         return(
             [            
             <MenuItem key={"editProfileMenu"} onClick={() => setProfileAnchor(null)} component={Link} to={profileEditLink(currentUser)}>{currentUser.username}</MenuItem>,
             
-            <MenuItem key={"logOutMenu"} style={{borderBottom: "2px solid gray", borderRadius: "10px", marginBottom: "5%"}} onClick={() => {googleLogOut(); setProfileAnchor(null);}}>
+            <MenuItem key={"logOutMenu"} onClick={() => {googleLogOut(); setProfileAnchor(null);}}>
                 Log Out
             </MenuItem>
             ]
@@ -280,19 +201,21 @@ const Header = () => {
     const loginBtn = () => {
         return(
             <MenuItem>
-                <GoogleAPI className="GoogleLogin" clientId="117887850590-2cuglpp4ufantojicnktl8aeclhmkpgs.apps.googleusercontent.com">
-                    <div>
-                        <CustomGoogleLogin
-                            access="offline"
-                            scope="email profile"
-                            onLoginSuccess={responseGoogle}
-                            onFailure={responseGoogle}
-                            className={'custom-google-login'}
-                        >
-                            Login
-                        </CustomGoogleLogin>
-                    </div>
-                </GoogleAPI>
+                <Typography>
+                    <GoogleAPI className="GoogleLogin" clientId="117887850590-2cuglpp4ufantojicnktl8aeclhmkpgs.apps.googleusercontent.com">
+                        <div>
+                            <CustomGoogleLogin
+                                access="offline"
+                                scope="email profile"
+                                onLoginSuccess={responseGoogle}
+                                onFailure={responseGoogle}
+                                className={'custom-google-login'}
+                            >
+                                Login
+                            </CustomGoogleLogin>
+                        </div>
+                    </GoogleAPI>
+                </Typography>
             </MenuItem>
         );
 
@@ -321,12 +244,10 @@ const Header = () => {
                     <div className="flex-spacer" />
 
                     {mobileView ? displayMobile() : displayDesktop()}
-
-                    {(currentUser && currentUser.username && !mobileView) ? profileBtnIn() : profileBtnOut()}
                     
                 </Toolbar>
             </AppBar>
-            
+
             {loginSuccessAlertOpen ? (
                 <Alert onClose={() => setLoginSuccessAlertOpen(false)}>Login Successful!{isAdmin ? `Please refresh the page to get Admin Priviledges` : null}</Alert>
             ) : null}
