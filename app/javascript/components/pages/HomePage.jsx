@@ -136,10 +136,12 @@ const HomePage = (props) => {
     //    console.log(tot_time);
     //}, []);
     const [nextSessionAttendance, totalTime] = timeTrackerState;
+    const pluralHour = (Math.round(totalTime) == 1) ? "Hour" : "Hours" 
+    const pluralPerson = (nextSessionAttendance == 1) ? "person" : "people" 
     const CarouselItems = [
         {
-            name: (Math.round(totalTime)) + " Hours Meditated Total",
-            description: nextSessionAttendance + " of people expected at next session",
+            name: `${Math.round(totalTime)} ${pluralHour} Meditated`,
+            description: `${nextSessionAttendance} ${pluralPerson} expected at next session`,
             button: "See Events",
             link: "events",
             image: HeroImage
@@ -148,14 +150,14 @@ const HomePage = (props) => {
             name: "About SKY@TAMU",
             description: "Learn all about SKY@TAMU",
             button: "Learn More",
-            link: "members",
+            link: "about",
             image: HeroImage
         },
         {
             name: "User Testimonials",
             description: "View community testimonials",
             button: "See Testimonials",
-            link: "home",
+            link: "members",
             image: HeroImage
         }
     ];
@@ -165,10 +167,10 @@ const HomePage = (props) => {
             <div draggable="false" className="carousel-swipe" style={{backgroundColor: "#c8a2c8ff"}}>
                 <Carousel
                     swipe = {true}
-                    autoPlay = {false}
-                    interval = {false}
+                    autoPlay = {true}
+                    interval = {4000}
                     animation = {"slide"}
-                    navButtonsAlwaysVisible = {true}
+                    //navButtonsAlwaysVisible = {true}
                     // next={ (next, active) => { console.log(`we left ${active}, and are now at ${next}`); } }
                     // prev={ (prev, active) => { console.log(`we left ${active}, and are now at ${prev}`); } }
                 >
