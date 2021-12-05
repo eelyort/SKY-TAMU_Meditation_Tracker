@@ -1,11 +1,27 @@
 /* CSS HEX */
 /* https://coolors.co/69306d-c8a2c8-0e103d-fffae3-89daff */
 :root {
-  --palatinate-purple: #69306dff;
+  /* initial colorscheme */
+  /* --palatinate-purple: #69306dff;
   --lilac: #c8a2c8ff;
   --russian-violet: #0e103dff;
   --cornsilk: #fffae3ff;
-  --baby-blue: #89daffff;
+  --baby-blue: #89daffff; */
+
+  /* second colorscheme */
+  /* https://coolors.co/3d8be8-d88c9a-fafafa-ecf2e6-ffffff */
+  --bleu-de-france: #3d8be8ff;
+  --shimmering-blush: #d88c9aff;
+  --cultured: #fafafaff;
+  --ivory: #ecf2e6ff;
+  --white: #ffffffff;
+
+  /* rename initial as second one */
+  --palatinate-purple: #3d8be8ff;
+  --lilac: #fafafaff;
+  --russian-violet: #d88c9aff;
+  --cornsilk: #ecf2e6ff;
+  --baby-blue: #ffffffff;
 }
 
 #footerId{
