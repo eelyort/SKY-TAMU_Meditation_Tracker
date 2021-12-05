@@ -222,7 +222,7 @@ const Header = () => {
                 }}
             >   
                 {(currentUser && currentUser.username) ? profileMenuItems() : 
-                    <MenuItem key={"logInMenu2"}>{loginBtn()}</MenuItem>}
+                    loginBtn()}
 
                 {menuItems.map((val, index) => (
                     <MenuItem onClick={() => {setProfileAnchor(null); setMenuAnchor(null)}} key={index} component={Link} to={val.url}>
@@ -326,6 +326,7 @@ const Header = () => {
                     
                 </Toolbar>
             </AppBar>
+            
             {loginSuccessAlertOpen ? (
                 <Alert onClose={() => setLoginSuccessAlertOpen(false)}>Login Successful!{isAdmin ? `Please refresh the page to get Admin Priviledges` : null}</Alert>
             ) : null}
