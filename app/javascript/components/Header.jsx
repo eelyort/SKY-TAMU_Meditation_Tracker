@@ -100,6 +100,17 @@ const Header = () => {
         window.removeEventListener("resize", () => setResponsiveness());
     }
     }, []);
+   
+    const profileMenuItems = () => {
+        return(
+            [
+            <MenuItem key={"editProfileMenu"} onClick={() => setProfileAnchor(null)} component={Link} to={profileEditLink(currentUser)}>{currentUser.username}</MenuItem>,
+            <MenuItem key={"logOutMenu"} onClick={() => {googleLogOut(); setProfileAnchor(null);}}>
+                Log Out
+            </MenuItem>                
+            ]
+        );
+    }
 
     const displayDesktop = () => {
         return (
@@ -185,15 +196,6 @@ const Header = () => {
             ]
         );
     };
-
-    const profileMenuItems = () => {
-        return(
-            <MenuItem key={"editProfileMenu"} onClick={() => setProfileAnchor(null)} component={Link} to={profileEditLink(currentUser)}>{currentUser.username}</MenuItem>,
-            <MenuItem key={"logOutMenu"} onClick={() => {googleLogOut(); setProfileAnchor(null);}}>
-                Log Out
-            </MenuItem>
-        );
-    }
 
     const loginBtn = () => {
         return(

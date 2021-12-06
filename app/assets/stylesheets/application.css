@@ -213,6 +213,7 @@ html, body, body > div:first-of-type {
   display: flex;
   flex-direction: row;
   position: relative;
+  flex-wrap: wrap;
 }
 
 .users-wrapper .user-div .user-actions {
