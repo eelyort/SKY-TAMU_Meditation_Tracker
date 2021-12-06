@@ -17,11 +17,11 @@
   --white: #ffffffff;
 
   /* rename initial as second one */
-  --palatinate-purple: #3d8be8ff;
-  --lilac: #fafafaff;
-  --russian-violet: #30011e;
-  --cornsilk: #ecf2e6ff;
-  --baby-blue: #ffffffff;
+  --palatinate-purple: var(--bleu-de-france);
+  --lilac: var(--ivory);
+  --russian-violet: var(--dark-purple);
+  --cornsilk: var(--cultured);
+  --baby-blue: var(--white);
 }
 
 #footerId{
@@ -139,7 +139,7 @@ html, body, body > div:first-of-type {
   overflow: hidden;
 }
 .homepage-hero .text {
-  color: white;
+  color: var(--dark-purple);
   font-size: 4rem;
   /* position: absolute; */
   transform: translateY(25%);
@@ -223,6 +223,7 @@ html, body, body > div:first-of-type {
   user-select: none;
   touch-action: pan-y;
   transform-origin: 50% 50% 0px;
+  background-color: var(--cultured);
 }
 
 /*CSS for Event Pages*/
