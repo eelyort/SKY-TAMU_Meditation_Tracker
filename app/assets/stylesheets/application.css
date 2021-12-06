@@ -359,8 +359,22 @@ html, body, body > div:first-of-type {
   border-radius: 25px;
   padding: 5%;
   text-align: center;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+}
+.show-event-card h4, .show-event-card h5, .show-event-card h6, .show-event-card strong {
+  color: var(--bleu-de-france);
+}
+
+.show-event-location-card {
+  background-color: var(--cultured);
+  color: black;
+  border: 2px solid black;
+  margin: 2% 10%;
+  border-radius: 25px;
+  padding: 5%;
+  text-align: center;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
-.show-event-card h4, .show-event-card h5, .show-event-card h6 {
+.show-event-location-card h4, .show-event-location-card h5, .show-event-location-card h6, .show-event-location-card strong {
   color: var(--bleu-de-france);
 }

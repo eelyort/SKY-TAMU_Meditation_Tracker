@@ -123,7 +123,7 @@ const ShowEventPage = (props) => {
                                 counter++
                                 return (
                                 <div key={x.id}>
-                                    <Card key={event.id} style={{border: "2px solid black", borderRadius: "25px", backgroundColor: "#C8A2C8", margin: "2% 10%"}}>
+                                    <Card className={'show-event-location-card'} key={event.id}>
 
                                         <CardContent>
                                             <Typography variant="h6" component="div" gutterBottom>
