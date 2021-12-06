@@ -113,7 +113,7 @@ export default function EnhancedTable(props) {
     const GenerateDataRow = (row, rowIndex) => (
         <>
             {headCells.map((headCell, index) => (
-                <TableCell style={{padding: '6px 8px'}}>{row[headCell.id]}</TableCell>
+                <TableCell>{row[headCell.id]}</TableCell>
             ))}
         </>
     );
