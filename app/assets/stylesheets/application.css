@@ -188,8 +188,10 @@ html, body, body > div:first-of-type {
   border-color: rgba(14, 16, 61, 0.308);
   border-width: 1px;
 }
-.users-wrapper.attendance td {
-  padding: 4px !important;
+.users-wrapper.attendance td, .users-wrapper.attendance th {
+  padding: 4px 8px !important;
+  white-space: nowrap;
+  width: 1%;
 }
 .users-wrapper .user-div .user-text-center {
   /* flex: grow;
