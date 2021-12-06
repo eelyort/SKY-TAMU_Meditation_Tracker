@@ -370,7 +370,7 @@ html, body, body > div:first-of-type {
   color: black;
   border: 2px solid black;
   margin: 2% 10%;
-  border-radius: 25px;
+  border-radius: 15px !important;
   padding: 5%;
   text-align: center;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
