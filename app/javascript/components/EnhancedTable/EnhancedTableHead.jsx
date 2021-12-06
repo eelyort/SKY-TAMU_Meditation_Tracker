@@ -14,7 +14,7 @@ export default function EnhancedTableHead(props) {
         onSelectAllClick, order, orderBy,
         numSelected, rowCount, onRequestSort,
         headCells, filters, setFilters, rows,
-        showCheckbox = true,
+        showCheckbox,
     } = props;
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
@@ -23,21 +23,19 @@ export default function EnhancedTableHead(props) {
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox">
-            {showCheckbox ? (
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  indeterminate={numSelected > 0 && numSelected < rowCount}
-                  checked={rowCount > 0 && numSelected === rowCount}
-                  onChange={onSelectAllClick}
-                  inputProps={{
-                    'aria-label': 'select all desserts',
-                  }}
-                />
-              </TableCell>
-            ) : null}
-          </TableCell>
+          {showCheckbox ? (
+            <TableCell padding="checkbox">
+              <Checkbox
+                color="primary"
+                indeterminate={numSelected > 0 && numSelected < rowCount}
+                checked={rowCount > 0 && numSelected === rowCount}
+                onChange={onSelectAllClick}
+                inputProps={{
+                  'aria-label': 'select all desserts',
+                }}
+              />
+            </TableCell>
+          ) : null}
           {headCells.map((headCell) => (
             <TableCell
               key={headCell.id}
@@ -63,8 +61,10 @@ export default function EnhancedTableHead(props) {
         {/* search/filters */}
         {(filters && setFilters) ? (
           <TableRow>
-            <TableCell padding="checkbox">
-            </TableCell>
+            {showCheckbox ? (
+              <TableCell padding="checkbox">
+              </TableCell>
+            ) : null}
             {headCells.map((headCell) => (
               <TableCell
                 key={headCell.id + " filter"}

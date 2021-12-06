@@ -143,6 +143,7 @@ export default function EnhancedTable(props) {
                         filters={filters}
                         setFilters={setFilters}
                         rows={unfilteredRows}
+                        showCheckbox={showCheckbox}
                     />
                     <TableBody>
                     {/* if you don't need to support IE11, you can replace the `stableSort` call with:
