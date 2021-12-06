@@ -237,14 +237,13 @@ const Header = () => {
 
     return (
         <>
-            <AppBar key={"appBar"} position="static" color="secondary" style={{maxHeight: "125px", paddingTop: "1%"}}>
+            <AppBar key={"appBar"} position="static" color="primary" style={{maxHeight: "125px", paddingTop: "1%", color: "white"}}>
                 <Toolbar key={"toolBar"}>
                     {displayLogo()}
 
                     <div className="flex-spacer" />
 
                     {mobileView ? displayMobile() : displayDesktop()}
-                    
                 </Toolbar>
             </AppBar>
 

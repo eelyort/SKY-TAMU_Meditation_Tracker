@@ -181,7 +181,7 @@ const AttendancePage = (props) => {
 
     if(isAdmin || isMember) {
         return (
-            <div className={'users-wrapper flex-spacer'}>
+            <div className={'users-wrapper flex-spacer attendance'}>
                 <Typography variant={"h2"}>
                     Attendance
                 </Typography>
