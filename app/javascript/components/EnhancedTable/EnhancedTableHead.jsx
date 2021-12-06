@@ -77,7 +77,7 @@ export default function EnhancedTableHead(props) {
                       label={`Filter ${headCell.label}`}
                       margin={'none'}
                       size={'small'}
-                      style={{max: '200px'}}
+                      style={{width: '160px'}}
                     />
                   )}
                   onChange={(e, newValue) => setFilters(oldFilters => {

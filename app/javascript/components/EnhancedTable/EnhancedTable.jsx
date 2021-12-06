@@ -112,19 +112,7 @@ export default function EnhancedTable(props) {
     const GenerateDataRow = (row, rowIndex) => (
         <>
             {headCells.map((headCell, index) => (
-                index === 0 ? (
-                    <TableCell
-                        component="th"
-                        id={`enhanced-table-checkbox-${index}`}
-                        scope="row"
-                        style={{padding: '6px 8px'}}
-                    >
-                        {row[headCell.id]}
-                    </TableCell>
-                ) :
-                (
-                    <TableCell style={{padding: '6px 8px'}}>{row[headCell.id]}</TableCell>
-                )
+                <TableCell style={{padding: '6px 8px'}}>{row[headCell.id]}</TableCell>
             ))}
         </>
     );
