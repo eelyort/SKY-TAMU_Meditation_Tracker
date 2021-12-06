@@ -1,11 +1,14 @@
 import React, { useState, useEffect }from 'react';
-import HeroImage from 'images/iStock-1161561165.jpg';
 import Carousel from 'react-material-ui-carousel'
 import { Button, Typography, Paper } from '@mui/material';
 import { Link } from "react-router-dom";
 import { Card, CardContent,  CardHeader, CardActionArea } from '@mui/material';
 import AddEventForm from './events/AddEventForm'
 import EditEvent from './events/EditEvent'
+
+import CarouselImage1 from 'images/iStock-1161561165.jpg';
+import CarouselImage2 from 'images/iStock-1161561165.jpg';
+import CarouselImage3 from 'images/iStock-1161561165.jpg';
 //import DateTime from DateTime;
 //import DateTime from 'react-datetime';
 
@@ -144,21 +147,21 @@ const HomePage = (props) => {
             description: `${nextSessionAttendance} ${pluralPerson} expected at next session`,
             button: "See Events",
             link: "events",
-            image: HeroImage
+            image: CarouselImage1
         },
         {
             name: "About SKY@TAMU",
             description: "Learn all about SKY@TAMU",
             button: "Learn More",
             link: "about",
-            image: HeroImage
+            image: CarouselImage2
         },
         {
-            name: "User Testimonials",
+            name: "Testimonials",
             description: "View community testimonials",
             button: "See Testimonials",
-            link: "members",
-            image: HeroImage
+            link: "about#testimonials",
+            image: CarouselImage3
         }
     ];
 
