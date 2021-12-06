@@ -11,6 +11,7 @@ const adminItems = [{'text': 'Help', 'url': '/help'}]
 
 const Header = () => {
     const [loginSuccessAlertOpen, setLoginSuccessAlertOpen] = React.useState(false);
+    const [logoutSuccessAlertOpen, setLogOutSuccessAlertOpen] = React.useState(false);
     const [menuAnchor, setMenuAnchor] = React.useState(null);
     const [profileAnchor, setProfileAnchor] = React.useState(null);
 
@@ -62,6 +63,7 @@ const Header = () => {
     const googleLogOut = () => {
         // cookie.set('currentUser', JSON.stringify({}), { path: '/' });
         setCurrentUser(JSON.stringify({}));
+        setLogOutSuccessAlertOpen(true)
     };
 
     const profileEditLink = (user) => `/members/${user.id}/edit`;
@@ -71,7 +73,7 @@ const Header = () => {
     const [state, setState] = useState({
         mobileView: false,
     });
-    
+
     const { mobileView } = state;
 
     useEffect(() => {
@@ -89,35 +91,35 @@ const Header = () => {
     }
     }, []);
 
-    const displayDesktop = () => {        
+    const displayDesktop = () => {
         return (
             [
                 <Button key='homeBtn' color="inherit" component={Link} to={'/'}>
                     Home
                 </Button>,
-                
+
                 <Button key='aboutBtn' color="inherit" component={Link} to={'/about'}>
                     About
                 </Button>,
-                
+
                 <Button key='eventsBtn' color="inherit" component={Link} to={'/events'}>
                     Events
                 </Button>,
-                
+
                 <Button key='membersBtn' color="inherit" component={Link} to={'/members'}>
                     Members
                 </Button>,
-                
+
                 <Button key='attendanceBtn' color="inherit" component={Link} to={'/attendance'}>
                     Attendance
                 </Button>,
-                
+
                 (isAdmin) ?
                 <Button key='helpBtn' color="inherit" component={Link} to={'/help'}>
                     Help
                 </Button> : null
             ]
-        ); 
+        );
     };
 
     const displayMobile = () => {
@@ -167,8 +169,8 @@ const Header = () => {
         <>
             <AppBar position="static" color="secondary">
                 <Toolbar>
-                    
-                    
+
+
                     {mobileView ? displayMobile() : displayDesktop()}
 
                     <div className="flex-spacer" />
@@ -224,6 +226,9 @@ const Header = () => {
             </AppBar>
             {loginSuccessAlertOpen ? (
                 <Alert onClose={() => setLoginSuccessAlertOpen(false)}>Login Successful!{isAdmin ? `Please refresh the page to get Admin Priviledges` : null}</Alert>
+            ) : null}
+            {logoutSuccessAlertOpen ? (
+                <Alert onClose={() => setLogOutSuccessAlertOpen(false)}>Logout Successful!{isAdmin ? `You will no longer have access to Admin Priviledges` : null}</Alert>
             ) : null}
         </>
     );
