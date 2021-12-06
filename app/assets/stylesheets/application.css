@@ -10,8 +10,11 @@
 
   /* second colorscheme */
   /* https://coolors.co/3d8be8-d88c9a-fafafa-ecf2e6-ffffff */
+  /* https://coolors.co/3d8be8-0c1b33-fafafa-ecf2e6-ffffff */
   --bleu-de-france: #3d8be8ff;
+  --oxford-blue: #0c1b33ff;
   --dark-purple: #30011e;
+  --dark-purple: var(--oxford-blue);
   --cultured: #fafafaff;
   --ivory: #ecf2e6ff;
   --white: #ffffffff;

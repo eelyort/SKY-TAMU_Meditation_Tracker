@@ -225,7 +225,7 @@ const EventsPage = (props) => {
   var headerStyle = {
     textAlign: 'center',
     fontWeight: '900',
-    backgroundColor: '#69306D',
+    backgroundColor: '#3d8be8ff',
     color: 'white'
   }
 
