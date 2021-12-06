@@ -171,13 +171,13 @@ const ShowEventPage = (props) => {
                 </Button>
             </div>
 
-            <div style={cardStyle}>
-                {(eventMissing) ? 
-                    <h1>Cannot Find Event</h1> : 
+            <div className={'show-event-card'}>
+                {(eventMissing) ?
+                    <h1>Cannot Find Event</h1> :
                     <h1>Searching For Event...</h1>}
             </div>
             </>
-        );  
+        );
     }
 }
 

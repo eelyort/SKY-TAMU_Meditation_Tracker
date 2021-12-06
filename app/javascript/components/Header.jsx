@@ -7,10 +7,10 @@ import Cookies from 'universal-cookie';
 import useCookie from './UseCookie';
 import Logo from 'images/SkyLogo.png';
 
-const menuItems = [ {'text': 'Home', 'url': '/'}, 
+const menuItems = [ {'text': 'Home', 'url': '/'},
                     {'text': 'About', 'url': '/about'},
-                    {'text': 'Events', 'url': '/events'}, 
-                    {'text': 'Members', 'url': '/members'}, 
+                    {'text': 'Events', 'url': '/events'},
+                    {'text': 'Members', 'url': '/members'},
                     {'text': 'Attendance', 'url': '/attendance'}
                   ];
 
@@ -109,14 +109,12 @@ const Header = () => {
                         {val.text}
                     </Button>
                 ))}
-                
-                {(isAdmin) ? 
+                {(isAdmin) ?
                     (adminItems.map( (val, index) =>
                         (<Button key={index} color="inherit" component={Link} to={val.url}>
                             {val.text}
                         </Button>) )
                     ) : null}
-                    
                 <Button
                     color="inherit"
                     id="my-profile-button"
@@ -136,10 +134,10 @@ const Header = () => {
                         'aria-labelledby': 'basic-button',
                     }}
                     >
-                    {(currentUser && currentUser.username) ? profileMenuItems() : loginBtn()}    
-                </Menu> 
+                    {(currentUser && currentUser.username) ? profileMenuItems() : loginBtn()}
+                </Menu>
             </>
-        ); 
+        );
     };
 
     const displayMobile = () => {
@@ -168,8 +166,8 @@ const Header = () => {
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}
-            >   
-                {(currentUser && currentUser.username) ? profileMenuItems() : 
+            >
+                {(currentUser && currentUser.username) ? profileMenuItems() :
                     loginBtn()}
 
                 {menuItems.map((val, index) => (
@@ -190,13 +188,10 @@ const Header = () => {
 
     const profileMenuItems = () => {
         return(
-            [            
             <MenuItem key={"editProfileMenu"} onClick={() => setProfileAnchor(null)} component={Link} to={profileEditLink(currentUser)}>{currentUser.username}</MenuItem>,
-            
             <MenuItem key={"logOutMenu"} onClick={() => {googleLogOut(); setProfileAnchor(null);}}>
                 Log Out
             </MenuItem>
-            ]
         );
     }
 
@@ -225,11 +220,11 @@ const Header = () => {
 
     const displayLogo = () => {
         return(
-            (mobileView) ? 
+            (mobileView) ?
             <Button key='homeBtn' color="inherit" component={Link} to={'/'} style={{maxHeight: "75"}}>
                 <img src={Logo} alt="logo" width="225" height="175"/>
             </Button>
-            : 
+            :
             <Button key='homeBtn' color="inherit" component={Link} to={'/'} style={{maxHeight: "125px"}}>
                 <img src={Logo} alt="logo" width="360" height="300"/>
             </Button>
