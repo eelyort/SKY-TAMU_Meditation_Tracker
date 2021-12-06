@@ -10,7 +10,7 @@ import {
 
 const Footer = () => {
   return (
-    <div class="footer">
+    <div className="footer">
         <a href="#" target="_blank" id="footerId" >Donate</a>
         <p style={{display:"inline-block"}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
         <a href="mailto:email@gmail.com" target="_blank" id="footerId">Contact Us</a>

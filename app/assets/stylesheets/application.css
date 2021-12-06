@@ -1,11 +1,30 @@
 /* CSS HEX */
 /* https://coolors.co/69306d-c8a2c8-0e103d-fffae3-89daff */
 :root {
-  --palatinate-purple: #69306dff;
+  /* initial colorscheme */
+  /* --palatinate-purple: #69306dff;
   --lilac: #c8a2c8ff;
   --russian-violet: #0e103dff;
   --cornsilk: #fffae3ff;
-  --baby-blue: #89daffff;
+  --baby-blue: #89daffff; */
+
+  /* second colorscheme */
+  /* https://coolors.co/3d8be8-d88c9a-fafafa-ecf2e6-ffffff */
+  /* https://coolors.co/3d8be8-0c1b33-fafafa-ecf2e6-ffffff */
+  --bleu-de-france: #3d8be8ff;
+  --oxford-blue: #0c1b33ff;
+  --dark-purple: #30011e;
+  --dark-purple: var(--oxford-blue);
+  --cultured: #fafafaff;
+  --ivory: #ecf2e6ff;
+  --white: #ffffffff;
+
+  /* rename initial as second one */
+  --palatinate-purple: var(--bleu-de-france);
+  --lilac: var(--ivory);
+  --russian-violet: var(--dark-purple);
+  --cornsilk: var(--cultured);
+  --baby-blue: var(--white);
 }
 
 #footerId{
@@ -19,7 +38,7 @@
 
 .footer {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(14, 16, 61);
+  background-color: var(--bleu-de-france);
   color: white;
   text-align: center;
 }
@@ -123,7 +142,7 @@ html, body, body > div:first-of-type {
   overflow: hidden;
 }
 .homepage-hero .text {
-  color: white;
+  color: var(--dark-purple);
   font-size: 4rem;
   /* position: absolute; */
   transform: translateY(25%);
@@ -147,14 +166,40 @@ html, body, body > div:first-of-type {
   padding: 25px 140px;
   position: relative;
 }
+
+@media only screen and (max-width: 1024px) {
+  .users-wrapper{
+    padding: 25px 80px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .users-wrapper{
+    padding: 25px 40px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .users-wrapper{
+    padding: 25px 10px;
+  }
+}
+
 .users-wrapper .user-div {
   position: relative;
   border-style: solid none none none;
   border-color: rgba(14, 16, 61, 0.308);
   border-width: 1px;
 }
-.users-wrapper .user-div.attendance {
-  display: flex;
+.users-wrapper.attendance td, .users-wrapper.attendance th {
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+.users-wrapper.attendance td.MuiTableCell-paddingCheckbox, .users-wrapper.attendance th.MuiTableCell-paddingCheckbox {
+  padding: 0px 12px 0px 16px;
+}
+.users-wrapper.attendance table .MuiAutocomplete-root {
+  width: auto;
 }
 .users-wrapper .user-div .user-text-center {
   /* flex: grow;
@@ -203,16 +248,11 @@ html, body, body > div:first-of-type {
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
-
-.wrapper .homepage-hero .text a {
-  background-color: #0e103dff;
-  padding: 5px;
-  border-radius: 5px;
-}
 .carousel-swipe {
   user-select: none;
   touch-action: pan-y;
   transform-origin: 50% 50% 0px;
+  background-color: var(--cultured);
 }
 
 /*CSS for Event Pages*/
@@ -273,4 +313,53 @@ html, body, body > div:first-of-type {
   margin: 8px 0;
   display: inline-block;
   color: white;
+}
+
+.event-wrapper {
+  padding: 25px 160px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 1024px) {
+  .event-wrapper{
+    padding: 25px 120px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .event-wrapper{
+    padding: 25px 80px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .event-wrapper{
+    padding: 25px 15px;
+  }
+}
+
+.about-wrapper {
+  margin: auto;
+  width: 80%;
+  padding: 10px;
+  font-size: 1.25em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.about-wrapper > img {
+  width: 100%
+}
+
+.show-event-card {
+  background-color: var(--cultured);
+  color: black;
+  border: 2px solid black;
+  margin: 5%;
+  border-radius: 25px;
+  padding: 5%;
+  text-align: center;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+.show-event-card h4, .show-event-card h5, .show-event-card h6 {
+  color: var(--bleu-de-france);
 }

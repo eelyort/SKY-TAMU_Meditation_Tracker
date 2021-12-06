@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { Card, CardContent,  CardHeader, CardActionArea } from '@mui/material';
 import AddEventForm from './events/AddEventForm'
 import EditEvent from './events/EditEvent'
-import AttendancePage from './AttendancePage'
 //import DateTime from DateTime;
 //import DateTime from 'react-datetime';
 
@@ -137,10 +136,12 @@ const HomePage = (props) => {
     //    console.log(tot_time);
     //}, []);
     const [nextSessionAttendance, totalTime] = timeTrackerState;
+    const pluralHour = (Math.round(totalTime) == 1) ? "Hour" : "Hours" 
+    const pluralPerson = (nextSessionAttendance == 1) ? "person" : "people" 
     const CarouselItems = [
         {
-            name: (Math.round(totalTime)) + " Hours Meditated Total",
-            description: nextSessionAttendance + " of people expected at next session",
+            name: `${Math.round(totalTime)} ${pluralHour} Meditated`,
+            description: `${nextSessionAttendance} ${pluralPerson} expected at next session`,
             button: "See Events",
             link: "events",
             image: HeroImage
@@ -149,49 +150,32 @@ const HomePage = (props) => {
             name: "About SKY@TAMU",
             description: "Learn all about SKY@TAMU",
             button: "Learn More",
-            link: "members",
+            link: "about",
             image: HeroImage
         },
         {
             name: "User Testimonials",
             description: "View community testimonials",
             button: "See Testimonials",
-            link: "home",
+            link: "members",
             image: HeroImage
         }
     ];
 
     return (
         <>
-            <div draggable="false" className="carousel-swipe" style={{backgroundColor: "#c8a2c8ff"}}>
+            <div draggable="false" className="carousel-swipe">
                 <Carousel
                     swipe = {true}
-                    autoPlay = {false}
-                    interval = {false}
+                    autoPlay = {true}
+                    interval = {4000}
                     animation = {"slide"}
-                    navButtonsAlwaysVisible = {true}
+                    //navButtonsAlwaysVisible = {true}
                     // next={ (next, active) => { console.log(`we left ${active}, and are now at ${next}`); } }
                     // prev={ (prev, active) => { console.log(`we left ${active}, and are now at ${prev}`); } }
                 >
                     { CarouselItems.map( (item, i) => <Item key={i} item={item} /> ) }
                 </Carousel>
-            </div>
-
-            <div className="homepage-content-wrapper">
-                <Typography variant="h5">
-                    About
-                </Typography>
-                <Typography variant="body1">
-                    SKY@TAMU is a Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </Typography>
-            </div>
-            <div className="homepage-content-wrapper">
-                <Typography variant="h5">
-                    Members
-                </Typography>
-                <Typography variant="body1">
-                    SKY@TAMU is a Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </Typography>
             </div>
         </>
     );
