@@ -189,9 +189,11 @@ html, body, body > div:first-of-type {
   border-width: 1px;
 }
 .users-wrapper.attendance td, .users-wrapper.attendance th {
-  padding: 4px 8px !important;
+  padding: 4px 12px !important;
   white-space: nowrap;
-  width: 1%;
+}
+.users-wrapper.attendance table .MuiAutocomplete-root {
+  width: auto;
 }
 .users-wrapper .user-div .user-text-center {
   /* flex: grow;
