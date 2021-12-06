@@ -19,6 +19,7 @@ const adminItems = [{'text': 'Help', 'url': '/help'}];
 
 const Header = () => {
     const [loginSuccessAlertOpen, setLoginSuccessAlertOpen] = React.useState(false);
+    const [logoutSuccessAlertOpen, setLogOutSuccessAlertOpen] = React.useState(false);
     const [menuAnchor, setMenuAnchor] = React.useState(null);
     const [profileAnchor, setProfileAnchor] = React.useState(null);
 
@@ -73,6 +74,7 @@ const Header = () => {
     const googleLogOut = () => {
         // cookie.set('currentUser', JSON.stringify({}), { path: '/' });
         setCurrentUser(JSON.stringify({}));
+        setLogOutSuccessAlertOpen(true)
     };
 
     const profileEditLink = (user) => `/members/${user.id}/edit`;
@@ -81,7 +83,7 @@ const Header = () => {
     const [state, setState] = useState({
         mobileView: false,
     });
-    
+
     const { mobileView } = state;
 
     useEffect(() => {
@@ -99,7 +101,7 @@ const Header = () => {
     }
     }, []);
 
-    const displayDesktop = () => {        
+    const displayDesktop = () => {
         return (
             <>
                 {menuItems.map((val, index) => (
@@ -249,6 +251,9 @@ const Header = () => {
 
             {loginSuccessAlertOpen ? (
                 <Alert onClose={() => setLoginSuccessAlertOpen(false)}>Login Successful!{isAdmin ? ` Please refresh the page to get Admin Priviledges` : null}</Alert>
+            ) : null}
+            {logoutSuccessAlertOpen ? (
+                <Alert onClose={() => setLogOutSuccessAlertOpen(false)}>Logout Successful!{isAdmin ? ` You will no longer have access to Admin Priviledges` : null}</Alert>
             ) : null}
         </>
     );
