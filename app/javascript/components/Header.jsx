@@ -248,7 +248,7 @@ const Header = () => {
             </AppBar>
 
             {loginSuccessAlertOpen ? (
-                <Alert onClose={() => setLoginSuccessAlertOpen(false)}>Login Successful!{isAdmin ? `Please refresh the page to get Admin Priviledges` : null}</Alert>
+                <Alert onClose={() => setLoginSuccessAlertOpen(false)}>Login Successful!{isAdmin ? ` Please refresh the page to get Admin Priviledges` : null}</Alert>
             ) : null}
         </>
     );

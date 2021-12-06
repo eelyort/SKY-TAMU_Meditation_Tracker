@@ -10,21 +10,9 @@ const ShowEventPage = (props) => {
 
     var counter = 0
 
-    const cardStyle = {
-        backgroundColor: "#C8A2C8",
-        color: "black",
-        border: "2px solid black",
-        margin: "5%",
-        borderRadius: "25px",
-        padding: "5%",
-        textAlign: "center"
-    };
-    
-    
     const getEvent = () => {
         const event_id = props.match.params.id;
         const url = "/api/v1/events/" + String(event_id);
-        
         fetch(url)
             .then(response => {
                 if (response.ok) {
@@ -55,13 +43,13 @@ const ShowEventPage = (props) => {
             getEvent()
         }, []);
     }
-    
+
     function loadInputList() {
         useEffect(() => {
             getInputList()
         }, []);
-        }
-    
+    }
+
     loadInputList()
 
     loadEvent()
@@ -70,7 +58,6 @@ const ShowEventPage = (props) => {
     function convertFullDate(time) {
         const unixTime = Date.parse(time)
         const date = new Date(unixTime)
-        
         const dateString = date.toDateString()
 
         return dateString
@@ -104,8 +91,8 @@ const ShowEventPage = (props) => {
                 </Button>
             </div>
 
-            <div style={cardStyle}>
-                <Typography variant="h4" component="div" gutterBottom>
+            <div className={'show-event-card'}>
+                <Typography variant="h4" component="div" gutterBottom color={"primary"}>
                     <strong>
                         {event.title}
                     </strong>
@@ -125,14 +112,12 @@ const ShowEventPage = (props) => {
 
                         <Button component={Link} to={`/newattendance/${event.id}`} variant='contained' color='secondary'>RSVP to Event</Button>
                     </div>
-                    
                     <div style={{marginTop: '5%'}}>
                         <Typography variant="h5" component="div" gutterBottom>
                             <strong>
                                 Locations and Scheduling
                             </strong>
                         </Typography>
-                        
                         {inputList.map((x, i) => {
                             if(x.event_id == props.match.params.id || !x.event_id){
                                 counter++
@@ -147,10 +132,9 @@ const ShowEventPage = (props) => {
                                                 </strong>
                                             </Typography>
 
-                                            <Typography 
-                                                style={{whiteSpace: 'pre-line', textAlign: 'center', }} 
+                                            <Typography
+                                                style={{whiteSpace: 'pre-line', textAlign: 'center', }}
                                                 color="text.secondary">
-                                                
                                                 <strong>
                                                     {`Date: ${(x.start_time) ? convertFullDate(x.start_time) + '\n' + convertTimeDate(x.start_time) : 'Not Found'}`}
                                                     {`${(x.end_time) ? ' - ' + convertTimeDate(x.end_time) : ''}\n\n`}
@@ -158,7 +142,7 @@ const ShowEventPage = (props) => {
 
                                                 {"Virtual Link: "} {(x.virtual_link) ? <a target="_blank" href={cleanVirtualLink(x.virtual_link)}>{x.virtual_link}</a> : "None"}
 
-                                                {`\nBuilding: ${(x.building) ? x.building : 'None'} ${(x.room) ? x.room : ''}\n`} 
+                                                {`\nBuilding: ${(x.building) ? x.building : 'None'} ${(x.room) ? x.room : ''}\n`}
 
                                                 {`${(x.city) ? x.city + ',' : ''} ${(x.stateloc) ? x.stateloc : ''}`}
 
@@ -167,7 +151,6 @@ const ShowEventPage = (props) => {
 
                                     </Card>
                                 </div>
-                                
                                 );
                             }
                             else{

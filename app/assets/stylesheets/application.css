@@ -349,3 +349,17 @@ html, body, body > div:first-of-type {
 .about-wrapper > img {
   width: 100%
 }
+
+.show-event-card {
+  background-color: var(--cultured);
+  color: black;
+  border: 2px solid black;
+  margin: 5%;
+  border-radius: 25px;
+  padding: 5%;
+  text-align: center;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+.show-event-card h4, .show-event-card h5, .show-event-card h6 {
+  color: var(--bleu-de-france);
+}
