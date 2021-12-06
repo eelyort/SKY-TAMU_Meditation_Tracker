@@ -20,6 +20,7 @@ export default function EnhancedTable(props) {
     const {
         headCells, rows: rowsRaw,
         deleteItems, title,
+        showCheckbox = true,
     } = props;
 
     const [order, setOrder] = React.useState('asc');
@@ -112,19 +113,7 @@ export default function EnhancedTable(props) {
     const GenerateDataRow = (row, rowIndex) => (
         <>
             {headCells.map((headCell, index) => (
-                index === 0 ? (
-                    <TableCell
-                        component="th"
-                        id={`enhanced-table-checkbox-${index}`}
-                        scope="row"
-                        style={{padding: '6px 8px'}}
-                    >
-                        {row[headCell.id]}
-                    </TableCell>
-                ) :
-                (
-                    <TableCell style={{padding: '6px 8px'}}>{row[headCell.id]}</TableCell>
-                )
+                <TableCell>{row[headCell.id]}</TableCell>
             ))}
         </>
     );
@@ -154,6 +143,7 @@ export default function EnhancedTable(props) {
                         filters={filters}
                         setFilters={setFilters}
                         rows={unfilteredRows}
+                        showCheckbox={showCheckbox}
                     />
                     <TableBody>
                     {/* if you don't need to support IE11, you can replace the `stableSort` call with:
@@ -174,16 +164,18 @@ export default function EnhancedTable(props) {
                                 key={`${row.id}`}
                                 selected={isItemSelected}
                             >
-                            <TableCell padding="checkbox">
-                                <Checkbox
-                                    color="primary"
-                                    checked={isItemSelected}
-                                    inputProps={{
-                                        'aria-labelledby': labelId,
-                                }}
-                                />
-                            </TableCell>
-                            {GenerateDataRow(row, index)}
+                                {showCheckbox ? (
+                                    <TableCell padding="checkbox">
+                                        <Checkbox
+                                            color="primary"
+                                            checked={isItemSelected}
+                                            inputProps={{
+                                                'aria-labelledby': labelId,
+                                            }}
+                                        />
+                                    </TableCell>
+                                ) : null}
+                                {GenerateDataRow(row, index)}
                             </TableRow>
                         );
                         })}

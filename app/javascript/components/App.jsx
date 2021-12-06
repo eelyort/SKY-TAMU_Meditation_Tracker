@@ -21,10 +21,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: 'rgb(200, 162, 200)',
+      main: '#3d8be8ff',
+      color: 'white',
     },
     secondary: {
-      main: 'rgb(14, 16, 61)',
+      main: '#0c1b33ff',
       color: 'white',
     },
   },

@@ -14,6 +14,7 @@ export default function EnhancedTableHead(props) {
         onSelectAllClick, order, orderBy,
         numSelected, rowCount, onRequestSort,
         headCells, filters, setFilters, rows,
+        showCheckbox,
     } = props;
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
@@ -22,17 +23,19 @@ export default function EnhancedTableHead(props) {
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox">
-            <Checkbox
-              color="primary"
-              indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={rowCount > 0 && numSelected === rowCount}
-              onChange={onSelectAllClick}
-              inputProps={{
-                'aria-label': 'select all desserts',
-              }}
-            />
-          </TableCell>
+          {showCheckbox ? (
+            <TableCell padding="checkbox">
+              <Checkbox
+                color="primary"
+                indeterminate={numSelected > 0 && numSelected < rowCount}
+                checked={rowCount > 0 && numSelected === rowCount}
+                onChange={onSelectAllClick}
+                inputProps={{
+                  'aria-label': 'select all desserts',
+                }}
+              />
+            </TableCell>
+          ) : null}
           {headCells.map((headCell) => (
             <TableCell
               key={headCell.id}
@@ -58,8 +61,10 @@ export default function EnhancedTableHead(props) {
         {/* search/filters */}
         {(filters && setFilters) ? (
           <TableRow>
-            <TableCell padding="checkbox">
-            </TableCell>
+            {showCheckbox ? (
+              <TableCell padding="checkbox">
+              </TableCell>
+            ) : null}
             {headCells.map((headCell) => (
               <TableCell
                 key={headCell.id + " filter"}
@@ -77,7 +82,7 @@ export default function EnhancedTableHead(props) {
                       label={`Filter ${headCell.label}`}
                       margin={'none'}
                       size={'small'}
-                      style={{max: '200px'}}
+                      style={{width: '160px'}}
                     />
                   )}
                   onChange={(e, newValue) => setFilters(oldFilters => {

@@ -33,6 +33,7 @@ const AttendancePageTable = (props) => {
                 rows={data}
                 headCells={headCells}
                 deleteItems={(items) => deleteAttendance(items)}
+                showCheckbox={isAdmin}
             />
         </>
     );
