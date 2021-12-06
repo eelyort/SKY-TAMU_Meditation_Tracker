@@ -12,6 +12,12 @@ module Api
         render json: @events
       end
 
+      # GET /events_with_deleted
+      def index_with_deleted
+        @events = Event.with_deleted
+        render json: @events
+      end
+
       # GET /events/1 or /events/1.json
       def show
         if @event
