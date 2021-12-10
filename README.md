@@ -116,12 +116,13 @@ Others:
 
 # Environmental Variables/Files
 
-** Add instructions/description if your application requires it.
+* Google API key required in Header.jsx
+* Nothing else
 
 # Deployment
 
-** Add instructions about how to deploy to Heroku
-
+* Automated CD will automatically deploy any changes on the client's github
+  * Tracking the "main" branch
 
 # CI/CD
 
